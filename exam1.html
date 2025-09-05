@@ -21,18 +21,48 @@
   .question-header-mini { font-size:.8rem; color:#6c757d; text-transform:uppercase; letter-spacing:.5px; }
   .toggle-theme { position:fixed; bottom:1rem; right:1rem; z-index:1000; }
   .question-status-alert { font-size:.8rem; }
+
+  /* Matching */
+  .matching-row {
+    display:flex;
+    gap:1rem;
+    align-items:flex-start;
+    padding:.75rem .9rem;
+    border:1px solid #dee2e6;
+    border-radius:.5rem;
+    margin-bottom:.6rem;
+    background:#fff;
+  }
+  .matching-row select { min-width:150px; }
+  .matching-row.correct { border-color:#198754; background:#d1e7dd; }
+  .matching-row.incorrect { border-color:#dc3545; background:#f8d7da; }
+  .matching-left-text { flex:1; }
+  .matching-badge {
+    font-size:.6rem;
+    letter-spacing:.5px;
+    font-weight:600;
+    text-transform:uppercase;
+  }
+  @media (max-width: 576px){
+    .matching-row { flex-direction:column; }
+    .matching-row select { width:100%; }
+  }
 </style>
 </head>
 <body>
 <div class="container py-4" id="appRoot"></div>
-
 <button class="btn btn-outline-secondary btn-sm toggle-theme" id="themeBtn" title="Alternar Tema">🌓</button>
 
 <script>
 /* ==============================
- * QUESTÕES (JSON BASE)
+ * CONFIG
  * ============================== */
-const QUESTIONS_BANK = [
+const HIDE_OPTION_IDS = true; // Se quiser voltar a mostrar IDs (A., B., 1-, etc.) mude para false.
+
+/* ==============================
+ * QUESTÕES (JSON BASE) - exemplo incluindo matching
+ * ============================== */
+const QUESTIONS_BANK_RAW = [
   {
     "id": 1,
     "type": "single",
@@ -758,26 +788,25 @@ const QUESTIONS_BANK = [
   }
 ];
 
-/* ==============================
- * ESTADO E PERSISTÊNCIA
- * ============================== */
-const QUIZ_SESSION_KEY = 'quizActiveSession_v1';
+function normalizeType(t){ return t === 'multiple' ? 'multi' : t; }
+const QUESTIONS_BANK = QUESTIONS_BANK_RAW.map(q => ({ ...q, type: normalizeType(q.type) }));
 
+/* ==============================
+ * ESTADO / PERSISTÊNCIA
+ * ============================== */
+const QUIZ_SESSION_KEY = 'quizActiveSession_v3';
 let quizState = {
   startTime: null,
   endTime: null,
   currentIndex: 0,
   sequence: [],
-  answers: {},
+  answers: {}, // single/multi: { selected:Set }, matching: { pairs:{} }
   locked: {},
   reviewMode: false
 };
-
 const appRoot = document.getElementById("appRoot");
 
-/* ==============================
- * PERSISTÊNCIA
- * ============================== */
+/* Persistência */
 function saveSession() {
   if (quizState.endTime) return;
   try {
@@ -786,101 +815,87 @@ function saveSession() {
       currentIndex: quizState.currentIndex,
       sequence: quizState.sequence,
       answers: Object.fromEntries(
-        Object.entries(quizState.answers).map(([qid, val]) => [qid, { selected: Array.from(val.selected) }])
+        Object.entries(quizState.answers).map(([qid, val]) => {
+          if (val.selected instanceof Set) return [qid, { selected: Array.from(val.selected) }];
+          return [qid, { pairs: val.pairs || {} }];
+        })
       ),
       locked: quizState.locked
     };
     localStorage.setItem(QUIZ_SESSION_KEY, JSON.stringify(serializable));
-  } catch (e) {
-    console.warn("Falha ao salvar sessão:", e);
-  }
+  } catch(e){ console.warn("Falha salvar sessão", e); }
 }
-
 function restoreSessionIfAny() {
   try {
     const raw = localStorage.getItem(QUIZ_SESSION_KEY);
-    if (!raw) return false;
+    if(!raw) return false;
     const data = JSON.parse(raw);
-    if (!Array.isArray(data.sequence) || typeof data.currentIndex !== 'number') return false;
+    if(!Array.isArray(data.sequence)) return false;
     quizState.startTime = data.startTime || Date.now();
-    quizState.currentIndex = data.currentIndex;
+    quizState.currentIndex = data.currentIndex || 0;
     quizState.sequence = data.sequence;
     quizState.answers = {};
     if (data.answers) {
-      Object.entries(data.answers).forEach(([qid, val]) => {
-        quizState.answers[qid] = { selected: new Set(val.selected || []) };
+      Object.entries(data.answers).forEach(([qid,val])=>{
+        if(val.selected) quizState.answers[qid]={selected:new Set(val.selected)};
+        else if(val.pairs) quizState.answers[qid]={pairs:{...val.pairs}};
       });
     }
     quizState.locked = data.locked || {};
-    quizState.endTime = null;
-    quizState.reviewMode = false;
     return true;
-  } catch (e) {
-    console.warn("Falha ao restaurar sessão:", e);
-    return false;
-  }
+  } catch(e){ console.warn("Falha restaurar sessão", e); return false; }
 }
+function clearSession(){ localStorage.removeItem(QUIZ_SESSION_KEY); }
 
-function clearSession() {
-  localStorage.removeItem(QUIZ_SESSION_KEY);
-}
-
-/* ==============================
- * UTILITÁRIAS
- * ============================== */
-function shuffle(array){
-  const arr=array.slice();
-  for(let i=arr.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [arr[i],arr[j]]=[arr[j],arr[i]];
-  }
-  return arr;
-}
+/* Utilidades */
+function shuffle(a){ const arr=a.slice(); for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+function formatDuration(ms){ const s=Math.floor(ms/1000); const m=Math.floor(s/60); const r=s%60; return `${m}m ${r.toString().padStart(2,'0')}s`; }
+function getCurrentQuestion(){ return quizState.sequence[quizState.currentIndex]; }
 
 function initQuiz(){
   clearSession();
-  quizState.startTime=Date.now();
-  quizState.endTime=null;
-  quizState.currentIndex=0;
-  quizState.reviewMode=false;
-  quizState.answers={};
-  quizState.locked={};
-  quizState.sequence = shuffle(QUESTIONS_BANK.map(q=>({
-    ...q,
-    options: shuffle(q.options.map(o=>({...o})))
-  })));
+  quizState.startTime = Date.now();
+  quizState.endTime = null;
+  quizState.currentIndex = 0;
+  quizState.answers = {};
+  quizState.locked = {};
+  quizState.reviewMode = false;
+  quizState.sequence = shuffle(QUESTIONS_BANK.map(q=>{
+    if(q.type==='matching'){
+      return {
+        ...q,
+        left: shuffle(q.left.map(l=>({...l}))),
+        right: shuffle(q.right.map(r=>({...r})))
+      };
+    }
+    return { ...q, options: shuffle(q.options.map(o=>({...o}))) };
+  }));
   renderLayout();
   renderQuestion();
   saveSession();
 }
-
-function formatDuration(ms){
-  const totalSec=Math.floor(ms/1000);
-  const m=Math.floor(totalSec/60);
-  const s=totalSec%60;
-  return `${m}m ${s.toString().padStart(2,'0')}s`;
-}
-
-function getCurrentQuestion(){ return quizState.sequence[quizState.currentIndex]; }
 
 function countStats(){
   let correct=0, incorrect=0, skipped=0;
   quizState.sequence.forEach(q=>{
     const ans=quizState.answers[q.id];
     if(!ans || !quizState.locked[q.id]) { skipped++; return; }
-    const selected=ans.selected;
-    const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
-    const isCorrect = selected.size===correctSet.size && Array.from(selected).every(id=>correctSet.has(id));
+    let isCorrect=false;
+    if(q.type==='matching'){
+      const pairs = ans.pairs || {};
+      isCorrect = q.left.every(l=> pairs[l.id] === q.answerMap[l.id]);
+    } else {
+      const selected=ans.selected;
+      const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
+      isCorrect = selected.size===correctSet.size && Array.from(selected).every(id=>correctSet.has(id));
+    }
     if(isCorrect) correct++; else incorrect++;
   });
   return {correct, incorrect, skipped, total:quizState.sequence.length};
 }
 
+/* Layout / Timer */
 let timerInterval=null;
-
-/* ==============================
- * LAYOUT
- * ============================== */
 function renderLayout(){
   appRoot.innerHTML=`
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -897,96 +912,163 @@ function renderLayout(){
   `;
   startTimer();
 }
-
 function startTimer(){
   if(timerInterval) clearInterval(timerInterval);
   timerInterval=setInterval(()=>{
     if(quizState.endTime){ clearInterval(timerInterval); return; }
     const diff=Date.now()-quizState.startTime;
-    const totalSec=Math.floor(diff/1000);
-    const m=Math.floor(totalSec/60);
-    const s=totalSec%60;
-    const el=document.getElementById("timerSpan");
-    if (el) el.textContent=`${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+    const s=Math.floor(diff/1000);
+    const m=Math.floor(s/60);
+    const r=s%60;
+    const el=document.getElementById('timerSpan');
+    if(el) el.textContent=`${m.toString().padStart(2,'0')}:${r.toString().padStart(2,'0')}`;
   },1000);
 }
 
+/* Render questão */
 function renderQuestion(){
   const q=getCurrentQuestion();
   const container=document.getElementById("questionContainer");
   if(!q || !container) return;
   const idx=quizState.currentIndex+1;
   const total=quizState.sequence.length;
-  const correctNeeded = q.type==='multi' ? q.options.filter(o=>o.correct).length : 1;
-  const answered = quizState.answers[q.id]?.selected || new Set();
   const isLocked=!!quizState.locked[q.id];
-
-  const progressPercent=((idx-1)/total)*100;
   const progressBar=document.getElementById("progressBar");
-  if (progressBar) progressBar.style.width=`${progressPercent}%`;
+  if(progressBar) progressBar.style.width = `${((idx-1)/total)*100}%`;
 
-  let statusAlertHTML = '';
-  if (isLocked) {
-    const correctSet = new Set(q.options.filter(o=>o.correct).map(o=>o.id));
-    const isCorrect = answered.size===correctSet.size && Array.from(answered).every(id=>correctSet.has(id));
+  let answeredSet, pairs;
+  if(q.type==='matching'){
+    pairs = quizState.answers[q.id]?.pairs || {};
+  } else {
+    answeredSet = quizState.answers[q.id]?.selected || new Set();
+  }
+
+  // status geral
+  let statusAlertHTML='';
+  if(isLocked){
+    let isCorrect=false;
+    if(q.type==='matching'){
+      isCorrect = q.left.every(l=> (pairs||{})[l.id] === q.answerMap[l.id]);
+    } else {
+      const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
+      isCorrect = answeredSet.size===correctSet.size && Array.from(answeredSet).every(id=>correctSet.has(id));
+    }
     statusAlertHTML = `
       <div class="mb-3">
         <div class="alert ${isCorrect?'alert-success':'alert-danger'} question-status-alert mb-0 py-2 px-3">
-          <strong>${isCorrect? 'Correta' : 'Incorreta'}:</strong>
-          ${isCorrect ? 'Você acertou esta questão.' : 'Esta questão foi respondida incorretamente.'}
+          <strong>${isCorrect?'Correta':'Incorreta'}:</strong>
+          ${isCorrect?'Você acertou esta questão.':'Esta questão foi respondida incorretamente.'}
         </div>
       </div>
     `;
   }
 
-  container.innerHTML=`
-    <div class="mb-2 question-header-mini d-flex justify-content-between align-items-center">
-      <span>Questão ${idx} de ${total}</span>
-      ${ isLocked ? '' : '' }
+  let bodyHTML='';
+  if(q.type==='matching'){
+    bodyHTML = `
+      <h6 class="mb-3">${q.question}</h6>
+      ${statusAlertHTML}
+      ${renderMatchingQuestion(q, pairs, isLocked)}
+    `;
+  } else {
+    const correctNeeded = q.type==='multi' ? q.options.filter(o=>o.correct).length : 1;
+    bodyHTML = `
+      <h6 class="mb-3">${q.question} ${q.type==='multi'?`<span class="text-muted small">(Escolha ${correctNeeded})</span>`:''}</h6>
+      ${statusAlertHTML}
+      <div id="optionsWrapper">
+        ${q.options.map(opt=>{
+          const selected=answeredSet.has(opt.id);
+            const classes=["p-3","mb-2","border","rounded","option-card","d-flex","align-items-start"];
+            if(selected) classes.push("selected");
+            if(isLocked){
+              if(selected && opt.correct) classes.push("correct-user");
+              else if(!selected && opt.correct) classes.push("correct");
+              else if(selected && !opt.correct) classes.push("incorrect-user");
+            }
+            return `
+              <div class="${classes.join(' ')}" onclick="toggleSelect('${q.id}','${opt.id}')">
+                <div class="me-3 mt-1">
+                  ${q.type==='single'
+                    ? `<input type="radio" name="q_${q.id}" ${selected?'checked':''} ${isLocked?'disabled':''}/>`
+                    : `<input type="checkbox" ${selected?'checked':''} ${isLocked?'disabled':''}/>`}
+                </div>
+                <div class="flex-grow-1">
+                  <div class="fw-semibold">${HIDE_OPTION_IDS ? opt.text : `${opt.id}. ${opt.text}`}</div>
+                  ${isLocked ? renderOptionBadge(q,opt,selected):''}
+                </div>
+              </div>
+            `;
+        }).join('')}
+      </div>
+    `;
+  }
+
+  container.innerHTML = `
+    <div class="mb-2 question-header-mini">Questão ${idx} de ${total}</div>
+    ${bodyHTML}
+    <div id="feedbackZone"></div>
+    <div class="mt-3 d-flex justify-content-end gap-2 flex-wrap">
+      ${!isLocked
+        ? `${idx>1?'<button class="btn btn-outline-secondary" onclick="goPrev()">Voltar</button>':''}
+           <button class="btn btn-success" id="submitBtn" disabled onclick="evaluateCurrent()">Confirmar Resposta</button>`
+        : `${idx>1?'<button class="btn btn-outline-secondary" onclick="goPrev()">Voltar</button>':''}
+           <button class="btn btn-primary" onclick="goNextAfterLocked()">${idx===total?'Resultados':'Próxima >'}</button>`
+      }
     </div>
-    <h6 class="mb-3">${q.question} ${q.type==='multi'?`<span class="text-muted small">(Escolha ${correctNeeded})</span>`:''}</h6>
-    ${statusAlertHTML}
-    <div class="mt-1" id="optionsWrapper">
-      ${q.options.map(opt=>{
-        const selected=answered.has(opt.id);
-        const classes=["p-3","mb-2","border","rounded","option-card","d-flex","align-items-start"];
-        if(selected) classes.push("selected");
+  `;
+
+  if(isLocked && q.explanation){
+    document.getElementById('feedbackZone').innerHTML = `
+      <div class="feedback-area mt-3 small text-muted">
+        <strong>Explicação:</strong> ${q.explanation}
+      </div>
+    `;
+  }
+
+  updateSubmitButtonState();
+}
+
+/* Matching render */
+function renderMatchingQuestion(q, pairs, isLocked){
+  return `
+    <div class="mb-2 small text-muted">Associe cada definição ao papel correto.</div>
+    <div id="matchingWrapper">
+      ${q.left.map(l=>{
+        const chosen = pairs[l.id] || '';
+        let rowClass='matching-row';
+        let badgeHTML='';
         if(isLocked){
-          if(selected && opt.correct) classes.push("correct-user");
-          else if(!selected && opt.correct) classes.push("correct");
-          else if(selected && !opt.correct) classes.push("incorrect-user");
+          const correctId=q.answerMap[l.id];
+          const isCorrect = chosen === correctId;
+          rowClass += isCorrect ? ' correct' : ' incorrect';
+          badgeHTML = `<span class="badge ${isCorrect?'bg-success-subtle text-success border border-success':'bg-danger-subtle text-danger border border-danger'} matching-badge ms-2">
+            ${isCorrect?'Correto':'Incorreto'}${!isCorrect ? ' (Correto: '+ rightTextById(q, correctId) +')':''}
+          </span>`;
         }
         return `
-          <div class="${classes.join(' ')}" data-option="${opt.id}" onclick="toggleSelect('${q.id}','${opt.id}')">
-            <div class="me-3 mt-1">
-              ${q.type==='single'
-                ? `<input type="radio" name="q_${q.id}" ${selected?'checked':''} ${isLocked?'disabled':''} />`
-                : `<input type="checkbox" ${selected?'checked':''} ${isLocked?'disabled':''} />`}
-            </div>
-            <div class="flex-grow-1">
-              <div class="fw-semibold">${opt.text}</div>
-              ${isLocked ? renderOptionBadge(q,opt,selected):''}
+          <div class="${rowClass}" data-left="${l.id}">
+            <div class="matching-left-text">${l.text}</div>
+            <div>
+              <select class="form-select form-select-sm" ${isLocked?'disabled':''}
+                onchange="setMatchPair('${q.id}','${l.id}', this.value)">
+                <option value="">-- Selecione --</option>
+                ${q.right.map(r=>{
+                  const selected = r.id === chosen ? 'selected':'';
+                  let disable = '';
+                  if(!isLocked && chosen !== r.id && Object.values(pairs).includes(r.id)) disable='disabled';
+                  return `<option value="${r.id}" ${selected} ${disable}>${HIDE_OPTION_IDS ? r.text : (r.id + ' - ' + r.text)}</option>`;
+                }).join('')}
+              </select>
+              ${badgeHTML}
             </div>
           </div>
         `;
       }).join('')}
     </div>
-    <div id="feedbackZone"></div>
-    <div class="mt-3 d-flex justify-content-end gap-2 flex-wrap" id="actionButtons">
-      ${!isLocked
-        ? `
-          ${idx>1 ? `<button class="btn btn-outline-secondary" onclick="goPrev()">Voltar</button>`:''}
-          <button class="btn btn-success" id="submitBtn" disabled onclick="evaluateCurrent()">Confirmar Resposta</button>
-        `
-        : `
-          ${idx>1 ? `<button class="btn btn-outline-secondary" onclick="goPrev()">Voltar</button>`:''}
-          <button class="btn btn-primary" onclick="goNextAfterLocked()">${idx===total?'Resultados':'Próxima >'}</button>
-        `}
-    </div>
   `;
-  updateSubmitButtonState();
 }
 
+/* Badges single/multi */
 function renderOptionBadge(q,opt,userSelected){
   if(q.type==='multi'){
     if(userSelected && opt.correct) return `<span class="badge bg-success-subtle text-success border border-success badge-label mt-1">Sua seleção está correta</span>`;
@@ -1001,89 +1083,91 @@ function renderOptionBadge(q,opt,userSelected){
   }
 }
 
+/* Estado botão confirmar */
 function updateSubmitButtonState(){
   const q=getCurrentQuestion();
-  const ans=quizState.answers[q.id];
   const btn=document.getElementById("submitBtn");
   if(!btn) return;
-  btn.disabled = !(ans && ans.selected.size>0);
-}
-
-/* ==============================
- * INTERAÇÃO
- * ============================== */
-function toggleSelect(questionId, optionId){
-  const q=quizState.sequence.find(q=>q.id==questionId);
-  if(!q || quizState.locked[q.id]) return;
-  if(!quizState.answers[q.id]) quizState.answers[q.id]={selected:new Set()};
-  const selected=quizState.answers[q.id].selected;
-  if(q.type==='single'){
-    selected.clear();
-    selected.add(optionId);
+  if(q.type==='matching'){
+    const ans=quizState.answers[q.id];
+    const filled = ans && ans.pairs ? Object.values(ans.pairs).filter(v=>v).length : 0;
+    btn.disabled = filled !== q.left.length;
   } else {
-    if(selected.has(optionId)) selected.delete(optionId);
-    else selected.add(optionId);
+    const ans=quizState.answers[q.id];
+    btn.disabled = !(ans && ans.selected.size>0);
   }
-  renderQuestion();
-  saveSession();
 }
 
+/* Interação single/multi */
+function toggleSelect(qid, optId){
+  const q=quizState.sequence.find(q=>q.id==qid);
+  if(!q || q.type==='matching' || quizState.locked[q.id]) return;
+  if(!quizState.answers[q.id]) quizState.answers[q.id]={selected:new Set()};
+  const sel=quizState.answers[q.id].selected;
+  if(q.type==='single'){ sel.clear(); sel.add(optId); }
+  else {
+    if(sel.has(optId)) sel.delete(optId); else sel.add(optId);
+  }
+  renderQuestion(); saveSession();
+}
+
+/* Interação matching */
+function setMatchPair(qid,leftId,rightId){
+  const q=quizState.sequence.find(q=>q.id==qid);
+  if(!q || q.type!=='matching' || quizState.locked[q.id]) return;
+  if(!quizState.answers[q.id]) quizState.answers[q.id]={pairs:{}};
+  const pairs=quizState.answers[q.id].pairs;
+  if(rightId==='') delete pairs[leftId];
+  else {
+    Object.entries(pairs).forEach(([l,r])=>{
+      if(r===rightId && l!==leftId) delete pairs[l];
+    });
+    pairs[leftId]=rightId;
+  }
+  renderQuestion(); saveSession();
+}
+
+/* Avaliar */
 function evaluateCurrent(){
   const q=getCurrentQuestion();
-  const ans=quizState.answers[q.id];
-  if(!ans || ans.selected.size===0) return;
-  quizState.locked[q.id]=true;
-
-  // Apenas explicação (alerta principal agora está no topo)
-  const feedbackZone=document.getElementById("feedbackZone");
-  const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
-  const isCorrect = ans.selected.size===correctSet.size && Array.from(ans.selected).every(id=>correctSet.has(id));
-  feedbackZone.innerHTML=`
-    <div class="feedback-area mt-3">
-      ${q.explanation?`<div class="small text-muted"><strong>Explicação:</strong> ${q.explanation}</div>`:''}
-    </div>
-  `;
-  renderQuestion();
-  saveSession();
-
-  // (Se quiser também manter o alerta antigo dentro de feedbackZone, descomente abaixo)
-  /*
-  feedbackZone.insertAdjacentHTML('afterbegin',
-    \`<div class="alert \${isCorrect?'alert-success':'alert-danger'} mb-2">\${isCorrect?'Resposta correta!':'Resposta incorreta.'}</div>\`);
-  */
+  if(q.type==='matching'){
+    const ans=quizState.answers[q.id];
+    if(!ans || Object.keys(ans.pairs).length < q.left.length) return;
+    quizState.locked[q.id]=true;
+  } else {
+    const ans=quizState.answers[q.id];
+    if(!ans || ans.selected.size===0) return;
+    quizState.locked[q.id]=true;
+  }
+  if(q.explanation){
+    document.getElementById("feedbackZone").innerHTML=`
+      <div class="feedback-area mt-3 small text-muted">
+        <strong>Explicação:</strong> ${q.explanation}
+      </div>
+    `;
+  }
+  renderQuestion(); saveSession();
 }
 
 function goNextAfterLocked(){
-  const idx=quizState.currentIndex;
-  if(idx===quizState.sequence.length-1){
-    finishQuiz();
-  } else {
-    quizState.currentIndex++;
-    renderQuestion();
-    saveSession();
-  }
+  if(quizState.currentIndex === quizState.sequence.length-1) finishQuiz();
+  else { quizState.currentIndex++; renderQuestion(); saveSession(); }
 }
-
 function goPrev(){
   if(quizState.currentIndex===0) return;
-  quizState.currentIndex--;
-  renderQuestion();
-  saveSession();
+  quizState.currentIndex--; renderQuestion(); saveSession();
 }
 
-/* ==============================
- * RESULTADOS
- * ============================== */
+/* Resultados */
 function finishQuiz(){
   quizState.endTime=Date.now();
   const stats=countStats();
   const duration=formatDuration(quizState.endTime-quizState.startTime);
-  clearSession(); // limpa ao finalizar
+  clearSession();
   const attemptsKey='quizAttempts';
   let attempts=parseInt(localStorage.getItem(attemptsKey)||'0',10);
-  attempts++;
-  localStorage.setItem(attemptsKey,attempts);
-  const percent=stats.total===0?0:Math.round((stats.correct/stats.total)*100);
+  attempts++; localStorage.setItem(attemptsKey,attempts);
+  const percent = stats.total? Math.round((stats.correct/stats.total)*100) : 0;
 
   appRoot.innerHTML=`
     <div class="mb-4">
@@ -1134,6 +1218,7 @@ function finishQuiz(){
   drawDonut(stats.correct, stats.incorrect, stats.skipped);
 }
 
+/* Donut */
 function drawDonut(correct, incorrect, skipped){
   const canvas=document.getElementById("resultDonut");
   if(!canvas) return;
@@ -1144,60 +1229,87 @@ function drawDonut(correct, incorrect, skipped){
     {value:incorrect,color:'#dc3545'},
     {value:skipped,color:'#6c757d'}
   ].filter(d=>d.value>0);
-  let startAngle=-Math.PI/2;
+  let start=-Math.PI/2;
   data.forEach(d=>{
     const slice=(d.value/total)*Math.PI*2;
     ctx.beginPath();
     ctx.moveTo(80,80);
-    ctx.arc(80,80,80,startAngle,startAngle+slice);
+    ctx.arc(80,80,80,start,start+slice);
     ctx.closePath();
     ctx.fillStyle=d.color;
     ctx.fill();
-    startAngle+=slice;
+    start+=slice;
   });
   ctx.globalCompositeOperation='destination-out';
-  ctx.beginPath();
-  ctx.arc(80,80,48,0,Math.PI*2);
-  ctx.fill();
+  ctx.beginPath(); ctx.arc(80,80,48,0,Math.PI*2); ctx.fill();
   ctx.globalCompositeOperation='source-over';
-  ctx.lineWidth=2;
-  ctx.strokeStyle='#fff';
-  ctx.beginPath();
-  ctx.arc(80,80,80,0,Math.PI*2);
-  ctx.stroke();
 }
 
+/* Revisão */
 function reviewQuestions(){
-  quizState.reviewMode=true;
   const stats=countStats();
-  const questionBlocks=quizState.sequence.map((q,i)=>{
+  const blocks=quizState.sequence.map((q,i)=>{
     const ans=quizState.answers[q.id];
-    const selected=ans?ans.selected:new Set();
-    const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
-    const userCorrect=selected.size===correctSet.size && Array.from(selected).every(id=>correctSet.has(id));
-    return `
-      <div class="card mb-3">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <span><strong>Questão ${i+1}:</strong> ${q.type==='multi'?'(Multi)':'(Única)'}</span>
-          <span class="badge ${userCorrect?'bg-success':'bg-danger'}">${userCorrect?'Correta':'Incorreta'}</span>
+    let userCorrect=false;
+
+    if(q.type==='matching'){
+      const pairs = ans ? ans.pairs || {} : {};
+      userCorrect = ans && q.left.every(l=> pairs[l.id] === q.answerMap[l.id]);
+      return `
+        <div class="card mb-3">
+          <div class="card-header d-flex justify-content-between">
+            <span><strong>Questão ${i+1}:</strong> (Matching)</span>
+            <span class="badge ${userCorrect?'bg-success':'bg-danger'}">${userCorrect?'Correta':'Incorreta'}</span>
+          </div>
+          <div class="card-body">
+            <p class="mb-3">${q.question}</p>
+            ${q.left.map(l=>{
+              const chosen = (ans && ans.pairs)? ans.pairs[l.id] : '';
+              const correctId = q.answerMap[l.id];
+              const isRowCorrect = chosen === correctId;
+              return `
+                <div class="matching-row ${isRowCorrect?'correct':'incorrect'}">
+                  <div class="matching-left-text">${l.text}</div>
+                  <div class="small">
+                    <div><strong>Selecionado:</strong> ${chosen ? rightTextById(q, chosen) : '(vazio)'}</div>
+                    <div><strong>Correto:</strong> ${rightTextById(q, correctId)}</div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+            ${q.explanation?`<div class="small text-muted"><strong>Explicação:</strong> ${q.explanation}</div>`:''}
+          </div>
         </div>
-        <div class="card-body">
-          <p class="mb-3">${q.question}</p>
-          ${q.options.map(o=>{
-            let classes="p-2 px-3 mb-2 border rounded small";
-            let badges='';
-            const userSel=selected.has(o.id);
-            if(o.correct && userSel){ classes+=" border-success bg-success-subtle"; badges='<span class="badge bg-success-subtle text-success border border-success badge-label">Sua seleção correta</span>'; }
-            else if(o.correct && !userSel){ classes+=" border-success bg-success-subtle"; badges='<span class="badge bg-success-subtle text-success border border-success badge-label">Resposta correta</span>'; }
-            else if(!o.correct && userSel){ classes+=" border-danger bg-danger-subtle"; badges='<span class="badge bg-danger-subtle text-danger border border-danger badge-label">Selecionada (Incorreta)</span>'; }
-            else { classes+=" border-light"; }
-            return `<div class="${classes}"><strong>${o.id}.</strong> ${o.text}<br/>${badges}</div>`;
-          }).join('')}
-          ${q.explanation?`<div class="mt-2 small text-muted"><strong>Explicação:</strong> ${q.explanation}</div>`:''}
+      `;
+    } else {
+      const selected=ans ? ans.selected : new Set();
+      const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
+      userCorrect = ans && selected.size===correctSet.size && Array.from(selected).every(id=>correctSet.has(id));
+      return `
+        <div class="card mb-3">
+          <div class="card-header d-flex justify-content-between">
+            <span><strong>Questão ${i+1}:</strong> ${q.type==='multi'?'(Multi)':'(Única)'}</span>
+            <span class="badge ${userCorrect?'bg-success':'bg-danger'}">${userCorrect?'Correta':'Incorreta'}</span>
+          </div>
+          <div class="card-body">
+            <p class="mb-3">${q.question}</p>
+            ${q.options.map(o=>{
+              let classes="p-2 px-3 mb-2 border rounded small";
+              let badge='';
+              const userSel=selected.has(o.id);
+              if(o.correct && userSel){ classes+=" border-success bg-success-subtle"; badge='<span class="badge bg-success-subtle text-success border border-success badge-label">Sua seleção correta</span>'; }
+              else if(o.correct && !userSel){ classes+=" border-success bg-success-subtle"; badge='<span class="badge bg-success-subtle text-success border border-success badge-label">Resposta correta</span>'; }
+              else if(!o.correct && userSel){ classes+=" border-danger bg-danger-subtle"; badge='<span class="badge bg-danger-subtle text-danger border border-danger badge-label">Selecionada (Incorreta)</span>'; }
+              else { classes+=" border-light"; }
+              return `<div class="${classes}">${HIDE_OPTION_IDS?o.text:`<strong>${o.id}.</strong> ${o.text}`}<br/>${badge}</div>`;
+            }).join('')}
+            ${q.explanation?`<div class="small text-muted"><strong>Explicação:</strong> ${q.explanation}</div>`:''}
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    }
   }).join('');
+
   appRoot.innerHTML=`
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h4 class="mb-0">Revisão das Questões</h4>
@@ -1211,42 +1323,29 @@ function reviewQuestions(){
       <span class="me-3"><span class="badge bg-danger">&nbsp;</span> Incorretas: ${stats.incorrect}</span>
       <span><span class="badge bg-secondary">&nbsp;</span> Puladas: ${stats.skipped}</span>
     </div>
-    ${questionBlocks}
+    ${blocks}
   `;
 }
 
-/* ==============================
- * TEMA
- * ============================== */
+/* Helpers right text */
+function rightTextById(q, id){ const it=(q.right||[]).find(r=>r.id===id); return it?it.text:''; }
+
+/* Tema */
 const themeBtn=document.getElementById("themeBtn");
 function toggleTheme(){
   const html=document.documentElement;
-  const current=html.getAttribute('data-bs-theme')||'light';
-  const next=current==='light'?'dark':'light';
+  const cur=html.getAttribute('data-bs-theme')||'light';
+  const next=cur==='light'?'dark':'light';
   html.setAttribute('data-bs-theme',next);
   localStorage.setItem('quizTheme',next);
 }
 themeBtn.addEventListener('click',toggleTheme);
-(function(){
-  const saved=localStorage.getItem('quizTheme');
-  if(saved) document.documentElement.setAttribute('data-bs-theme',saved);
-})();
+(function(){ const saved=localStorage.getItem('quizTheme'); if(saved) document.documentElement.setAttribute('data-bs-theme',saved); })();
 
-/* ==============================
- * INICIALIZAÇÃO
- * ============================== */
-(function start(){
-  const restored = restoreSessionIfAny();
-  if (restored) {
-    renderLayout();
-    renderQuestion();
-    startTimer();
-  } else {
-    initQuiz();
-  }
-})();
+/* Navegação & exposição */
+function goNextAfterLocked(){ if(quizState.currentIndex===quizState.sequence.length-1) finishQuiz(); else {quizState.currentIndex++; renderQuestion(); saveSession();} }
+function goPrev(){ if(quizState.currentIndex===0) return; quizState.currentIndex--; renderQuestion(); saveSession(); }
 
-/* Expor funções */
 window.toggleSelect=toggleSelect;
 window.evaluateCurrent=evaluateCurrent;
 window.finishQuiz=finishQuiz;
@@ -1255,6 +1354,13 @@ window.goNextAfterLocked=goNextAfterLocked;
 window.goPrev=goPrev;
 window.toggleTheme=toggleTheme;
 window.initQuiz=initQuiz;
+window.setMatchPair=setMatchPair;
+
+/* Start */
+(function start(){
+  if(restoreSessionIfAny()){ renderLayout(); renderQuestion(); startTimer(); }
+  else initQuiz();
+})();
 </script>
 </body>
 </html>
