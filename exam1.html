@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="light">
+<head>
+<meta charset="UTF-8" />
+<title>Quiz - Perguntas e Respostas</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<style>
+  body { background:#fff; }
+  .option-card { cursor:pointer; transition:.15s; }
+  .option-card:not(.disabled):hover { border-color:#6f42c1; box-shadow:0 0 0 .15rem rgba(111,66,193,.15); }
+  .option-card.selected { border-width:2px; border-color:#6f42c1; background:#f9f5ff; }
+  .option-card.correct-user, .option-card.correct { border-color:#198754!important; background:#d1e7dd; }
+  .option-card.incorrect-user { border-color:#dc3545!important; background:#f8d7da; }
+  .badge-label { font-size:.65rem; letter-spacing:.5px; text-transform:uppercase; font-weight:600; }
+  .feedback-area { animation:fadeIn .35s; }
+  @keyframes fadeIn { from {opacity:0;transform:translateY(4px)} to {opacity:1;transform:translateY(0)} }
+  .donut-wrapper { position:relative; width:160px; height:160px; margin:auto; }
+  .donut-wrapper canvas { width:100%; height:100%; }
+  .donut-center { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:1.3rem; }
+  .question-header-mini { font-size:.8rem; color:#6c757d; text-transform:uppercase; letter-spacing:.5px; }
+  .toggle-theme { position:fixed; bottom:1rem; right:1rem; z-index:1000; }
+  .question-status-alert { font-size:.8rem; }
+</style>
+</head>
+<body>
+<div class="container py-4" id="appRoot"></div>
+
+<button class="btn btn-outline-secondary btn-sm toggle-theme" id="themeBtn" title="Alternar Tema">🌓</button>
+
+<script>
+/* ==============================
+ * QUESTÕES (JSON BASE)
+ * ============================== */
+const QUESTIONS_BANK = [
+  {
+    "id": 1,
+    "type": "single",
+    "question": "Agents and managers cannot create knowledge articles from Community questions.",
+    "options": [
+      { "id": "A", "text": "True", "correct": false },
+      { "id": "B", "text": "False", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 2,
+    "type": "single",
+    "question": "Information about a customer's service contract is found in Knowledge.",
+    "options": [
+      { "id": "A", "text": "False", "correct": true },
+      { "id": "B", "text": "True", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 3,
+    "type": "multiple",
+    "question": "From what places in SN can an agent create a case? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Customer Service Application", "correct": true },
+      { "id": "B", "text": "Contact", "correct": false },
+      { "id": "C", "text": "Account", "correct": true },
+      { "id": "D", "text": "Chat", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 4,
+    "type": "multiple",
+    "question": "What are the conditions that matching rules are based on? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Agent resources best suited to work on a case", "correct": true },
+      { "id": "B", "text": "Specific routing rules", "correct": false },
+      { "id": "C", "text": "Filters set up in advanced work assignment", "correct": false },
+      { "id": "D", "text": "Specific case attributes", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 5,
+    "type": "single",
+    "question": "Matching rules enhance assignment capability by ____________________.",
+    "options": [
+      { "id": "A", "text": "Matching best agent by availability", "correct": true },
+      { "id": "B", "text": "Providing dynamic matching of cases to groups or individuals", "correct": false },
+      { "id": "C", "text": "Determining if account is a customer or partner", "correct": false },
+      { "id": "D", "text": "Matching best agent by skill", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 6,
+    "type": "single",
+    "question": "Special Handling Notes can apply to which one of the following based on specific attributes?",
+    "options": [
+      { "id": "A", "text": "Domain", "correct": false },
+      { "id": "B", "text": "Contact", "correct": true },
+      { "id": "C", "text": "Holiday", "correct": false },
+      { "id": "D", "text": "VIP", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 7,
+    "type": "single",
+    "question": "Predictive Intelligence improves Case management by:",
+    "options": [
+      { "id": "A", "text": "Predicting what values should have gone into empty fields in historical records", "correct": false },
+      { "id": "B", "text": "Reducing the number of records needed to accurately predict a value", "correct": false },
+      { "id": "C", "text": "Replacing legacy routing rules", "correct": false },
+      { "id": "D", "text": "Predicting Case values without manual intervention", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 8,
+    "type": "single",
+    "question": "Which of the following is a condition for matching rules?",
+    "options": [
+      { "id": "A", "text": "Agent domain", "correct": false },
+      { "id": "B", "text": "Assignment", "correct": false },
+      { "id": "C", "text": "Switching", "correct": false },
+      { "id": "D", "text": "Specific case attributes", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 9,
+    "type": "single",
+    "question": "What do blue circles in the timeline of a case form represent?",
+    "options": [
+      { "id": "A", "text": "Note", "correct": false },
+      { "id": "B", "text": "State", "correct": true },
+      { "id": "C", "text": "Activity", "correct": false },
+      { "id": "D", "text": "Comment", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 10,
+    "type": "multiple",
+    "question": "Predictive Intelligence improves triage quality by eliminating the guesswork. Predictive Intelligence supports which of the following decisions? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Case Escalation", "correct": false },
+      { "id": "B", "text": "Case State", "correct": false },
+      { "id": "C", "text": "Case Categorization", "correct": true },
+      { "id": "D", "text": "Case Prioritization", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 11,
+    "type": "multiple",
+    "question": "Which Business Rules are part of the Customer Service Management baseline configuration? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Apply Role by Customer", "correct": false },
+      { "id": "B", "text": "Auto Assessment", "correct": true },
+      { "id": "C", "text": "Change Update to Close", "correct": false },
+      { "id": "D", "text": "Update Case Entitlement", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 12,
+    "type": "multiple",
+    "question": "What are the Critical Success Factors that are related to CSM Suite Implementations? (Choose four.)",
+    "options": [
+      { "id": "A", "text": "Define the Business Pain Points", "correct": true },
+      { "id": "B", "text": "Provide consistent service to customers", "correct": true },
+      { "id": "C", "text": "Have a clear understanding of the use cases", "correct": true },
+      { "id": "D", "text": "Define the number of hours needed to develop the associated requirements", "correct": false },
+      { "id": "E", "text": "Implementation is only as good as the underlying process", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 13,
+    "type": "multiple",
+    "question": "What should be emphasized when designing solutions? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Minimize customizations", "correct": true },
+      { "id": "B", "text": "Focus Out-of-the-box functionality", "correct": true },
+      { "id": "C", "text": "Design for Scalability", "correct": true },
+      { "id": "D", "text": "Mobile friendly functionality", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 14,
+    "type": "multiple",
+    "question": "What role does the Engagement Manager play before the Workshop? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Project Manager", "correct": true },
+      { "id": "B", "text": "Acts as intermediary", "correct": false },
+      { "id": "C", "text": "Provides answers to technical problems", "correct": false },
+      { "id": "D", "text": "Assists with technical requirements", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 15,
+    "type": "single",
+    "question": "What should be part of the pre-engagement collateral?",
+    "options": [
+      { "id": "A", "text": "Frequently Asked Questions (FAQ)", "correct": false },
+      { "id": "B", "text": "Scoping Guide", "correct": true },
+      { "id": "C", "text": "Customer Service roles template", "correct": false },
+      { "id": "D", "text": "Stock Keeping Unit (SKU) and pricing sheet", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 16,
+    "type": "multiple",
+    "question": "Articles can provide the following: (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Document current and known issues", "correct": true },
+      { "id": "B", "text": "Provide answers and responses to common issues or questions", "correct": true },
+      { "id": "C", "text": "Information about customer's service contract", "correct": false },
+      { "id": "D", "text": "Share product information", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 17,
+    "type": "single",
+    "question": "Contextual Search framework is used for providing Knowledge search results in which of these scenarios?",
+    "options": [
+      { "id": "A", "text": "Entering question in portal only", "correct": false },
+      { "id": "B", "text": "Record Producer only", "correct": false },
+      { "id": "C", "text": "Both portal question entry and Record Producer", "correct": true },
+      { "id": "D", "text": "None of the above", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 18,
+    "type": "multiple",
+    "question": "Which of the following are true regarding integrating a ServiceNow Knowledge base with external content? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Imported external articles appear as attachments in ServiceNow", "correct": true },
+      { "id": "B", "text": "Only applications that allow WebDAV connections can be integrated", "correct": true },
+      { "id": "C", "text": "The imported article will have the same category it had in the source knowledge base", "correct": false },
+      { "id": "D", "text": "SharePoint blocks this integration", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 19,
+    "type": "multiple",
+    "question": "Access to a Knowledge base or Article can be restricted based on a customer's assets and the product models using which of the following? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Knowledge Product Entitlements", "correct": true },
+      { "id": "B", "text": "Data Policy", "correct": false },
+      { "id": "C", "text": "ACL", "correct": false },
+      { "id": "D", "text": "User Criteria", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 20,
+    "type": "multiple",
+    "question": "What are some benefits that Knowledge Product Entitlement provide? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Reduces call volume", "correct": true },
+      { "id": "B", "text": "Makes it easier for Agents to manage case volume", "correct": true },
+      { "id": "C", "text": "Allows access to Knowledge Articles that are related to products owned by a customer", "correct": true },
+      { "id": "D", "text": "Information about customer's service contract", "correct": false },
+      { "id": "E", "text": "Focused product marketing", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 21,
+    "type": "single",
+    "question": "What are the characteristics of Knowledge Categories?",
+    "options": [
+      { "id": "A", "text": "Shareable across KBs: Yes ; Multi-Level: No", "correct": false },
+      { "id": "B", "text": "Shareable across KBs: No ; Multi-Level: Yes", "correct": true },
+      { "id": "C", "text": "Shareable across KBs: No ; Multi-Level: No", "correct": false },
+      { "id": "D", "text": "Shareable across KBs: Yes ; Multi-Level: Yes", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 22,
+    "type": "multiple",
+    "question": "Users with the sn_customerservice.proxy_contact role can do which of the following? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Manage cases on behalf of customer service agents", "correct": false },
+      { "id": "B", "text": "Create cases on behalf of customers", "correct": true },
+      { "id": "C", "text": "Manage requests on behalf of customer service agents", "correct": false },
+      { "id": "D", "text": "Create requests on behalf of customers", "correct": true },
+      { "id": "E", "text": "Manage major incident communication on behalf of a customer service manager", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 23,
+    "type": "text",
+    "question": "What is the purpose of a Catalog Item variable?",
+    "options": [
+      { "id": "A", "text": "Allows the customer or consumer to qualify their answer", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 24,
+    "type": "single",
+    "question": "What one of the following is optional when creating a Catalog workflow?",
+    "options": [
+      { "id": "A", "text": "Publishing the workflow", "correct": false },
+      { "id": "B", "text": "Defining workflow activities", "correct": false },
+      { "id": "C", "text": "Approving the workflow", "correct": false },
+      { "id": "D", "text": "Managing workflow versions", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 25,
+    "type": "single",
+    "question": "What module is used to create Case Record Producers?",
+    "options": [
+      { "id": "A", "text": "Case Record Producers", "correct": false },
+      { "id": "B", "text": "Edit Records", "correct": false },
+      { "id": "C", "text": "Record Producers", "correct": true },
+      { "id": "D", "text": "Maintain Records", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 26,
+    "type": "single",
+    "question": "Which one is NOT a dependency for the Customer Service Plugin?",
+    "options": [
+      { "id": "A", "text": "Task Activities", "correct": false },
+      { "id": "B", "text": "Skills Management", "correct": false },
+      { "id": "C", "text": "Openframe", "correct": false },
+      { "id": "D", "text": "Communities", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 27,
+    "type": "single",
+    "question": "ACME corporation wants to use ServiceNow CSM for supporting their customers through Twitter. What CSM entity would you recommend ACME to store the customer's Twitter profile details?",
+    "options": [
+      { "id": "A", "text": "Account", "correct": false },
+      { "id": "B", "text": "Not supported", "correct": false },
+      { "id": "C", "text": "Consumer", "correct": false },
+      { "id": "D", "text": "Social Profile", "correct": true },
+      { "id": "E", "text": "Personnel File", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 28,
+    "type": "single",
+    "question": "Which social media channels are NOT available out-of-box?",
+    "options": [
+      { "id": "A", "text": "Facebook", "correct": false },
+      { "id": "B", "text": "Twitter", "correct": false },
+      { "id": "C", "text": "LinkedIn", "correct": true },
+      { "id": "D", "text": "All of the above", "correct": false },
+      { "id": "E", "text": "None of the above", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 29,
+    "type": "single",
+    "question": "What is the equivalent of NOT selecting any group, when configuring multiple active configurations of OpenFrame?",
+    "options": [
+      { "id": "A", "text": "Selecting all the groups", "correct": true },
+      { "id": "B", "text": "Selecting none of the groups", "correct": false },
+      { "id": "C", "text": "Missing configuration", "correct": false },
+      { "id": "D", "text": "Misconfigured", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 30,
+    "type": "single",
+    "question": "How many outbound email accounts are supported in Customer Service Management?",
+    "options": [
+      { "id": "A", "text": "One", "correct": true },
+      { "id": "B", "text": "Unlimited", "correct": false },
+      { "id": "C", "text": "Two", "correct": false },
+      { "id": "D", "text": "One per business service", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 31,
+    "type": "multiple",
+    "question": "What are features of Customer Service Management? (Choose four.)",
+    "options": [
+      { "id": "A", "text": "Timed Audits", "correct": false },
+      { "id": "B", "text": "Service Entitlements", "correct": true },
+      { "id": "C", "text": "Demand Management", "correct": false },
+      { "id": "D", "text": "Service Prospecting", "correct": false },
+      { "id": "E", "text": "Real-time SLAs", "correct": true },
+      { "id": "F", "text": "Service Contracts", "correct": true },
+      { "id": "G", "text": "Skills-based routing", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 32,
+    "type": "multiple",
+    "question": "What are the Forum User Types? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Admin", "correct": false },
+      { "id": "B", "text": "Registered", "correct": true },
+      { "id": "C", "text": "Public", "correct": true },
+      { "id": "D", "text": "Custom", "correct": true },
+      { "id": "E", "text": "Moderator", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 33,
+    "type": "multiple",
+    "question": "Which of the following are true regarding the Community Portal application? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "It is available to any customer with a Community license", "correct": true },
+      { "id": "B", "text": "It is available by default with the Support and Service portals", "correct": false },
+      { "id": "C", "text": "It is only available to CSM license holders", "correct": false },
+      { "id": "D", "text": "Most of the configuration does not require System Administrator role", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 34,
+    "type": "single",
+    "question": "If only one user reports a content for moderation, the content will be hidden.",
+    "options": [
+      { "id": "A", "text": "True", "correct": false },
+      { "id": "B", "text": "False", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 35,
+    "type": "multiple",
+    "question": "The available case types are: (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Product Support", "correct": false },
+      { "id": "B", "text": "Order", "correct": true },
+      { "id": "C", "text": "Product", "correct": true },
+      { "id": "D", "text": "Support", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 36,
+    "type": "single",
+    "question": "What is required to enable the Follow the sun field on the Customer Service Case form?",
+    "options": [
+      { "id": "A", "text": "Nothing, it is a standard field", "correct": false },
+      { "id": "B", "text": "The value property on the form must be set to true", "correct": false },
+      { "id": "C", "text": "The plugin 'com.snc.csm_time_recording' needs to be activated", "correct": false },
+      { "id": "D", "text": "The value property on the form must be set to true and the field added to the case form", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 37,
+    "type": "single",
+    "question": "In the Customer Service Management space, what does the term asset management mean?",
+    "options": [
+      { "id": "A", "text": "Financial, contractual and inventory information of assets", "correct": false },
+      { "id": "B", "text": "A set of business activities and processes used to track assets", "correct": false },
+      { "id": "C", "text": "Tables in the Asset application", "correct": false },
+      { "id": "D", "text": "Tracking products or services customers are using", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 38,
+    "type": "single",
+    "question": "Which of the following roles cannot update a consumer's record?",
+    "options": [
+      { "id": "A", "text": "sn_customerservice_agent", "correct": true },
+      { "id": "B", "text": "sn_customerservice_manager", "correct": false },
+      { "id": "C", "text": "sn_customerservice.consumer_agent", "correct": false },
+      { "id": "D", "text": "admin", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 39,
+    "type": "single",
+    "question": "Major Issue Management uses which one of the following capabilities?",
+    "options": [
+      { "id": "A", "text": "Governance Risk and Control", "correct": false },
+      { "id": "B", "text": "Targeted Communications", "correct": true },
+      { "id": "C", "text": "Asset management", "correct": false },
+      { "id": "D", "text": "Record producers", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 40,
+    "type": "single",
+    "question": "What is required to synchronize fields from a parent to a child case(s)?",
+    "options": [
+      { "id": "A", "text": "The advanced plugin (com.sns.pa.customer_service_advanced) needs to be activated", "correct": false },
+      { "id": "B", "text": "Major Issue Management needs to be installed and certain properties enabled", "correct": true },
+      { "id": "C", "text": "No action required, this is a standard Customer Service Management feature", "correct": false },
+      { "id": "D", "text": "The role of sn_customerservice.customer_case_manager must be assigned", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 41,
+    "type": "matching",
+    "question": "Match the definitions for roles relationships.",
+    "left": [
+      { "id": "A", "text": "A customer account, a partner, account, or both" },
+      { "id": "B", "text": "A supported external customer that, sells and supports one or more customers" },
+      { "id": "C", "text": "A member of an account" },
+      { "id": "D", "text": "A person who purchases goods and services for personal UserActivation" }
+    ],
+    "right": [
+      { "id": "1", "text": "Partner" },
+      { "id": "2", "text": "Account" },
+      { "id": "3", "text": "Contact" },
+      { "id": "4", "text": "Consumer" }
+    ],
+    "answerMap": { "A": "2", "B": "1", "C": "3", "D": "4" },
+    "explanation": ""
+  },
+  {
+    "id": 42,
+    "type": "multiple",
+    "question": "Which of the following functions can be completed when using the Field Service Management Application on a mobile device offline? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Manage requests", "correct": false },
+      { "id": "B", "text": "Execute assigned tasks", "correct": true },
+      { "id": "C", "text": "Close work orders", "correct": true },
+      { "id": "D", "text": "Manage cases", "correct": false },
+      { "id": "E", "text": "Manage assets", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 43,
+    "type": "single",
+    "question": "Information in the Case Field 'Contact' is copied to which Incident Field?",
+    "options": [
+      { "id": "A", "text": "Contact", "correct": false },
+      { "id": "B", "text": "User", "correct": false },
+      { "id": "C", "text": "Customer", "correct": false },
+      { "id": "D", "text": "Caller", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 44,
+    "type": "single",
+    "question": "How many active OpenFrame configurations can you have on an instance?",
+    "options": [
+      { "id": "A", "text": "2", "correct": false },
+      { "id": "B", "text": "Unlimited", "correct": true },
+      { "id": "C", "text": "1", "correct": false },
+      { "id": "D", "text": "3", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 45,
+    "type": "multiple",
+    "question": "What are common types of application record data that are imported during a CSM data migration? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Knowledge Article", "correct": true },
+      { "id": "B", "text": "Accounts", "correct": true },
+      { "id": "C", "text": "Chat", "correct": false },
+      { "id": "D", "text": "Case", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 46,
+    "type": "multiple",
+    "question": "Which are the key self-service functions of the Customer Support Portal? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Community", "correct": true },
+      { "id": "B", "text": "Knowledge Base", "correct": true },
+      { "id": "C", "text": "Open An Incident", "correct": false },
+      { "id": "D", "text": "Service Catalog", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 47,
+    "type": "multiple",
+    "question": "Which of the following are channels? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Contacts", "correct": false },
+      { "id": "B", "text": "Web", "correct": true },
+      { "id": "C", "text": "Chat", "correct": true },
+      { "id": "D", "text": "Article", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 48,
+    "type": "single",
+    "question": "Out-of-the-box, the consumer support portal (/csp) CANNOT be used for which one of the following actions?",
+    "options": [
+      { "id": "A", "text": "Open an incident", "correct": true },
+      { "id": "B", "text": "Viewing knowledge articles", "correct": false },
+      { "id": "C", "text": "Live chat", "correct": false },
+      { "id": "D", "text": "Consumer self-registration", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 49,
+    "type": "multiple",
+    "question": "The Customer Support Portal default configuration provides the following channels to interact with customers? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Web", "correct": false },
+      { "id": "B", "text": "Social", "correct": false },
+      { "id": "C", "text": "Chat", "correct": true },
+      { "id": "D", "text": "Email", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 50,
+    "type": "matching",
+    "question": "Match the business rule to its function in the Self-Service Portal.",
+    "left": [
+      { "id": "A", "text": "After registration request submittal, shows info message to user" },
+      { "id": "B", "text": "Shows message to remind users to enter a corret registration code" },
+      { "id": "C", "text": "Validates registration code and assigns account based on the registration code" },
+      { "id": "D", "text": "Checks if the registration is valid based on the user's email address" }
+    ],
+    "right": [
+      { "id": "1", "text": "Display rule" },
+      { "id": "2", "text": "Display request message" },
+      { "id": "3", "text": "validate_registration" },
+      { "id": "4", "text": "Update account based on reg code" }
+    ],
+    "answerMap": { "A": "2", "B": "1", "C": "4", "D": "3" },
+    "explanation": ""
+  },
+  {
+    "id": 51,
+    "type": "single",
+    "question": "The ServiceNow Communities feature is only available for customers with ServiceNow Customer Services Management licenses.",
+    "options": [
+      { "id": "A", "text": "True", "correct": false },
+      { "id": "B", "text": "False", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 52,
+    "type": "single",
+    "question": "Read the use case below to determine if the customer service relationship is B2B or B2C. Mary Contrary experiences a power outage and call the electrical company. The agent determines the outage is local to the customer and scheduled a technician to Mary's house.",
+    "options": [
+      { "id": "A", "text": "B2C", "correct": true },
+      { "id": "B", "text": "B2B", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 53,
+    "type": "multiple",
+    "question": "If the CSM Demo Data Plugin has been installed what are two options either of which will prepare that instance to be used as part of the release path to production? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Zboot the instance", "correct": false },
+      { "id": "B", "text": "Disable the Case Interceptor", "correct": false },
+      { "id": "C", "text": "Remove the Demo Data via a HI Request", "correct": true },
+      { "id": "D", "text": "Clone back to this instance from a valid instance", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 54,
+    "type": "single",
+    "question": "What criteria can be used to determine when a new inbound case should be opened?",
+    "options": [
+      { "id": "A", "text": "When a new customer is created", "correct": false },
+      { "id": "B", "text": "When an internal problem occurs", "correct": false },
+      { "id": "C", "text": "When a customer has a question or issue to resolve", "correct": true },
+      { "id": "D", "text": "When we have new marketing material for a customer", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 55,
+    "type": "single",
+    "question": "From a service provider's perspective, is the following a product or an asset? A cable modem model that the service provider sells.",
+    "options": [
+      { "id": "A", "text": "Product", "correct": true },
+      { "id": "B", "text": "Asset", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 56,
+    "type": "single",
+    "question": "Entitlements specify the level of service provided to customers.",
+    "options": [
+      { "id": "A", "text": "False", "correct": false },
+      { "id": "B", "text": "True", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 57,
+    "type": "single",
+    "question": "Partner admin contacts have access to the data of both their partner accounts and customer accounts.",
+    "options": [
+      { "id": "A", "text": "True", "correct": true },
+      { "id": "B", "text": "False", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 58,
+    "type": "multiple",
+    "question": "Which of the following are best practice with regard to data imports? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "When importing to multiple instances import to each instance separately.", "correct": false },
+      { "id": "B", "text": "Use ServiceNow automatic functionality to clean the data after it is in ServiceNow tables rather than in the legacy repository.", "correct": false },
+      { "id": "C", "text": "Ensure the field data lengths in ServiceNow are adequate for the imported data because ServiceNow does not automatically adjust the length.", "correct": true },
+      { "id": "D", "text": "Images embedded in Knowledge Articles should be uploaded separately.", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 59,
+    "type": "single",
+    "question": "Cost Information on cases is available as part of the Performance Analytics Content Pack for Customer Service.",
+    "options": [
+      { "id": "A", "text": "True", "correct": false },
+      { "id": "B", "text": "False", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 60,
+    "type": "single",
+    "question": "What is the purpose of the Guided Decisions capability?",
+    "options": [
+      { "id": "A", "text": "Provide agents with an escalation guide", "correct": false },
+      { "id": "B", "text": "Guide agents through account management", "correct": false },
+      { "id": "C", "text": "Dynamically guide agents to help resolve complex cases", "correct": true },
+      { "id": "D", "text": "Provide agents with a knowledge guide", "correct": false }
+    ],
+    "explanation": ""
+  }
+];
+
+/* ==============================
+ * ESTADO E PERSISTÊNCIA
+ * ============================== */
+const QUIZ_SESSION_KEY = 'quizActiveSession_v1';
+
+let quizState = {
+  startTime: null,
+  endTime: null,
+  currentIndex: 0,
+  sequence: [],
+  answers: {},
+  locked: {},
+  reviewMode: false
+};
+
+const appRoot = document.getElementById("appRoot");
+
+/* ==============================
+ * PERSISTÊNCIA
+ * ============================== */
+function saveSession() {
+  if (quizState.endTime) return;
+  try {
+    const serializable = {
+      startTime: quizState.startTime,
+      currentIndex: quizState.currentIndex,
+      sequence: quizState.sequence,
+      answers: Object.fromEntries(
+        Object.entries(quizState.answers).map(([qid, val]) => [qid, { selected: Array.from(val.selected) }])
+      ),
+      locked: quizState.locked
+    };
+    localStorage.setItem(QUIZ_SESSION_KEY, JSON.stringify(serializable));
+  } catch (e) {
+    console.warn("Falha ao salvar sessão:", e);
+  }
+}
+
+function restoreSessionIfAny() {
+  try {
+    const raw = localStorage.getItem(QUIZ_SESSION_KEY);
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    if (!Array.isArray(data.sequence) || typeof data.currentIndex !== 'number') return false;
+    quizState.startTime = data.startTime || Date.now();
+    quizState.currentIndex = data.currentIndex;
+    quizState.sequence = data.sequence;
+    quizState.answers = {};
+    if (data.answers) {
+      Object.entries(data.answers).forEach(([qid, val]) => {
+        quizState.answers[qid] = { selected: new Set(val.selected || []) };
+      });
+    }
+    quizState.locked = data.locked || {};
+    quizState.endTime = null;
+    quizState.reviewMode = false;
+    return true;
+  } catch (e) {
+    console.warn("Falha ao restaurar sessão:", e);
+    return false;
+  }
+}
+
+function clearSession() {
+  localStorage.removeItem(QUIZ_SESSION_KEY);
+}
+
+/* ==============================
+ * UTILITÁRIAS
+ * ============================== */
+function shuffle(array){
+  const arr=array.slice();
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function initQuiz(){
+  clearSession();
+  quizState.startTime=Date.now();
+  quizState.endTime=null;
+  quizState.currentIndex=0;
+  quizState.reviewMode=false;
+  quizState.answers={};
+  quizState.locked={};
+  quizState.sequence = shuffle(QUESTIONS_BANK.map(q=>({
+    ...q,
+    options: shuffle(q.options.map(o=>({...o})))
+  })));
+  renderLayout();
+  renderQuestion();
+  saveSession();
+}
+
+function formatDuration(ms){
+  const totalSec=Math.floor(ms/1000);
+  const m=Math.floor(totalSec/60);
+  const s=totalSec%60;
+  return `${m}m ${s.toString().padStart(2,'0')}s`;
+}
+
+function getCurrentQuestion(){ return quizState.sequence[quizState.currentIndex]; }
+
+function countStats(){
+  let correct=0, incorrect=0, skipped=0;
+  quizState.sequence.forEach(q=>{
+    const ans=quizState.answers[q.id];
+    if(!ans || !quizState.locked[q.id]) { skipped++; return; }
+    const selected=ans.selected;
+    const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
+    const isCorrect = selected.size===correctSet.size && Array.from(selected).every(id=>correctSet.has(id));
+    if(isCorrect) correct++; else incorrect++;
+  });
+  return {correct, incorrect, skipped, total:quizState.sequence.length};
+}
+
+let timerInterval=null;
+
+/* ==============================
+ * LAYOUT
+ * ============================== */
+function renderLayout(){
+  appRoot.innerHTML=`
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0">Quiz de Prática</h5>
+      <div>
+        <button class="btn btn-sm btn-outline-danger me-2" onclick="finishQuiz()">Finalizar Teste</button>
+        <span class="small text-muted" id="timerSpan">00:00</span>
+      </div>
+    </div>
+    <div class="progress mb-3">
+      <div class="progress-bar" id="progressBar" style="width:0%"></div>
+    </div>
+    <div id="questionContainer"></div>
+  `;
+  startTimer();
+}
+
+function startTimer(){
+  if(timerInterval) clearInterval(timerInterval);
+  timerInterval=setInterval(()=>{
+    if(quizState.endTime){ clearInterval(timerInterval); return; }
+    const diff=Date.now()-quizState.startTime;
+    const totalSec=Math.floor(diff/1000);
+    const m=Math.floor(totalSec/60);
+    const s=totalSec%60;
+    const el=document.getElementById("timerSpan");
+    if (el) el.textContent=`${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+  },1000);
+}
+
+function renderQuestion(){
+  const q=getCurrentQuestion();
+  const container=document.getElementById("questionContainer");
+  if(!q || !container) return;
+  const idx=quizState.currentIndex+1;
+  const total=quizState.sequence.length;
+  const correctNeeded = q.type==='multi' ? q.options.filter(o=>o.correct).length : 1;
+  const answered = quizState.answers[q.id]?.selected || new Set();
+  const isLocked=!!quizState.locked[q.id];
+
+  const progressPercent=((idx-1)/total)*100;
+  const progressBar=document.getElementById("progressBar");
+  if (progressBar) progressBar.style.width=`${progressPercent}%`;
+
+  let statusAlertHTML = '';
+  if (isLocked) {
+    const correctSet = new Set(q.options.filter(o=>o.correct).map(o=>o.id));
+    const isCorrect = answered.size===correctSet.size && Array.from(answered).every(id=>correctSet.has(id));
+    statusAlertHTML = `
+      <div class="mb-3">
+        <div class="alert ${isCorrect?'alert-success':'alert-danger'} question-status-alert mb-0 py-2 px-3">
+          <strong>${isCorrect? 'Correta' : 'Incorreta'}:</strong>
+          ${isCorrect ? 'Você acertou esta questão.' : 'Esta questão foi respondida incorretamente.'}
+        </div>
+      </div>
+    `;
+  }
+
+  container.innerHTML=`
+    <div class="mb-2 question-header-mini d-flex justify-content-between align-items-center">
+      <span>Questão ${idx} de ${total}</span>
+      ${ isLocked ? '' : '' }
+    </div>
+    <h6 class="mb-3">${q.question} ${q.type==='multi'?`<span class="text-muted small">(Escolha ${correctNeeded})</span>`:''}</h6>
+    ${statusAlertHTML}
+    <div class="mt-1" id="optionsWrapper">
+      ${q.options.map(opt=>{
+        const selected=answered.has(opt.id);
+        const classes=["p-3","mb-2","border","rounded","option-card","d-flex","align-items-start"];
+        if(selected) classes.push("selected");
+        if(isLocked){
+          if(selected && opt.correct) classes.push("correct-user");
+          else if(!selected && opt.correct) classes.push("correct");
+          else if(selected && !opt.correct) classes.push("incorrect-user");
+        }
+        return `
+          <div class="${classes.join(' ')}" data-option="${opt.id}" onclick="toggleSelect('${q.id}','${opt.id}')">
+            <div class="me-3 mt-1">
+              ${q.type==='single'
+                ? `<input type="radio" name="q_${q.id}" ${selected?'checked':''} ${isLocked?'disabled':''} />`
+                : `<input type="checkbox" ${selected?'checked':''} ${isLocked?'disabled':''} />`}
+            </div>
+            <div class="flex-grow-1">
+              <div class="fw-semibold">${opt.text}</div>
+              ${isLocked ? renderOptionBadge(q,opt,selected):''}
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+    <div id="feedbackZone"></div>
+    <div class="mt-3 d-flex justify-content-end gap-2 flex-wrap" id="actionButtons">
+      ${!isLocked
+        ? `
+          ${idx>1 ? `<button class="btn btn-outline-secondary" onclick="goPrev()">Voltar</button>`:''}
+          <button class="btn btn-success" id="submitBtn" disabled onclick="evaluateCurrent()">Confirmar Resposta</button>
+        `
+        : `
+          ${idx>1 ? `<button class="btn btn-outline-secondary" onclick="goPrev()">Voltar</button>`:''}
+          <button class="btn btn-primary" onclick="goNextAfterLocked()">${idx===total?'Resultados':'Próxima >'}</button>
+        `}
+    </div>
+  `;
+  updateSubmitButtonState();
+}
+
+function renderOptionBadge(q,opt,userSelected){
+  if(q.type==='multi'){
+    if(userSelected && opt.correct) return `<span class="badge bg-success-subtle text-success border border-success badge-label mt-1">Sua seleção está correta</span>`;
+    if(!userSelected && opt.correct) return `<span class="badge bg-success-subtle text-success border border-success badge-label mt-1">Seleção correta</span>`;
+    if(userSelected && !opt.correct) return `<span class="badge bg-danger-subtle text-danger border border-danger badge-label mt-1">Sua seleção está incorreta</span>`;
+    return '';
+  } else {
+    if(opt.correct && userSelected) return `<span class="badge bg-success-subtle text-success border border-success badge-label mt-1">Resposta correta</span>`;
+    if(opt.correct && !userSelected) return `<span class="badge bg-success-subtle text-success border border-success badge-label mt-1">Resposta correta</span>`;
+    if(userSelected && !opt.correct) return `<span class="badge bg-danger-subtle text-danger border border-danger badge-label mt-1">Incorreta</span>`;
+    return '';
+  }
+}
+
+function updateSubmitButtonState(){
+  const q=getCurrentQuestion();
+  const ans=quizState.answers[q.id];
+  const btn=document.getElementById("submitBtn");
+  if(!btn) return;
+  btn.disabled = !(ans && ans.selected.size>0);
+}
+
+/* ==============================
+ * INTERAÇÃO
+ * ============================== */
+function toggleSelect(questionId, optionId){
+  const q=quizState.sequence.find(q=>q.id==questionId);
+  if(!q || quizState.locked[q.id]) return;
+  if(!quizState.answers[q.id]) quizState.answers[q.id]={selected:new Set()};
+  const selected=quizState.answers[q.id].selected;
+  if(q.type==='single'){
+    selected.clear();
+    selected.add(optionId);
+  } else {
+    if(selected.has(optionId)) selected.delete(optionId);
+    else selected.add(optionId);
+  }
+  renderQuestion();
+  saveSession();
+}
+
+function evaluateCurrent(){
+  const q=getCurrentQuestion();
+  const ans=quizState.answers[q.id];
+  if(!ans || ans.selected.size===0) return;
+  quizState.locked[q.id]=true;
+
+  // Apenas explicação (alerta principal agora está no topo)
+  const feedbackZone=document.getElementById("feedbackZone");
+  const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
+  const isCorrect = ans.selected.size===correctSet.size && Array.from(ans.selected).every(id=>correctSet.has(id));
+  feedbackZone.innerHTML=`
+    <div class="feedback-area mt-3">
+      ${q.explanation?`<div class="small text-muted"><strong>Explicação:</strong> ${q.explanation}</div>`:''}
+    </div>
+  `;
+  renderQuestion();
+  saveSession();
+
+  // (Se quiser também manter o alerta antigo dentro de feedbackZone, descomente abaixo)
+  /*
+  feedbackZone.insertAdjacentHTML('afterbegin',
+    \`<div class="alert \${isCorrect?'alert-success':'alert-danger'} mb-2">\${isCorrect?'Resposta correta!':'Resposta incorreta.'}</div>\`);
+  */
+}
+
+function goNextAfterLocked(){
+  const idx=quizState.currentIndex;
+  if(idx===quizState.sequence.length-1){
+    finishQuiz();
+  } else {
+    quizState.currentIndex++;
+    renderQuestion();
+    saveSession();
+  }
+}
+
+function goPrev(){
+  if(quizState.currentIndex===0) return;
+  quizState.currentIndex--;
+  renderQuestion();
+  saveSession();
+}
+
+/* ==============================
+ * RESULTADOS
+ * ============================== */
+function finishQuiz(){
+  quizState.endTime=Date.now();
+  const stats=countStats();
+  const duration=formatDuration(quizState.endTime-quizState.startTime);
+  clearSession(); // limpa ao finalizar
+  const attemptsKey='quizAttempts';
+  let attempts=parseInt(localStorage.getItem(attemptsKey)||'0',10);
+  attempts++;
+  localStorage.setItem(attemptsKey,attempts);
+  const percent=stats.total===0?0:Math.round((stats.correct/stats.total)*100);
+
+  appRoot.innerHTML=`
+    <div class="mb-4">
+      <h4 class="mb-0">Resultados do Quiz</h4>
+      <div class="text-muted small">Tentativa ${attempts} • ${new Date().toLocaleString('pt-BR')}</div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column justify-content-center">
+            <div class="donut-wrapper mb-3">
+              <canvas id="resultDonut" width="160" height="160"></canvas>
+              <div class="donut-center">${percent}%</div>
+            </div>
+            <div class="text-center small">
+              <span class="me-2"><span class="badge bg-success">&nbsp;</span> Corretas: ${stats.correct}</span>
+              <span class="me-2"><span class="badge bg-danger">&nbsp;</span> Incorretas: ${stats.incorrect}</span>
+              <span><span class="badge bg-secondary">&nbsp;</span> Puladas: ${stats.skipped}</span>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <strong>${stats.correct}/${stats.total}</strong> corretas<br/>Tempo: ${duration}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card h-100">
+          <div class="card-body">
+            <p class="mb-3">Você concluiu o quiz. Revise ou refaça para praticar novamente.</p>
+            <ul class="list-group mb-3 small">
+              <li class="list-group-item d-flex justify-content-between"><span>Total de questões</span><strong>${stats.total}</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Corretas</span><strong class="text-success">${stats.correct}</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Incorretas</span><strong class="text-danger">${stats.incorrect}</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Puladas</span><strong class="text-secondary">${stats.skipped}</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Percentual</span><strong>${percent}%</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Duração</span><strong>${duration}</strong></li>
+            </ul>
+            <div class="d-flex flex-wrap gap-2">
+              <button class="btn btn-primary" onclick="reviewQuestions()">Rever Questões</button>
+              <button class="btn btn-success" onclick="initQuiz()">Refazer (Randomizar)</button>
+              <button class="btn btn-outline-secondary" onclick="toggleTheme()">Alternar Tema</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  drawDonut(stats.correct, stats.incorrect, stats.skipped);
+}
+
+function drawDonut(correct, incorrect, skipped){
+  const canvas=document.getElementById("resultDonut");
+  if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const total=correct+incorrect+skipped||1;
+  const data=[
+    {value:correct,color:'#198754'},
+    {value:incorrect,color:'#dc3545'},
+    {value:skipped,color:'#6c757d'}
+  ].filter(d=>d.value>0);
+  let startAngle=-Math.PI/2;
+  data.forEach(d=>{
+    const slice=(d.value/total)*Math.PI*2;
+    ctx.beginPath();
+    ctx.moveTo(80,80);
+    ctx.arc(80,80,80,startAngle,startAngle+slice);
+    ctx.closePath();
+    ctx.fillStyle=d.color;
+    ctx.fill();
+    startAngle+=slice;
+  });
+  ctx.globalCompositeOperation='destination-out';
+  ctx.beginPath();
+  ctx.arc(80,80,48,0,Math.PI*2);
+  ctx.fill();
+  ctx.globalCompositeOperation='source-over';
+  ctx.lineWidth=2;
+  ctx.strokeStyle='#fff';
+  ctx.beginPath();
+  ctx.arc(80,80,80,0,Math.PI*2);
+  ctx.stroke();
+}
+
+function reviewQuestions(){
+  quizState.reviewMode=true;
+  const stats=countStats();
+  const questionBlocks=quizState.sequence.map((q,i)=>{
+    const ans=quizState.answers[q.id];
+    const selected=ans?ans.selected:new Set();
+    const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
+    const userCorrect=selected.size===correctSet.size && Array.from(selected).every(id=>correctSet.has(id));
+    return `
+      <div class="card mb-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span><strong>Questão ${i+1}:</strong> ${q.type==='multi'?'(Multi)':'(Única)'}</span>
+          <span class="badge ${userCorrect?'bg-success':'bg-danger'}">${userCorrect?'Correta':'Incorreta'}</span>
+        </div>
+        <div class="card-body">
+          <p class="mb-3">${q.question}</p>
+          ${q.options.map(o=>{
+            let classes="p-2 px-3 mb-2 border rounded small";
+            let badges='';
+            const userSel=selected.has(o.id);
+            if(o.correct && userSel){ classes+=" border-success bg-success-subtle"; badges='<span class="badge bg-success-subtle text-success border border-success badge-label">Sua seleção correta</span>'; }
+            else if(o.correct && !userSel){ classes+=" border-success bg-success-subtle"; badges='<span class="badge bg-success-subtle text-success border border-success badge-label">Resposta correta</span>'; }
+            else if(!o.correct && userSel){ classes+=" border-danger bg-danger-subtle"; badges='<span class="badge bg-danger-subtle text-danger border border-danger badge-label">Selecionada (Incorreta)</span>'; }
+            else { classes+=" border-light"; }
+            return `<div class="${classes}"><strong>${o.id}.</strong> ${o.text}<br/>${badges}</div>`;
+          }).join('')}
+          ${q.explanation?`<div class="mt-2 small text-muted"><strong>Explicação:</strong> ${q.explanation}</div>`:''}
+        </div>
+      </div>
+    `;
+  }).join('');
+  appRoot.innerHTML=`
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0">Revisão das Questões</h4>
+      <div class="d-flex gap-2">
+        <button class="btn btn-success btn-sm" onclick="initQuiz()">Refazer</button>
+        <button class="btn btn-outline-secondary btn-sm" onclick="finishQuiz()">Voltar aos Resultados</button>
+      </div>
+    </div>
+    <div class="mb-3 small">
+      <span class="me-3"><span class="badge bg-success">&nbsp;</span> Corretas: ${stats.correct}</span>
+      <span class="me-3"><span class="badge bg-danger">&nbsp;</span> Incorretas: ${stats.incorrect}</span>
+      <span><span class="badge bg-secondary">&nbsp;</span> Puladas: ${stats.skipped}</span>
+    </div>
+    ${questionBlocks}
+  `;
+}
+
+/* ==============================
+ * TEMA
+ * ============================== */
+const themeBtn=document.getElementById("themeBtn");
+function toggleTheme(){
+  const html=document.documentElement;
+  const current=html.getAttribute('data-bs-theme')||'light';
+  const next=current==='light'?'dark':'light';
+  html.setAttribute('data-bs-theme',next);
+  localStorage.setItem('quizTheme',next);
+}
+themeBtn.addEventListener('click',toggleTheme);
+(function(){
+  const saved=localStorage.getItem('quizTheme');
+  if(saved) document.documentElement.setAttribute('data-bs-theme',saved);
+})();
+
+/* ==============================
+ * INICIALIZAÇÃO
+ * ============================== */
+(function start(){
+  const restored = restoreSessionIfAny();
+  if (restored) {
+    renderLayout();
+    renderQuestion();
+    startTimer();
+  } else {
+    initQuiz();
+  }
+})();
+
+/* Expor funções */
+window.toggleSelect=toggleSelect;
+window.evaluateCurrent=evaluateCurrent;
+window.finishQuiz=finishQuiz;
+window.reviewQuestions=reviewQuestions;
+window.goNextAfterLocked=goNextAfterLocked;
+window.goPrev=goPrev;
+window.toggleTheme=toggleTheme;
+window.initQuiz=initQuiz;
+</script>
+</body>
+</html>
