@@ -2,7 +2,7 @@
 <html lang="pt-BR" data-bs-theme="light">
 <head>
 <meta charset="UTF-8" />
-<title>CIS-CSM Exam 3</title>
+<title>CIS-CSM Exam 4</title>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
 <style>
@@ -62,16 +62,37 @@ const HIDE_OPTION_IDS = true; // Se quiser voltar a mostrar IDs (A., B., 1-, etc
 /* ==============================
  * QUESTÕES (JSON BASE) - exemplo incluindo matching
  * ============================== */
-const QUESTIONS_BANK_RAW = [{
+const QUESTIONS_BANK_RAW = [
+  {
     "id": 1,
     "type": "multiple",
     "question": "Service-aware Install Base consists of which entities? (Choose three.)",
     "options": [
-      { "id": "A", "text": "Installed Products", "correct": true },
-      { "id": "B", "text": "Install Base Items", "correct": true },
-      { "id": "C", "text": "Assets", "correct": false },
-      { "id": "D", "text": "Sold Products", "correct": true },
-      { "id": "E", "text": "Configuration Items", "correct": false }
+      {
+        "id": "A",
+        "text": "Installed Products",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Install Base Items",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Assets",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Sold Products",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Configuration Items",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -80,10 +101,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "What is the primary output from the Requirements Gathering workshop?",
     "options": [
-      { "id": "A", "text": "Schedules", "correct": false },
-      { "id": "B", "text": "Use Cases", "correct": false },
-      { "id": "C", "text": "Stories", "correct": true },
-      { "id": "D", "text": "Personas", "correct": false }
+      {
+        "id": "A",
+        "text": "Schedules",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Use Cases",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Stories",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Personas",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -92,10 +129,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "What is a limitation regarding synchronization between a case and its associated work order?",
     "options": [
-      { "id": "A", "text": "If information changes on the Case form it is not updated on the Work Order form", "correct": true },
-      { "id": "B", "text": "Updates on a case or work order will only synchronize after the work order is approved", "correct": false },
-      { "id": "C", "text": "When creating a work order from a case only the Account field on the work order form is filed in but not the Company field", "correct": false },
-      { "id": "D", "text": "The data copied over to the Work Order form when creating a work order from a case cannot be configured or customized", "correct": false }
+      {
+        "id": "A",
+        "text": "If information changes on the Case form it is not updated on the Work Order form",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Updates on a case or work order will only synchronize after the work order is approved",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "When creating a work order from a case only the Account field on the work order form is filed in but not the Company field",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "The data copied over to the Work Order form when creating a work order from a case cannot be configured or customized",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -104,11 +157,31 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "Which roles can propose a case as a Major Case candidate? (Choose three.)",
     "options": [
-      { "id": "A", "text": "Proxy contact (sn_customerservice.proxy_contact)", "correct": false },
-      { "id": "B", "text": "Customer case manager (sn_customerservice.customer_case_manager)", "correct": false },
-      { "id": "C", "text": "Customer service manager (sn_customerservice_manager)", "correct": true },
-      { "id": "D", "text": "Customer service agent (sn_customerservice_agent)", "correct": true },
-      { "id": "E", "text": "Major issue manager (sn_majorissue_mgt.major_issue_manager)", "correct": true }
+      {
+        "id": "A",
+        "text": "Proxy contact (sn_customerservice.proxy_contact)",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Customer case manager (sn_customerservice.customer_case_manager)",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Customer service manager (sn_customerservice_manager)",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Customer service agent (sn_customerservice_agent)",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Major issue manager (sn_majorissue_mgt.major_issue_manager)",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -117,10 +190,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "Which of the following is a required field in the Resolution Information tab in order to close a case?",
     "options": [
-      { "id": "A", "text": "Cause", "correct": false },
-      { "id": "B", "text": "Closed", "correct": false },
-      { "id": "C", "text": "Resolution notes", "correct": true },
-      { "id": "D", "text": "Closed by", "correct": false }
+      {
+        "id": "A",
+        "text": "Cause",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Closed",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Resolution notes",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Closed by",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -129,10 +218,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "Access to a Knowledge base or Article can be restricted based on a customer's assets and the product models using which of the following?",
     "options": [
-      { "id": "A", "text": "Knowledge Product Entitlements", "correct": true },
-      { "id": "B", "text": "Data Policy", "correct": false },
-      { "id": "C", "text": "ACL", "correct": false },
-      { "id": "D", "text": "User Criteria", "correct": false }
+      {
+        "id": "A",
+        "text": "Knowledge Product Entitlements",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Data Policy",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "ACL",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "User Criteria",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -141,11 +246,31 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "What benefits does scoping an application bring? (Choose three.)",
     "options": [
-      { "id": "A", "text": "CSM teams can move at their desired pace, independent of IT", "correct": true },
-      { "id": "B", "text": "Provides CSM teams autonomy and control", "correct": true },
-      { "id": "C", "text": "CSM application data and business logic is protected from changes by other applications", "correct": true },
-      { "id": "D", "text": "Account records can be changed only while in the CSM scope", "correct": false },
-      { "id": "E", "text": "Changes in different scopes can be addressed in a single update set", "correct": false }
+      {
+        "id": "A",
+        "text": "CSM teams can move at their desired pace, independent of IT",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Provides CSM teams autonomy and control",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "CSM application data and business logic is protected from changes by other applications",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Account records can be changed only while in the CSM scope",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Changes in different scopes can be addressed in a single update set",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -154,10 +279,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "A customer service agent wants to escalate an account but is unable to use the Escalate Account related link on the Account form. What could be the reasons why the customer service agent is not able to use it? (Choose two.)",
     "options": [
-      { "id": "A", "text": "No escalation approval flow is configured", "correct": false },
-      { "id": "B", "text": "The parent account of the account to be escalated is not active", "correct": false },
-      { "id": "C", "text": "The customer service agent is not assigned with the escalation requester role", "correct": true },
-      { "id": "D", "text": "The account already has an open escalation record", "correct": true }
+      {
+        "id": "A",
+        "text": "No escalation approval flow is configured",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "The parent account of the account to be escalated is not active",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "The customer service agent is not assigned with the escalation requester role",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "The account already has an open escalation record",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -166,10 +307,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "After installing the Performance Analytics Content Pack for Customer Service, which job must be run to retrieve daily case data from previous months?",
     "options": [
-      { "id": "A", "text": "Customer Service Historic Data Collection", "correct": true },
-      { "id": "B", "text": "Customer Service Initial Data Collection", "correct": false },
-      { "id": "C", "text": "Customer Service Daily Data Collection", "correct": false },
-      { "id": "D", "text": "Customer Service Case Data Collection", "correct": false }
+      {
+        "id": "A",
+        "text": "Customer Service Historic Data Collection",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Customer Service Initial Data Collection",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Customer Service Daily Data Collection",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Customer Service Case Data Collection",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -178,22 +335,59 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "When working with communication channels, what inbound email flows are available by default? (Choose two.)",
     "options": [
-      { "id": "A", "text": "Create case for product", "correct": false },
-      { "id": "B", "text": "Create case for asset", "correct": false },
-      { "id": "C", "text": "Update case from forward email", "correct": false },
-      { "id": "D", "text": "Create case from email", "correct": true },
-      { "id": "E", "text": "Update case using reply", "correct": true }
+      {
+        "id": "A",
+        "text": "Create case for product",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Create case for asset",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Update case from forward email",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Create case from email",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Update case using reply",
+        "correct": true
+      }
     ],
     "explanation": ""
-  },{
+  },
+  {
     "id": 11,
     "type": "single",
     "question": "What determines how an escalation request is processed?",
     "options": [
-      { "id": "A", "text": "Escalation Rule", "correct": false },
-      { "id": "B", "text": "Escalation Template", "correct": true },
-      { "id": "C", "text": "Escalation Severity", "correct": false },
-      { "id": "D", "text": "Escalation Justification", "correct": false }
+      {
+        "id": "A",
+        "text": "Escalation Rule",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Escalation Template",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Escalation Severity",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Escalation Justification",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -202,10 +396,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "What allows the implementation of phases and tasks to meet performance goals track progress and measure success?",
     "options": [
-      { "id": "A", "text": "Performance Analytics Spotlight", "correct": false },
-      { "id": "B", "text": "Scheduled Reporting", "correct": false },
-      { "id": "C", "text": "Service Level Agreement Tasks", "correct": false },
-      { "id": "D", "text": "Continual Improvement Management", "correct": true }
+      {
+        "id": "A",
+        "text": "Performance Analytics Spotlight",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Scheduled Reporting",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Service Level Agreement Tasks",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Continual Improvement Management",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -214,10 +424,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "For security purposes certain roles cannot be assigned to a group or individual at the same time. Which of the following two roles would be restricted?",
     "options": [
-      { "id": "A", "text": "snc_intemai and snc_external", "correct": true },
-      { "id": "B", "text": "snc_internal and sn_customerservice.consumer_agent", "correct": false },
-      { "id": "C", "text": "snc_internal and sn_customerservice_agent", "correct": false },
-      { "id": "D", "text": "snc_external and sn_customerservice.customer", "correct": false }
+      {
+        "id": "A",
+        "text": "snc_intemai and snc_external",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "snc_internal and sn_customerservice.consumer_agent",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "snc_internal and sn_customerservice_agent",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "snc_external and sn_customerservice.customer",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -226,10 +452,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "What are Special Handling Notes used for?",
     "options": [
-      { "id": "A", "text": "Bring important information about individual records to an agent's attention", "correct": true },
-      { "id": "B", "text": "For agents to view articles an attach them to a case", "correct": false },
-      { "id": "C", "text": "To ensure customers get the service they are entitled to receive", "correct": false },
-      { "id": "D", "text": "Help agents identify in which time zone a contact is located", "correct": false }
+      {
+        "id": "A",
+        "text": "Bring important information about individual records to an agent's attention",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "For agents to view articles an attach them to a case",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "To ensure customers get the service they are entitled to receive",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Help agents identify in which time zone a contact is located",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -238,10 +480,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "A customer service manager would like to limit the reading and creation of knowledge articles within a specific Knowledge Base to the Customer Support group only. Which features should be used to accomplish this? (Choose two.)",
     "options": [
-      { "id": "A", "text": "Can Read user criteria", "correct": true },
-      { "id": "B", "text": "Whitelist all other groups from the Knowledge Base", "correct": false },
-      { "id": "C", "text": "Hide the Knowledge Base from the Knowledge Base Portal", "correct": false },
-      { "id": "D", "text": "Cannot Contribute user criteria", "correct": true }
+      {
+        "id": "A",
+        "text": "Can Read user criteria",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Whitelist all other groups from the Knowledge Base",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Hide the Knowledge Base from the Knowledge Base Portal",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Cannot Contribute user criteria",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -250,10 +508,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "In case management, Parent Child Synchronization allows for which of the following:",
     "options": [
-      { "id": "A", "text": "Enabling the Customer Service agent to create cases so that all the children cases can be managed by managing the parent case", "correct": true },
-      { "id": "B", "text": "Parent cases to automatically generate child cases when all fields are filled out thus synchronized auto-population", "correct": false },
-      { "id": "C", "text": "Child cases to be separated from Parent cases and will not be synchronized automatically", "correct": false },
-      { "id": "D", "text": "Synchronization of all child cases as well as children of child cases on all levels", "correct": false }
+      {
+        "id": "A",
+        "text": "Enabling the Customer Service agent to create cases so that all the children cases can be managed by managing the parent case",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Parent cases to automatically generate child cases when all fields are filled out thus synchronized auto-population",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Child cases to be separated from Parent cases and will not be synchronized automatically",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Synchronization of all child cases as well as children of child cases on all levels",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -262,11 +536,31 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "Which predefined conversations are available for Customer Service Virtual Agent? (Choose two.)",
     "options": [
-      { "id": "A", "text": "Create Contact", "correct": false },
-      { "id": "B", "text": "Check Case Status", "correct": true },
-      { "id": "C", "text": "Close Case", "correct": false },
-      { "id": "D", "text": "Get Help with an Order", "correct": true },
-      { "id": "E", "text": "Get Help with an Asset", "correct": false }
+      {
+        "id": "A",
+        "text": "Create Contact",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Check Case Status",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Close Case",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Get Help with an Order",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Get Help with an Asset",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -275,10 +569,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "What will be the state of a case after a customer rejects the solution proposed by an agent?",
     "options": [
-      { "id": "A", "text": "In Progress", "correct": false },
-      { "id": "B", "text": "Open", "correct": true },
-      { "id": "C", "text": "New", "correct": false },
-      { "id": "D", "text": "Solution Rejected", "correct": false }
+      {
+        "id": "A",
+        "text": "In Progress",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Open",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "New",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Solution Rejected",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -287,11 +597,31 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "Which of the following statements is correct with regards to partners vs. third-parties in ServiceNow's CSM application? (Choose two.)",
     "options": [
-      { "id": "A", "text": "A partner will own the relationship with their customer", "correct": false },
-      { "id": "B", "text": "A partner and a third party are the same in ServiceNow's CSM application", "correct": false },
-      { "id": "C", "text": "A partner does not own the relationship with a customer. This relationship is owned by the organization they are partnering", "correct": true },
-      { "id": "D", "text": "A partner is an organization that has been contracted to sell products and services they have actually purchased from another organization", "correct": false },
-      { "id": "E", "text": "A partner does not own any of the products or services provided by their partnering organization, instead they help to sell, deliver and support them on their behalf", "correct": true }
+      {
+        "id": "A",
+        "text": "A partner will own the relationship with their customer",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "A partner and a third party are the same in ServiceNow's CSM application",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "A partner does not own the relationship with a customer. This relationship is owned by the organization they are partnering",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "A partner is an organization that has been contracted to sell products and services they have actually purchased from another organization",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "A partner does not own any of the products or services provided by their partnering organization, instead they help to sell, deliver and support them on their behalf",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -300,24 +630,69 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "Advanced Work Assignment (AWA) automatically routes and assigns work items to agents based on which of the following rules? (Choose four.)",
     "options": [
-      { "id": "A", "text": "Experience", "correct": false },
-      { "id": "B", "text": "Skills", "correct": true },
-      { "id": "C", "text": "Availability", "correct": true },
-      { "id": "D", "text": "Shifts", "correct": true },
-      { "id": "E", "text": "Capacity", "correct": true },
-      { "id": "F", "text": "Products", "correct": false }
+      {
+        "id": "A",
+        "text": "Experience",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Skills",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Availability",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Shifts",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Capacity",
+        "correct": true
+      },
+      {
+        "id": "F",
+        "text": "Products",
+        "correct": false
+      }
     ],
     "explanation": ""
-  },{
+  },
+  {
     "id": 21,
     "type": "multiple",
     "question": "From which places in ServiceNow can a customer service agent [sn_customerservice_agent] create a case? (Choose three.)",
     "options": [
-      { "id": "A", "text": "Account", "correct": true },
-      { "id": "B", "text": "Incident", "correct": false },
-      { "id": "C", "text": "Customer Service Application", "correct": true },
-      { "id": "D", "text": "Special Handling Note", "correct": false },
-      { "id": "E", "text": "Chat", "correct": true }
+      {
+        "id": "A",
+        "text": "Account",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Incident",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Customer Service Application",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Special Handling Note",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Chat",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -326,10 +701,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "Which table must be extended when creating a new case type?",
     "options": [
-      { "id": "A", "text": "Case (sn_customerservice_case)", "correct": true },
-      { "id": "B", "text": "Case Task (sn_customerservice_case_task)", "correct": false },
-      { "id": "C", "text": "Task (task)", "correct": false },
-      { "id": "D", "text": "Case Type (sn_case_type)", "correct": false }
+      {
+        "id": "A",
+        "text": "Case (sn_customerservice_case)",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Case Task (sn_customerservice_case_task)",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Task (task)",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Case Type (sn_case_type)",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -338,10 +729,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "What are benefits of the Conversation History feature? (Choose two.)",
     "options": [
-      { "id": "A", "text": "Shorter calls for agents by reducing the time to search for information", "correct": true },
-      { "id": "B", "text": "A customized admin chat toolbar with emojis for agents to use in chat messages", "correct": false },
-      { "id": "C", "text": "Improved customer satisfaction as agents can respond to and resolve customer issues faster", "correct": true },
-      { "id": "D", "text": "Better language management by flagging key words and alerting chat managers when agents use one or more of those words", "correct": false }
+      {
+        "id": "A",
+        "text": "Shorter calls for agents by reducing the time to search for information",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "A customized admin chat toolbar with emojis for agents to use in chat messages",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Improved customer satisfaction as agents can respond to and resolve customer issues faster",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Better language management by flagging key words and alerting chat managers when agents use one or more of those words",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -350,10 +757,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "What is the benefit of a phased release approach?",
     "options": [
-      { "id": "A", "text": "Team members schedules are able to synchronize", "correct": false },
-      { "id": "B", "text": "More time to develop stories", "correct": false },
-      { "id": "C", "text": "Working across multiple systems of record", "correct": false },
-      { "id": "D", "text": "Delivery of core functionality quickly", "correct": true }
+      {
+        "id": "A",
+        "text": "Team members schedules are able to synchronize",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "More time to develop stories",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Working across multiple systems of record",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Delivery of core functionality quickly",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -362,10 +785,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "On the Customer Service Portal which personas can see work orders from their company hierarchy? (Choose two.)",
     "options": [
-      { "id": "A", "text": "Partner admin", "correct": true },
-      { "id": "B", "text": "Partner contact", "correct": false },
-      { "id": "C", "text": "Customer admin", "correct": true },
-      { "id": "D", "text": "Customer contact", "correct": false }
+      {
+        "id": "A",
+        "text": "Partner admin",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Partner contact",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Customer admin",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Customer contact",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -374,10 +813,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "What is the most efficient way to get cases to be closed automatically after a few days?",
     "options": [
-      { "id": "A", "text": "Set the property glide.auto.close.cases resolved to true", "correct": false },
-      { "id": "B", "text": "Create a workflow associated with cases with a timer that changes the state after a few days", "correct": false },
-      { "id": "C", "text": "Create a Scheduled job that looks at the resolved_at date", "correct": false },
-      { "id": "D", "text": "Activate the Auto Close Resolved Cases flow", "correct": true }
+      {
+        "id": "A",
+        "text": "Set the property glide.auto.close.cases resolved to true",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Create a workflow associated with cases with a timer that changes the state after a few days",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Create a Scheduled job that looks at the resolved_at date",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Activate the Auto Close Resolved Cases flow",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -386,10 +841,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "Which roles can specify both skills and mandatory skills for cases and tasks? (Choose two.)",
     "options": [
-      { "id": "A", "text": "Customer service manager (sn_customerservice_manager)", "correct": true },
-      { "id": "B", "text": "Customer service agent (sn_customerservice_agent)", "correct": true },
-      { "id": "C", "text": "Customer administrator (sn_customerservice.customer_admin)", "correct": false },
-      { "id": "D", "text": "Partner (sn_customerservice.partner)", "correct": false }
+      {
+        "id": "A",
+        "text": "Customer service manager (sn_customerservice_manager)",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Customer service agent (sn_customerservice_agent)",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Customer administrator (sn_customerservice.customer_admin)",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Partner (sn_customerservice.partner)",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -398,10 +869,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "An account is a supported external customer and a contact is a user who is an employee of an account. How many accounts can a contact be associated with?",
     "options": [
-      { "id": "A", "text": "One", "correct": true },
-      { "id": "B", "text": "Two", "correct": false },
-      { "id": "C", "text": "Three", "correct": false },
-      { "id": "D", "text": "Multiple", "correct": false }
+      {
+        "id": "A",
+        "text": "One",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Two",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Three",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Multiple",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -410,11 +897,31 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "A contact can submit a self-registration request from the customer portal with a registration code. Which of the following roles can approve the request? (Choose three.)",
     "options": [
-      { "id": "A", "text": "Customer service manager (sn_customerservice_manager)", "correct": false },
-      { "id": "B", "text": "System administrator (admin)", "correct": true },
-      { "id": "C", "text": "Customer administrator (sn_customerservice.customer_admin)", "correct": true },
-      { "id": "D", "text": "Partner administrator [sn_customerservice.partner_admon]", "correct": true },
-      { "id": "E", "text": "Service organization administrator (sn_customerservice.service_organization_admin)", "correct": false }
+      {
+        "id": "A",
+        "text": "Customer service manager (sn_customerservice_manager)",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "System administrator (admin)",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Customer administrator (sn_customerservice.customer_admin)",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Partner administrator [sn_customerservice.partner_admon]",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Service organization administrator (sn_customerservice.service_organization_admin)",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -423,10 +930,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "What benefits can be gained by integrating CSM with Field Service Management? (Choose two.)",
     "options": [
-      { "id": "A", "text": "Reduces agent workload", "correct": false },
-      { "id": "B", "text": "Reduces monthly case volume", "correct": false },
-      { "id": "C", "text": "Work orders can be created from a case", "correct": true },
-      { "id": "D", "text": "Customer can access work order details and tasks created for their case", "correct": true }
+      {
+        "id": "A",
+        "text": "Reduces agent workload",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Reduces monthly case volume",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Work orders can be created from a case",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Customer can access work order details and tasks created for their case",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -435,10 +958,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "Guided decisions is a decision authoring and execution capability that dynamically guides agents to resolve complex cases. Guided decisions consist of decision trees. What is a decision tree?",
     "options": [
-      { "id": "A", "text": "A step-by-step methodology for creating and solving different case types", "correct": false },
-      { "id": "B", "text": "A detailed check list for customer service teams", "correct": false },
-      { "id": "C", "text": "A multi-step process consisting of a series of questions answers, and guidance", "correct": true },
-      { "id": "D", "text": "A set of steps used to define a complex process", "correct": false }
+      {
+        "id": "A",
+        "text": "A step-by-step methodology for creating and solving different case types",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "A detailed check list for customer service teams",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "A multi-step process consisting of a series of questions answers, and guidance",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "A set of steps used to define a complex process",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -447,10 +986,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "In the 'Action Status' column on a case list, what could a blue indicator dot mean?",
     "options": [
-      { "id": "A", "text": "Needs attention", "correct": true },
-      { "id": "B", "text": "Blocked internally", "correct": false },
-      { "id": "C", "text": "Blocked externally", "correct": false },
-      { "id": "D", "text": "Work in progress", "correct": false }
+      {
+        "id": "A",
+        "text": "Needs attention",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Blocked internally",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Blocked externally",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Work in progress",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -459,12 +1014,36 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "Customer service personnel who are allocated the customer service agent (sn_customerservice_agent) role are responsible for which of the following tasks? (Choose four.)",
     "options": [
-      { "id": "A", "text": "Assist customers with questions, issues and problems", "correct": true },
-      { "id": "B", "text": "Create cases", "correct": true },
-      { "id": "C", "text": "Propose major cases", "correct": true },
-      { "id": "D", "text": "View, edit, and work on cases", "correct": true },
-      { "id": "E", "text": "Approve customer contacts", "correct": false },
-      { "id": "F", "text": "Manage customer entitlements", "correct": false }
+      {
+        "id": "A",
+        "text": "Assist customers with questions, issues and problems",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Create cases",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Propose major cases",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "View, edit, and work on cases",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Approve customer contacts",
+        "correct": false
+      },
+      {
+        "id": "F",
+        "text": "Manage customer entitlements",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -473,10 +1052,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "The ServiceNow add-in for Microsoft Outlook enables you to manage workflows such as creating and updating contacts and cases from within Microsoft Outlook. How could this feature positively affect customer experience?",
     "options": [
-      { "id": "A", "text": "As email is being used fewer agents would be required to create cases so service costs would go down", "correct": false },
-      { "id": "B", "text": "It is easier to report on data in emails which means managers would be better placed to track performance", "correct": false },
-      { "id": "C", "text": "It can lead to faster resolution of customer issues and faster response to customer inquiries", "correct": true },
-      { "id": "D", "text": "It would guarantee less wait time for customers who chose to call the customer service center", "correct": false }
+      {
+        "id": "A",
+        "text": "As email is being used fewer agents would be required to create cases so service costs would go down",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "It is easier to report on data in emails which means managers would be better placed to track performance",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "It can lead to faster resolution of customer issues and faster response to customer inquiries",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "It would guarantee less wait time for customers who chose to call the customer service center",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -485,10 +1080,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "In ServiceNow's CSM Application, what is an interaction?",
     "options": [
-      { "id": "A", "text": "Any configuration item that has been made accessible to customers", "correct": false },
-      { "id": "B", "text": "A record that a Customer Service Agent uses to identify and resolve a question or an issue for an external customer", "correct": false },
-      { "id": "C", "text": "A binding agreement between two parties", "correct": false },
-      { "id": "D", "text": "A request for assistance made through a chat, phone call, or walk-up", "correct": true }
+      {
+        "id": "A",
+        "text": "Any configuration item that has been made accessible to customers",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "A record that a Customer Service Agent uses to identify and resolve a question or an issue for an external customer",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "A binding agreement between two parties",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "A request for assistance made through a chat, phone call, or walk-up",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -497,10 +1108,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "Which services does a Customer (sn_customerservice.customer) have access to? (Choose two.)",
     "options": [
-      { "id": "A", "text": "Can research questions issues, or problems, and create view and edit cases for only their own accounts", "correct": true },
-      { "id": "B", "text": "Can assign the roles to other contacts in the same account", "correct": false },
-      { "id": "C", "text": "Can view assets belonging to their account", "correct": true },
-      { "id": "D", "text": "Can edit information or roles for existing contacts", "correct": false }
+      {
+        "id": "A",
+        "text": "Can research questions issues, or problems, and create view and edit cases for only their own accounts",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Can assign the roles to other contacts in the same account",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Can view assets belonging to their account",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Can edit information or roles for existing contacts",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -509,10 +1136,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "To which recipient types can targeted communications (publications) be sent? (Choose two.)",
     "options": [
-      { "id": "A", "text": "Outsourced Service Providers", "correct": false },
-      { "id": "B", "text": "Contacts", "correct": true },
-      { "id": "C", "text": "Internal users", "correct": true },
-      { "id": "D", "text": "Households", "correct": false }
+      {
+        "id": "A",
+        "text": "Outsourced Service Providers",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Contacts",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Internal users",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Households",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -521,10 +1164,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "What does viewing a customer's install base enable customer service agents to do? (Choose two.)",
     "options": [
-      { "id": "A", "text": "See the detailed configurations of the products and services deployed for a customer to determine the action needed", "correct": true },
-      { "id": "B", "text": "Monitor alerts for operational services and configuration items that affect service health", "correct": false },
-      { "id": "C", "text": "Trace information provided in a case to the right product or service to which it relates", "correct": true },
-      { "id": "D", "text": "Close an upsell of related products and services not yet purchased by a customer", "correct": false }
+      {
+        "id": "A",
+        "text": "See the detailed configurations of the products and services deployed for a customer to determine the action needed",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Monitor alerts for operational services and configuration items that affect service health",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Trace information provided in a case to the right product or service to which it relates",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Close an upsell of related products and services not yet purchased by a customer",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -533,10 +1192,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "Which step in Advanced Work Assignment (AWA) would ensure the work was allocated to the appropriate agent?",
     "options": [
-      { "id": "A", "text": "Set the Agent Experience", "correct": false },
-      { "id": "B", "text": "Define Assignment Rules", "correct": true },
-      { "id": "C", "text": "Define Work Item Queues", "correct": false },
-      { "id": "D", "text": "Configure Service Channels", "correct": false }
+      {
+        "id": "A",
+        "text": "Set the Agent Experience",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Define Assignment Rules",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Define Work Item Queues",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Configure Service Channels",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -545,21 +1220,54 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "When working with case types, what is the lowest level in the case type hierarchy called?",
     "options": [
-      { "id": "A", "text": "Sub-level", "correct": false },
-      { "id": "B", "text": "Leaf-level", "correct": true },
-      { "id": "C", "text": "Decision-level", "correct": false },
-      { "id": "D", "text": "Base-level", "correct": false }
+      {
+        "id": "A",
+        "text": "Sub-level",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Leaf-level",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Decision-level",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Base-level",
+        "correct": false
+      }
     ],
     "explanation": ""
-  },{
+  },
+  {
     "id": 41,
     "type": "multiple",
     "question": "Which roles are responsible for maintaining account team membership? (Choose two.)",
     "options": [
-      { "id": "A", "text": "Customer Admin [sn_customerservice.customer.admin]", "correct": false },
-      { "id": "B", "text": "Customer Case Manager [sn_customerservice.customer_case_manager]", "correct": false },
-      { "id": "C", "text": "System Administrator [admin]", "correct": true },
-      { "id": "D", "text": "Customer Service Manager [sn_customerservice_manager]", "correct": true }
+      {
+        "id": "A",
+        "text": "Customer Admin [sn_customerservice.customer.admin]",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Customer Case Manager [sn_customerservice.customer_case_manager]",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "System Administrator [admin]",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Customer Service Manager [sn_customerservice_manager]",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -568,11 +1276,31 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "What can a person assigned with the customer role access on the customer service portal by default? (Choose three.)",
     "options": [
-      { "id": "A", "text": "Cases", "correct": true },
-      { "id": "B", "text": "Related parties", "correct": false },
-      { "id": "C", "text": "Assets", "correct": true },
-      { "id": "D", "text": "Social profiles", "correct": false },
-      { "id": "E", "text": "Sold products", "correct": true }
+      {
+        "id": "A",
+        "text": "Cases",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Related parties",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Assets",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Social profiles",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Sold products",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -581,10 +1309,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "Which of the following are benefits of customer access management? (Choose two.)",
     "options": [
-      { "id": "A", "text": "It increases security by automatically granting access to cases based on access to sold product.", "correct": true },
-      { "id": "B", "text": "It defaults the responsibility for access management to the customer.", "correct": false },
-      { "id": "C", "text": "It defaults the responsibility for access management to the customer service agent.", "correct": false },
-      { "id": "D", "text": "It improves the customer experience by enabling related parties to track and collaborate on cases.", "correct": true }
+      {
+        "id": "A",
+        "text": "It increases security by automatically granting access to cases based on access to sold product.",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "It defaults the responsibility for access management to the customer.",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "It defaults the responsibility for access management to the customer service agent.",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "It improves the customer experience by enabling related parties to track and collaborate on cases.",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -593,11 +1337,31 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "Which ServiceNow products can be integrated out-of-the-box with CSM? (Choose three.)",
     "options": [
-      { "id": "A", "text": "ITOM Event Management", "correct": true },
-      { "id": "B", "text": "Risk Management", "correct": false },
-      { "id": "C", "text": "Strategic Portfolio Management", "correct": true },
-      { "id": "D", "text": "DevOps", "correct": false },
-      { "id": "E", "text": "Financial Management", "correct": true }
+      {
+        "id": "A",
+        "text": "ITOM Event Management",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Risk Management",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Strategic Portfolio Management",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "DevOps",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Financial Management",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -606,12 +1370,36 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "When activating the Customer Service Management Demo Data plugin, which case type is available besides product case?",
     "options": [
-      { "id": "A", "text": "Order", "correct": true },
-      { "id": "B", "text": "Offer", "correct": false },
-      { "id": "C", "text": "Monitoring", "correct": false },
-      { "id": "D", "text": "FAQ", "correct": false },
-      { "id": "E", "text": "Request", "correct": false },
-      { "id": "F", "text": "Contract", "correct": false }
+      {
+        "id": "A",
+        "text": "Order",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Offer",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Monitoring",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "FAQ",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Request",
+        "correct": false
+      },
+      {
+        "id": "F",
+        "text": "Contract",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -620,12 +1408,36 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "What are the different resource matching methods on the Matching Rule form? (Choose four.)",
     "options": [
-      { "id": "A", "text": "Simple", "correct": true },
-      { "id": "B", "text": "Advanced", "correct": true },
-      { "id": "C", "text": "Selection Criteria", "correct": true },
-      { "id": "D", "text": "Skill", "correct": false },
-      { "id": "E", "text": "Affinity", "correct": false },
-      { "id": "F", "text": "Scripted", "correct": true }
+      {
+        "id": "A",
+        "text": "Simple",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Advanced",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Selection Criteria",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Skill",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Affinity",
+        "correct": false
+      },
+      {
+        "id": "F",
+        "text": "Scripted",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -634,10 +1446,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "What is the purpose of the Guided Decisions capability?",
     "options": [
-      { "id": "A", "text": "Provide agents with an escalation guide", "correct": false },
-      { "id": "B", "text": "Dynamically assist agents through account management", "correct": false },
-      { "id": "C", "text": "Dynamically help agents to resolve complex cases", "correct": true },
-      { "id": "D", "text": "Provide agents with a knowledge guide", "correct": false }
+      {
+        "id": "A",
+        "text": "Provide agents with an escalation guide",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Dynamically assist agents through account management",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Dynamically help agents to resolve complex cases",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Provide agents with a knowledge guide",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -646,10 +1474,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "Which feature enables employees to request support for themselves and for external customers?",
     "options": [
-      { "id": "A", "text": "Contributor Users", "correct": true },
-      { "id": "B", "text": "Business Locations", "correct": false },
-      { "id": "C", "text": "Responsibility Definitions", "correct": false },
-      { "id": "D", "text": "Account Management", "correct": false }
+      {
+        "id": "A",
+        "text": "Contributor Users",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Business Locations",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Responsibility Definitions",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Account Management",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -658,10 +1502,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "What functionality is required to automatically close resolved cases if customers do not respond within a specified time?",
     "options": [
-      { "id": "A", "text": "Auto Close Resolved Cases Business Rule", "correct": false },
-      { "id": "B", "text": "Auto Close Resolved Cases Scheduled Job", "correct": false },
-      { "id": "C", "text": "Auto Close Resolved Cases Flow Designer Flow", "correct": true },
-      { "id": "D", "text": "Auto Close Resolved Cases Workflow", "correct": false }
+      {
+        "id": "A",
+        "text": "Auto Close Resolved Cases Business Rule",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Auto Close Resolved Cases Scheduled Job",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Auto Close Resolved Cases Flow Designer Flow",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Auto Close Resolved Cases Workflow",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -670,10 +1530,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "What are the ways the Customer Portal Locale feature can be used? (Choose two.)",
     "options": [
-      { "id": "A", "text": "Restrict access to a customer service portal based on where a user is physically located", "correct": false },
-      { "id": "B", "text": "Ensure only authenticated users can choose a language/locale on a customer service portal", "correct": false },
-      { "id": "C", "text": "Allow authenticated and guest users to choose a language/locale on a customer service portal", "correct": true },
-      { "id": "D", "text": "Forward authenticated and guest users to a translated customer service portal", "correct": true }
+      {
+        "id": "A",
+        "text": "Restrict access to a customer service portal based on where a user is physically located",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Ensure only authenticated users can choose a language/locale on a customer service portal",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Allow authenticated and guest users to choose a language/locale on a customer service portal",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Forward authenticated and guest users to a translated customer service portal",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -682,11 +1558,31 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "Advanced Work Assignment (AWA) automatically routes and assigns work items to agents based on which of the following rules? (Choose three.)",
     "options": [
-      { "id": "A", "text": "Experience", "correct": false },
-      { "id": "B", "text": "Skills", "correct": true },
-      { "id": "C", "text": "Products", "correct": false },
-      { "id": "D", "text": "Schedule", "correct": true },
-      { "id": "E", "text": "Workload", "correct": true }
+      {
+        "id": "A",
+        "text": "Experience",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Skills",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Products",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Schedule",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Workload",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -695,10 +1591,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "Which feature provides easy-to-configure integrations between the Now Platform and third party Customer Relationship Management (CRM) and Enterprise Resource Planning (ERP) tools or platforms?",
     "options": [
-      { "id": "A", "text": "Import sets", "correct": false },
-      { "id": "B", "text": "Active Directory", "correct": false },
-      { "id": "C", "text": "Web Services", "correct": false },
-      { "id": "D", "text": "Integration Hub", "correct": true }
+      {
+        "id": "A",
+        "text": "Import sets",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Active Directory",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Web Services",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Integration Hub",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -707,10 +1619,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "Which table does the Account (customer_account) table extend?",
     "options": [
-      { "id": "A", "text": "Customer (sn_customer_service_customer)", "correct": false },
-      { "id": "B", "text": "Business Location (sn_csm_business_location)", "correct": false },
-      { "id": "C", "text": "Company (core_company)", "correct": true },
-      { "id": "D", "text": "Service Organization (sn_customer_service_organization)", "correct": false }
+      {
+        "id": "A",
+        "text": "Customer (sn_customer_service_customer)",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Business Location (sn_csm_business_location)",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Company (core_company)",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Service Organization (sn_customer_service_organization)",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -719,10 +1647,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "Which combination of roles is restricted for security purposes?",
     "options": [
-      { "id": "A", "text": "snc_internal and sn_customerservice_agent", "correct": false },
-      { "id": "B", "text": "snc_internal and sn_customerservice.partner_admin", "correct": true },
-      { "id": "C", "text": "snc_internal and sn_customerservice.consumer_agent", "correct": false },
-      { "id": "D", "text": "snc_external and sn_customerservice.customer", "correct": false }
+      {
+        "id": "A",
+        "text": "snc_internal and sn_customerservice_agent",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "snc_internal and sn_customerservice.partner_admin",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "snc_internal and sn_customerservice.consumer_agent",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "snc_external and sn_customerservice.customer",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -731,10 +1675,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "What must a system administrator configure to define a different approval workflow for an escalation request?",
     "options": [
-      { "id": "A", "text": "Escalation Decision", "correct": false },
-      { "id": "B", "text": "Escalation Rule", "correct": false },
-      { "id": "C", "text": "Escalation Template", "correct": true },
-      { "id": "D", "text": "Escalation Reason", "correct": false }
+      {
+        "id": "A",
+        "text": "Escalation Decision",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Escalation Rule",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Escalation Template",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Escalation Reason",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -743,10 +1703,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "Which entity represents specific versions of products being sold to and supported for customers?",
     "options": [
-      { "id": "A", "text": "Sold Products", "correct": false },
-      { "id": "B", "text": "Product Categories", "correct": false },
-      { "id": "C", "text": "Product Models", "correct": true },
-      { "id": "D", "text": "Portfolio Products", "correct": false }
+      {
+        "id": "A",
+        "text": "Sold Products",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Product Categories",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Product Models",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Portfolio Products",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -755,10 +1731,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "After an assignment group is chosen, which mandatory step in Advanced Work Assignment (AWA) ensures the work is allocated to the appropriate agent?",
     "options": [
-      { "id": "A", "text": "Configure Work Item Queues", "correct": false },
-      { "id": "B", "text": "Set the Agent Experience", "correct": false },
-      { "id": "C", "text": "Set up Skills for Agents", "correct": false },
-      { "id": "D", "text": "Define Assignment Rules", "correct": true }
+      {
+        "id": "A",
+        "text": "Configure Work Item Queues",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Set the Agent Experience",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Set up Skills for Agents",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Define Assignment Rules",
+        "correct": true
+      }
     ],
     "explanation": ""
   },
@@ -767,10 +1759,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "multiple",
     "question": "Which decisions does Predictive Intelligence support? (Choose two.)",
     "options": [
-      { "id": "A", "text": "Case Escalation", "correct": false },
-      { "id": "B", "text": "Case Prioritization", "correct": true },
-      { "id": "C", "text": "Case Categorization", "correct": true },
-      { "id": "D", "text": "Case Resolution", "correct": false }
+      {
+        "id": "A",
+        "text": "Case Escalation",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Case Prioritization",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Case Categorization",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Case Resolution",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -779,10 +1787,26 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "What is the term for a formal agreement between a service provider and a customer that provides the customer with an expectation of service within a known timescale?",
     "options": [
-      { "id": "A", "text": "Service Level Agreement", "correct": true },
-      { "id": "B", "text": "Service Entitlement Agreement", "correct": false },
-      { "id": "C", "text": "Contractual Service Agreement", "correct": false },
-      { "id": "D", "text": "Operational Service Agreement", "correct": false }
+      {
+        "id": "A",
+        "text": "Service Level Agreement",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Service Entitlement Agreement",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Contractual Service Agreement",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Operational Service Agreement",
+        "correct": false
+      }
     ],
     "explanation": ""
   },
@@ -791,13 +1815,198 @@ const QUESTIONS_BANK_RAW = [{
     "type": "single",
     "question": "Which Service-Aware Install Base entity defines configuration items accessible to customers?",
     "options": [
-      { "id": "A", "text": "Model", "correct": false },
-      { "id": "B", "text": "Install Base Item", "correct": true },
-      { "id": "C", "text": "Sold Product", "correct": false },
-      { "id": "D", "text": "Asset", "correct": false }
+      {
+        "id": "A",
+        "text": "Model",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Install Base Item",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Sold Product",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Asset",
+        "correct": false
+      }
     ],
     "explanation": ""
-  }     ];
+  },
+  {
+    "id": 61,
+    "type": "single",
+    "question": "Installing the Customer Service Management plugin activates:",
+    "options": [
+      {
+        "id": "A",
+        "text": "Only one other plugin - Field Service Management Plugin",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "No other Plugins",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Only two other plugins - Portal and Case Management",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Many other plugins at the same time",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 62,
+    "type": "multiple",
+    "question": "What benefits can be gained by integrating CSM with Field Service Management? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Reduces agent workload",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Reduces monthly case volume",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Work orders can be created from a case",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Customer can access work order details and tasks created for their case",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 63,
+    "type": "single",
+    "question": "What functionality is required to automatically close resolved cases if customers do not respond within a specified time?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Auto Close Resolved Cases Business Rule",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Auto Close Resolved Cases Scheduled Job",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Auto Close Resolved Cases Flow Designer Flow",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Auto Close Resolved Cases Workflow",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 64,
+    "type": "single",
+    "question": "Which feature provides easy-to-configure integrations between the Now Platform and third-party CRM/ERP tools?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Import sets",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Active Directory",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Web Services",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Integration Hub",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 65,
+    "type": "single",
+    "question": "Which combination of roles is restricted for security purposes?",
+    "options": [
+      {
+        "id": "A",
+        "text": "snc_internal and sn_customerservice_agent",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "snc_internal and sn_customerservice.partner_admin",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "snc_internal and sn_customerservice.consumer_agent",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "snc_external and sn_customerservice.customer",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 66,
+    "type": "single",
+    "question": "Which entity represents specific versions of products being sold to and supported for customers?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Sold Products",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Product Categories",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Product Models",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Portfolio Products",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  }
+];
 
 function normalizeType(t){ return t === 'multiple' ? 'multi' : t; }
 const QUESTIONS_BANK = QUESTIONS_BANK_RAW.map(q => ({ ...q, type: normalizeType(q.type) }));
@@ -910,7 +2119,7 @@ let timerInterval=null;
 function renderLayout(){
   appRoot.innerHTML=`
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h5 class="mb-0">Servicenow CIS-CSM Exam 3</h5>
+      <h5 class="mb-0">Servicenow CIS-CSM Exam 4</h5>
       <div>
   <a href="./home.html" class="btn btn-sm btn-outline-primary me-2">Home</a>
   <button class="btn btn-sm btn-outline-danger me-2" onclick="finishQuiz()">Finalizar Teste</button>
