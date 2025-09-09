@@ -47,11 +47,15 @@
     .matching-row { flex-direction:column; }
     .matching-row select { width:100%; }
   }
+
+  #themeBtn{
+    display: none;
+  }
 </style>
 </head>
 <body>
 <div class="container py-4" id="appRoot"></div>
-
+<button class="btn btn-outline-secondary btn-sm toggle-theme" id="themeBtn" title="Alternar Tema">🌓</button>
 
 <script>
 /* ==============================
@@ -1357,7 +1361,16 @@ function reviewQuestions(){
 function rightTextById(q, id){ const it=(q.right||[]).find(r=>r.id===id); return it?it.text:''; }
 
 /* Tema */
-
+const themeBtn=document.getElementById("themeBtn");
+function toggleTheme(){
+  const html=document.documentElement;
+  const cur=html.getAttribute('data-bs-theme')||'light';
+  const next=cur==='light'?'dark':'light';
+  html.setAttribute('data-bs-theme',next);
+  localStorage.setItem('quizTheme',next);
+}
+themeBtn.addEventListener('click',toggleTheme);
+(function(){ const saved=localStorage.getItem('quizTheme'); if(saved) document.documentElement.setAttribute('data-bs-theme',saved); })();
 
 /* Navegação & exposição */
 function goNextAfterLocked(){ if(quizState.currentIndex===quizState.sequence.length-1) finishQuiz(); else {quizState.currentIndex++; renderQuestion(); saveSession();} }
