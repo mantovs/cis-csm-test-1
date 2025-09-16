@@ -1,0 +1,4157 @@
+<script>
+    var arr = [
+  {
+    "id": 1,
+    "type": "single",
+    "question": "Agents and managers cannot create knowledge articles from Community questions.",
+    "options": [
+      { "id": "A", "text": "True", "correct": false },
+      { "id": "B", "text": "False", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 2,
+    "type": "single",
+    "question": "Information about a customer's service contract is found in Knowledge.",
+    "options": [
+      { "id": "A", "text": "False", "correct": true },
+      { "id": "B", "text": "True", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 3,
+    "type": "multiple",
+    "question": "From what places in SN can an agent create a case? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Customer Service Application", "correct": true },
+      { "id": "B", "text": "Contact", "correct": false },
+      { "id": "C", "text": "Account", "correct": true },
+      { "id": "D", "text": "Chat", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 4,
+    "type": "multiple",
+    "question": "What are the conditions that matching rules are based on? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Agent resources best suited to work on a case", "correct": true },
+      { "id": "B", "text": "Specific routing rules", "correct": false },
+      { "id": "C", "text": "Filters set up in advanced work assignment", "correct": false },
+      { "id": "D", "text": "Specific case attributes", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 5,
+    "type": "single",
+    "question": "Matching rules enhance assignment capability by ____________________.",
+    "options": [
+      { "id": "A", "text": "Matching best agent by availability", "correct": true },
+      { "id": "B", "text": "Providing dynamic matching of cases to groups or individuals", "correct": false },
+      { "id": "C", "text": "Determining if account is a customer or partner", "correct": false },
+      { "id": "D", "text": "Matching best agent by skill", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 6,
+    "type": "single",
+    "question": "Special Handling Notes can apply to which one of the following based on specific attributes?",
+    "options": [
+      { "id": "A", "text": "Domain", "correct": false },
+      { "id": "B", "text": "Contact", "correct": true },
+      { "id": "C", "text": "Holiday", "correct": false },
+      { "id": "D", "text": "VIP", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 7,
+    "type": "single",
+    "question": "Predictive Intelligence improves Case management by:",
+    "options": [
+      { "id": "A", "text": "Predicting what values should have gone into empty fields in historical records", "correct": false },
+      { "id": "B", "text": "Reducing the number of records needed to accurately predict a value", "correct": false },
+      { "id": "C", "text": "Replacing legacy routing rules", "correct": false },
+      { "id": "D", "text": "Predicting Case values without manual intervention", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 8,
+    "type": "single",
+    "question": "Which of the following is a condition for matching rules?",
+    "options": [
+      { "id": "A", "text": "Agent domain", "correct": false },
+      { "id": "B", "text": "Assignment", "correct": false },
+      { "id": "C", "text": "Switching", "correct": false },
+      { "id": "D", "text": "Specific case attributes", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 9,
+    "type": "single",
+    "question": "What do blue circles in the timeline of a case form represent?",
+    "options": [
+      { "id": "A", "text": "Note", "correct": false },
+      { "id": "B", "text": "State", "correct": true },
+      { "id": "C", "text": "Activity", "correct": false },
+      { "id": "D", "text": "Comment", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 10,
+    "type": "multiple",
+    "question": "Predictive Intelligence improves triage quality by eliminating the guesswork. Predictive Intelligence supports which of the following decisions? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Case Escalation", "correct": false },
+      { "id": "B", "text": "Case State", "correct": false },
+      { "id": "C", "text": "Case Categorization", "correct": true },
+      { "id": "D", "text": "Case Prioritization", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 11,
+    "type": "multiple",
+    "question": "Which Business Rules are part of the Customer Service Management baseline configuration? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Apply Role by Customer", "correct": false },
+      { "id": "B", "text": "Auto Assessment", "correct": true },
+      { "id": "C", "text": "Change Update to Close", "correct": false },
+      { "id": "D", "text": "Update Case Entitlement", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 12,
+    "type": "multiple",
+    "question": "What are the Critical Success Factors that are related to CSM Suite Implementations? (Choose four.)",
+    "options": [
+      { "id": "A", "text": "Define the Business Pain Points", "correct": true },
+      { "id": "B", "text": "Provide consistent service to customers", "correct": true },
+      { "id": "C", "text": "Have a clear understanding of the use cases", "correct": true },
+      { "id": "D", "text": "Define the number of hours needed to develop the associated requirements", "correct": false },
+      { "id": "E", "text": "Implementation is only as good as the underlying process", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 13,
+    "type": "multiple",
+    "question": "What should be emphasized when designing solutions? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Minimize customizations", "correct": true },
+      { "id": "B", "text": "Focus Out-of-the-box functionality", "correct": true },
+      { "id": "C", "text": "Design for Scalability", "correct": true },
+      { "id": "D", "text": "Mobile friendly functionality", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 14,
+    "type": "multiple",
+    "question": "What role does the Engagement Manager play before the Workshop? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Project Manager", "correct": true },
+      { "id": "B", "text": "Acts as intermediary", "correct": false },
+      { "id": "C", "text": "Provides answers to technical problems", "correct": false },
+      { "id": "D", "text": "Assists with technical requirements", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 15,
+    "type": "single",
+    "question": "What should be part of the pre-engagement collateral?",
+    "options": [
+      { "id": "A", "text": "Frequently Asked Questions (FAQ)", "correct": false },
+      { "id": "B", "text": "Scoping Guide", "correct": true },
+      { "id": "C", "text": "Customer Service roles template", "correct": false },
+      { "id": "D", "text": "Stock Keeping Unit (SKU) and pricing sheet", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 16,
+    "type": "multiple",
+    "question": "Articles can provide the following: (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Document current and known issues", "correct": true },
+      { "id": "B", "text": "Provide answers and responses to common issues or questions", "correct": true },
+      { "id": "C", "text": "Information about customer's service contract", "correct": false },
+      { "id": "D", "text": "Share product information", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 17,
+    "type": "single",
+    "question": "Contextual Search framework is used for providing Knowledge search results in which of these scenarios?",
+    "options": [
+      { "id": "A", "text": "Entering question in portal only", "correct": false },
+      { "id": "B", "text": "Record Producer only", "correct": false },
+      { "id": "C", "text": "Both portal question entry and Record Producer", "correct": true },
+      { "id": "D", "text": "None of the above", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 18,
+    "type": "multiple",
+    "question": "Which of the following are true regarding integrating a ServiceNow Knowledge base with external content? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Imported external articles appear as attachments in ServiceNow", "correct": true },
+      { "id": "B", "text": "Only applications that allow WebDAV connections can be integrated", "correct": true },
+      { "id": "C", "text": "The imported article will have the same category it had in the source knowledge base", "correct": false },
+      { "id": "D", "text": "SharePoint blocks this integration", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 19,
+    "type": "multiple",
+    "question": "Access to a Knowledge base or Article can be restricted based on a customer's assets and the product models using which of the following? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Knowledge Product Entitlements", "correct": true },
+      { "id": "B", "text": "Data Policy", "correct": false },
+      { "id": "C", "text": "ACL", "correct": false },
+      { "id": "D", "text": "User Criteria", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 20,
+    "type": "multiple",
+    "question": "What are some benefits that Knowledge Product Entitlement provide? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Reduces call volume", "correct": true },
+      { "id": "B", "text": "Makes it easier for Agents to manage case volume", "correct": true },
+      { "id": "C", "text": "Allows access to Knowledge Articles that are related to products owned by a customer", "correct": true },
+      { "id": "D", "text": "Information about customer's service contract", "correct": false },
+      { "id": "E", "text": "Focused product marketing", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 21,
+    "type": "single",
+    "question": "What are the characteristics of Knowledge Categories?",
+    "options": [
+      { "id": "A", "text": "Shareable across KBs: Yes ; Multi-Level: No", "correct": false },
+      { "id": "B", "text": "Shareable across KBs: No ; Multi-Level: Yes", "correct": true },
+      { "id": "C", "text": "Shareable across KBs: No ; Multi-Level: No", "correct": false },
+      { "id": "D", "text": "Shareable across KBs: Yes ; Multi-Level: Yes", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 22,
+    "type": "multiple",
+    "question": "Users with the sn_customerservice.proxy_contact role can do which of the following? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Manage cases on behalf of customer service agents", "correct": false },
+      { "id": "B", "text": "Create cases on behalf of customers", "correct": true },
+      { "id": "C", "text": "Manage requests on behalf of customer service agents", "correct": false },
+      { "id": "D", "text": "Create requests on behalf of customers", "correct": true },
+      { "id": "E", "text": "Manage major incident communication on behalf of a customer service manager", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 23,
+    "type": "single",
+    "question": "What is the purpose of a Catalog Item variable?",
+    "options": [
+      { "id": "A", "text": "Allows the customer or consumer to qualify their answer", "correct": true },
+      { "id": "B", "text": "Grants the customer the opportunity to ask a question", "correct": false },
+      { "id": "C", "text": "Opens a wizard to help a customer fill in a case form", "correct": false },
+      { "id": "D", "text": "Guides a customer by providing hints on case forms", "correct": false },
+
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 24,
+    "type": "single",
+    "question": "What one of the following is optional when creating a Catalog workflow?",
+    "options": [
+      { "id": "A", "text": "Publishing the workflow", "correct": false },
+      { "id": "B", "text": "Defining workflow activities", "correct": false },
+      { "id": "C", "text": "Approving the workflow", "correct": false },
+      { "id": "D", "text": "Managing workflow versions", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 25,
+    "type": "single",
+    "question": "What module is used to create Case Record Producers?",
+    "options": [
+      { "id": "A", "text": "Case Record Producers", "correct": false },
+      { "id": "B", "text": "Edit Records", "correct": false },
+      { "id": "C", "text": "Record Producers", "correct": true },
+      { "id": "D", "text": "Maintain Records", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 26,
+    "type": "single",
+    "question": "Which one is NOT a dependency for the Customer Service Plugin?",
+    "options": [
+      { "id": "A", "text": "Task Activities", "correct": false },
+      { "id": "B", "text": "Skills Management", "correct": false },
+      { "id": "C", "text": "Openframe", "correct": false },
+      { "id": "D", "text": "Communities", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 27,
+    "type": "single",
+    "question": "ACME corporation wants to use ServiceNow CSM for supporting their customers through Twitter. What CSM entity would you recommend ACME to store the customer's Twitter profile details?",
+    "options": [
+      { "id": "A", "text": "Account", "correct": false },
+      { "id": "B", "text": "Not supported", "correct": false },
+      { "id": "C", "text": "Consumer", "correct": false },
+      { "id": "D", "text": "Social Profile", "correct": true },
+      { "id": "E", "text": "Personnel File", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 28,
+    "type": "single",
+    "question": "Which social media channels are NOT available out-of-box?",
+    "options": [
+      { "id": "A", "text": "Facebook", "correct": false },
+      { "id": "B", "text": "Twitter", "correct": false },
+      { "id": "C", "text": "LinkedIn", "correct": true },
+      { "id": "D", "text": "All of the above", "correct": false },
+      { "id": "E", "text": "None of the above", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 29,
+    "type": "single",
+    "question": "What is the equivalent of NOT selecting any group, when configuring multiple active configurations of OpenFrame?",
+    "options": [
+      { "id": "A", "text": "Selecting all the groups", "correct": true },
+      { "id": "B", "text": "Selecting none of the groups", "correct": false },
+      { "id": "C", "text": "Missing configuration", "correct": false },
+      { "id": "D", "text": "Misconfigured", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 30,
+    "type": "single",
+    "question": "How many outbound email accounts are supported in Customer Service Management?",
+    "options": [
+      { "id": "A", "text": "One", "correct": true },
+      { "id": "B", "text": "Unlimited", "correct": false },
+      { "id": "C", "text": "Two", "correct": false },
+      { "id": "D", "text": "One per business service", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 31,
+    "type": "multiple",
+    "question": "What are features of Customer Service Management? (Choose four.)",
+    "options": [
+      { "id": "A", "text": "Timed Audits", "correct": false },
+      { "id": "B", "text": "Service Entitlements", "correct": true },
+      { "id": "C", "text": "Demand Management", "correct": false },
+      { "id": "D", "text": "Service Prospecting", "correct": false },
+      { "id": "E", "text": "Real-time SLAs", "correct": true },
+      { "id": "F", "text": "Service Contracts", "correct": true },
+      { "id": "G", "text": "Skills-based routing", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 32,
+    "type": "multiple",
+    "question": "What are the Forum User Types? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Admin", "correct": false },
+      { "id": "B", "text": "Registered", "correct": true },
+      { "id": "C", "text": "Public", "correct": true },
+      { "id": "D", "text": "Custom", "correct": true },
+      { "id": "E", "text": "Moderator", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 33,
+    "type": "multiple",
+    "question": "Which of the following are true regarding the Community Portal application? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "It is available to any customer with a Community license", "correct": true },
+      { "id": "B", "text": "It is available by default with the Support and Service portals", "correct": false },
+      { "id": "C", "text": "It is only available to CSM license holders", "correct": false },
+      { "id": "D", "text": "Most of the configuration does not require System Administrator role", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 34,
+    "type": "single",
+    "question": "If only one user reports a content for moderation, the content will be hidden.",
+    "options": [
+      { "id": "A", "text": "True", "correct": false },
+      { "id": "B", "text": "False", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 35,
+    "type": "multiple",
+    "question": "The available case types are: (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Product Support", "correct": false },
+      { "id": "B", "text": "Order", "correct": true },
+      { "id": "C", "text": "Product", "correct": true },
+      { "id": "D", "text": "Support", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 36,
+    "type": "single",
+    "question": "What is required to enable the Follow the sun field on the Customer Service Case form?",
+    "options": [
+      { "id": "A", "text": "Nothing, it is a standard field", "correct": false },
+      { "id": "B", "text": "The value property on the form must be set to true", "correct": false },
+      { "id": "C", "text": "The plugin 'com.snc.csm_time_recording' needs to be activated", "correct": false },
+      { "id": "D", "text": "The value property on the form must be set to true and the field added to the case form", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 37,
+    "type": "single",
+    "question": "In the Customer Service Management space, what does the term asset management mean?",
+    "options": [
+      { "id": "A", "text": "Financial, contractual and inventory information of assets", "correct": false },
+      { "id": "B", "text": "A set of business activities and processes used to track assets", "correct": false },
+      { "id": "C", "text": "Tables in the Asset application", "correct": false },
+      { "id": "D", "text": "Tracking products or services customers are using", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 38,
+    "type": "single",
+    "question": "Which of the following roles cannot update a consumer's record?",
+    "options": [
+      { "id": "A", "text": "sn_customerservice_agent", "correct": true },
+      { "id": "B", "text": "sn_customerservice_manager", "correct": false },
+      { "id": "C", "text": "sn_customerservice.consumer_agent", "correct": false },
+      { "id": "D", "text": "admin", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 39,
+    "type": "single",
+    "question": "Major Issue Management uses which one of the following capabilities?",
+    "options": [
+      { "id": "A", "text": "Governance Risk and Control", "correct": false },
+      { "id": "B", "text": "Targeted Communications", "correct": true },
+      { "id": "C", "text": "Asset management", "correct": false },
+      { "id": "D", "text": "Record producers", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 40,
+    "type": "single",
+    "question": "What is required to synchronize fields from a parent to a child case(s)?",
+    "options": [
+      { "id": "A", "text": "The advanced plugin (com.sns.pa.customer_service_advanced) needs to be activated", "correct": false },
+      { "id": "B", "text": "Major Issue Management needs to be installed and certain properties enabled", "correct": true },
+      { "id": "C", "text": "No action required, this is a standard Customer Service Management feature", "correct": false },
+      { "id": "D", "text": "The role of sn_customerservice.customer_case_manager must be assigned", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 41,
+    "type": "matching",
+    "question": "Match the definitions for roles relationships.",
+    "left": [
+      { "id": "A", "text": "A customer account, a partner, account, or both" },
+      { "id": "B", "text": "A supported external customer that, sells and supports one or more customers" },
+      { "id": "C", "text": "A member of an account" },
+      { "id": "D", "text": "A person who purchases goods and services for personal UserActivation" }
+    ],
+    "right": [
+      { "id": "1", "text": "Partner" },
+      { "id": "2", "text": "Account" },
+      { "id": "3", "text": "Contact" },
+      { "id": "4", "text": "Consumer" }
+    ],
+    "answerMap": { "A": "2", "B": "1", "C": "3", "D": "4" },
+    "explanation": ""
+  },
+  {
+    "id": 42,
+    "type": "multiple",
+    "question": "Which of the following functions can be completed when using the Field Service Management Application on a mobile device offline? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Manage requests", "correct": false },
+      { "id": "B", "text": "Execute assigned tasks", "correct": true },
+      { "id": "C", "text": "Close work orders", "correct": true },
+      { "id": "D", "text": "Manage cases", "correct": false },
+      { "id": "E", "text": "Manage assets", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 43,
+    "type": "single",
+    "question": "Information in the Case Field 'Contact' is copied to which Incident Field?",
+    "options": [
+      { "id": "A", "text": "Contact", "correct": false },
+      { "id": "B", "text": "User", "correct": false },
+      { "id": "C", "text": "Customer", "correct": false },
+      { "id": "D", "text": "Caller", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 44,
+    "type": "single",
+    "question": "How many active OpenFrame configurations can you have on an instance?",
+    "options": [
+      { "id": "A", "text": "2", "correct": false },
+      { "id": "B", "text": "Unlimited", "correct": true },
+      { "id": "C", "text": "1", "correct": false },
+      { "id": "D", "text": "3", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 45,
+    "type": "multiple",
+    "question": "What are common types of application record data that are imported during a CSM data migration? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Knowledge Article", "correct": true },
+      { "id": "B", "text": "Accounts", "correct": true },
+      { "id": "C", "text": "Chat", "correct": false },
+      { "id": "D", "text": "Case", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 46,
+    "type": "multiple",
+    "question": "Which are the key self-service functions of the Customer Support Portal? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Community", "correct": true },
+      { "id": "B", "text": "Knowledge Base", "correct": true },
+      { "id": "C", "text": "Open An Incident", "correct": false },
+      { "id": "D", "text": "Service Catalog", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 47,
+    "type": "multiple",
+    "question": "Which of the following are channels? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Contacts", "correct": false },
+      { "id": "B", "text": "Web", "correct": true },
+      { "id": "C", "text": "Chat", "correct": true },
+      { "id": "D", "text": "Article", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 48,
+    "type": "single",
+    "question": "Out-of-the-box, the consumer support portal (/csp) CANNOT be used for which one of the following actions?",
+    "options": [
+      { "id": "A", "text": "Open an incident", "correct": true },
+      { "id": "B", "text": "Viewing knowledge articles", "correct": false },
+      { "id": "C", "text": "Live chat", "correct": false },
+      { "id": "D", "text": "Consumer self-registration", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 49,
+    "type": "multiple",
+    "question": "The Customer Support Portal default configuration provides the following channels to interact with customers? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Web", "correct": false },
+      { "id": "B", "text": "Social", "correct": false },
+      { "id": "C", "text": "Chat", "correct": true },
+      { "id": "D", "text": "Email", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 50,
+    "type": "matching",
+    "question": "Match the business rule to its function in the Self-Service Portal.",
+    "left": [
+      { "id": "A", "text": "After registration request submittal, shows info message to user" },
+      { "id": "B", "text": "Shows message to remind users to enter a corret registration code" },
+      { "id": "C", "text": "Validates registration code and assigns account based on the registration code" },
+      { "id": "D", "text": "Checks if the registration is valid based on the user's email address" }
+    ],
+    "right": [
+      { "id": "1", "text": "Display rule" },
+      { "id": "2", "text": "Display request message" },
+      { "id": "3", "text": "validate_registration" },
+      { "id": "4", "text": "Update account based on reg code" }
+    ],
+    "answerMap": { "A": "2", "B": "1", "C": "4", "D": "3" },
+    "explanation": ""
+  },
+  {
+    "id": 51,
+    "type": "single",
+    "question": "The ServiceNow Communities feature is only available for customers with ServiceNow Customer Services Management licenses.",
+    "options": [
+      { "id": "A", "text": "True", "correct": false },
+      { "id": "B", "text": "False", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 52,
+    "type": "single",
+    "question": "Read the use case below to determine if the customer service relationship is B2B or B2C. Mary Contrary experiences a power outage and call the electrical company. The agent determines the outage is local to the customer and scheduled a technician to Mary's house.",
+    "options": [
+      { "id": "A", "text": "B2C", "correct": true },
+      { "id": "B", "text": "B2B", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 53,
+    "type": "multiple",
+    "question": "If the CSM Demo Data Plugin has been installed what are two options either of which will prepare that instance to be used as part of the release path to production? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Zboot the instance", "correct": false },
+      { "id": "B", "text": "Disable the Case Interceptor", "correct": false },
+      { "id": "C", "text": "Remove the Demo Data via a HI Request", "correct": true },
+      { "id": "D", "text": "Clone back to this instance from a valid instance", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 54,
+    "type": "single",
+    "question": "What criteria can be used to determine when a new inbound case should be opened?",
+    "options": [
+      { "id": "A", "text": "When a new customer is created", "correct": false },
+      { "id": "B", "text": "When an internal problem occurs", "correct": false },
+      { "id": "C", "text": "When a customer has a question or issue to resolve", "correct": true },
+      { "id": "D", "text": "When we have new marketing material for a customer", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 55,
+    "type": "single",
+    "question": "From a service provider's perspective, is the following a product or an asset? A cable modem model that the service provider sells.",
+    "options": [
+      { "id": "A", "text": "Product", "correct": true },
+      { "id": "B", "text": "Asset", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 56,
+    "type": "single",
+    "question": "Entitlements specify the level of service provided to customers.",
+    "options": [
+      { "id": "A", "text": "False", "correct": false },
+      { "id": "B", "text": "True", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 57,
+    "type": "single",
+    "question": "Partner admin contacts have access to the data of both their partner accounts and customer accounts.",
+    "options": [
+      { "id": "A", "text": "True", "correct": true },
+      { "id": "B", "text": "False", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 58,
+    "type": "multiple",
+    "question": "Which of the following are best practice with regard to data imports? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "When importing to multiple instances import to each instance separately.", "correct": false },
+      { "id": "B", "text": "Use ServiceNow automatic functionality to clean the data after it is in ServiceNow tables rather than in the legacy repository.", "correct": false },
+      { "id": "C", "text": "Ensure the field data lengths in ServiceNow are adequate for the imported data because ServiceNow does not automatically adjust the length.", "correct": true },
+      { "id": "D", "text": "Images embedded in Knowledge Articles should be uploaded separately.", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 59,
+    "type": "single",
+    "question": "Cost Information on cases is available as part of the Performance Analytics Content Pack for Customer Service.",
+    "options": [
+      { "id": "A", "text": "True", "correct": false },
+      { "id": "B", "text": "False", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 60,
+    "type": "single",
+    "question": "What is the purpose of the Guided Decisions capability?",
+    "options": [
+      { "id": "A", "text": "Provide agents with an escalation guide", "correct": false },
+      { "id": "B", "text": "Guide agents through account management", "correct": false },
+      { "id": "C", "text": "Dynamically guide agents to help resolve complex cases", "correct": true },
+      { "id": "D", "text": "Provide agents with a knowledge guide", "correct": false }
+    ],
+    "explanation": ""
+  },{
+    "id": 1,
+    "type": "single",
+    "question": "Which feature enables you to quickly identify high-priority tasks based on multiple dimensions, not just by a single field value like priority?",
+    "options": [
+      { "id": "A", "text": "Case Performance", "correct": false },
+      { "id": "B", "text": "Case Analytics", "correct": false },
+      { "id": "C", "text": "Case Digest", "correct": false },
+      { "id": "D", "text": "Case Spotlight", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 2,
+    "type": "single",
+    "question": "During which Now Create stage are workshops conducted?",
+    "options": [
+      { "id": "A", "text": "Execute", "correct": false },
+      { "id": "B", "text": "Initiate", "correct": false },
+      { "id": "C", "text": "Deliver", "correct": false },
+      { "id": "D", "text": "Plan", "correct": true },
+      { "id": "E", "text": "Close", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 3,
+    "type": "single",
+    "question": "Which application must be activated to enable customers to check in on-line for future appointments?",
+    "options": [
+      { "id": "A", "text": "Business Location", "correct": false },
+      { "id": "B", "text": "Walk-Up Experience", "correct": true },
+      { "id": "C", "text": "Field Service Management", "correct": false },
+      { "id": "D", "text": "Service Organization", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 4,
+    "type": "multiple",
+    "question": "What are some of the influencing factors that will help determine the type of customer support desk structure required? (Choose four.)",
+    "options": [
+      { "id": "A", "text": "Knowledge and skills required for agents", "correct": true },
+      { "id": "B", "text": "Geographical location of customer", "correct": true },
+      { "id": "C", "text": "Languages spoken by agents", "correct": true },
+      { "id": "D", "text": "Number and type of support tools available", "correct": false },
+      { "id": "E", "text": "Number of customer service portals used", "correct": false },
+      { "id": "F", "text": "Number of agents required", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 5,
+    "type": "single",
+    "question": "What is the default value in the Channel field when a new case is opened by a customer in the Service Catalog, using the Customer Service Portal?",
+    "options": [
+      { "id": "A", "text": "Web", "correct": true },
+      { "id": "B", "text": "Catalog", "correct": false },
+      { "id": "C", "text": "Portal", "correct": false },
+      { "id": "D", "text": "Virtual Agent", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 6,
+    "type": "single",
+    "question": "When activating the Customer Service Management Demo Data plugin, which case type is available besides product case?",
+    "options": [
+      { "id": "A", "text": "Order", "correct": true },
+      { "id": "B", "text": "Contract", "correct": false },
+      { "id": "C", "text": "FAQ", "correct": false },
+      { "id": "D", "text": "Monitoring", "correct": false },
+      { "id": "E", "text": "Request", "correct": false },
+      { "id": "F", "text": "Billing", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 7,
+    "type": "single",
+    "question": "What's the purpose of the Deactivate Special Handling Notes Scheduled Job?",
+    "options": [
+      { "id": "A", "text": "Runs at the end of the month and deactivates all Special Handling notes more than 30 days old", "correct": false },
+      { "id": "B", "text": "Runs weekly and must have the Active checkbox unchecked in order for Special Handling notes to be deleted by the end of the week", "correct": false },
+      { "id": "C", "text": "Runs on demand by the System Admin who must set specific weekly schedules and set only those that are priority 1-critical to be deactivated", "correct": false },
+      { "id": "D", "text": "Runs daily at midnight, checks all active alerts and sets the status to Expired for those that have reached their expiration dates", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 8,
+    "type": "single",
+    "question": "What does the Agent Whisper function do?",
+    "options": [
+      { "id": "A", "text": "Lets agents and chat supervisors have a conversation without the requester knowing", "correct": true },
+      { "id": "B", "text": "Lets the chat supervisors have a conversation with the requester without the agent knowing", "correct": false },
+      { "id": "C", "text": "Lets agents have chat conversations with other agents without the requester knowing", "correct": false },
+      { "id": "D", "text": "Lets agents and requesters have a conversation without the chat supervisor knowing", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 9,
+    "type": "multiple",
+    "question": "Upon self-registration through the Consumer Service Portal, a record is created in: (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Contact (customer_contact)", "correct": false },
+      { "id": "B", "text": "Consumer User (csm_consumer-user)", "correct": true },
+      { "id": "C", "text": "Consumer (csm_consumer)", "correct": true },
+      { "id": "D", "text": "CSM User (csm_user)", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 10,
+    "type": "multiple",
+    "question": "Who can create a customer service case from a community discussion? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Customer service agent (sn_customerservice_agent)", "correct": true },
+      { "id": "B", "text": "Proxy case creator (sn_customerservice.proxy_case_creator)", "correct": true },
+      { "id": "C", "text": "Partner (sn_customerservice.partner)", "correct": false },
+      { "id": "D", "text": "Case Viewer (sn_customerservice.case_viewer)", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 11,
+    "type": "multiple",
+    "question": "The assignment workbench uses configurable matching criteria to evaluate agents in a selected group and provide an overall ranking. What are the different types of criteria available for the assignment workbench? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Correlation", "correct": false },
+      { "id": "B", "text": "Availability", "correct": false },
+      { "id": "C", "text": "Scripted", "correct": true },
+      { "id": "D", "text": "Simple Match", "correct": true },
+      { "id": "E", "text": "Aggregate", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 12,
+    "type": "multiple",
+    "question": "Asset classes are defined to allow for logical grouping of assets. There are five asset classes provided to group assets, each Asset class provides unique functionality for that group of Assets in the platform. Which of the following are the asset classes used? (Choose five.)",
+    "options": [
+      { "id": "A", "text": "Hardware assets", "correct": true },
+      { "id": "B", "text": "Facility assets", "correct": true },
+      { "id": "C", "text": "Configuration assets", "correct": false },
+      { "id": "D", "text": "Software licenses assets", "correct": true },
+      { "id": "E", "text": "Enterprise Software assets", "correct": true },
+      { "id": "F", "text": "Network assets", "correct": false },
+      { "id": "G", "text": "Consumables assets", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 13,
+    "type": "single",
+    "question": "Which of the following best describes how the CSM application uses the Asset table?",
+    "options": [
+      { "id": "A", "text": "CSM uses the Product table instead of the ITSM Asset table", "correct": false },
+      { "id": "B", "text": "CSM uses the Product Model table instead of the ITSM Asset table", "correct": false },
+      { "id": "C", "text": "ServiceNow uses the same Asset table for both CSM and ITSM, however CSM has a different subset of fields", "correct": true },
+      { "id": "D", "text": "Because CSM Assets are managed differently from ITSM Assets ServiceNow uses different Asset Tables for CSM than it does for ITSM", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 14,
+    "type": "single",
+    "question": "A consumer service agent receives and accepts a case which was created by a consumer. The agent needs and requests more information from the consumer. After receiving the information, the agent proposes a solution that is accepted by the consumer. Given this scenario, what is the chronological order of case states used to manage this case?",
+    "options": [
+      { "id": "A", "text": "New > Work in Progress > On Hold > Work in Progress > Resolved > Closed", "correct": false },
+      { "id": "B", "text": "New > Open > Work in Progress > Solution Proposed > Closed", "correct": false },
+      { "id": "C", "text": "Open > Pending > Work in Progress > Resolved > Closed", "correct": false },
+      { "id": "D", "text": "New > Open > Awaiting Info > Open > Resolved > Closed", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 15,
+    "type": "multiple",
+    "question": "What are the types of matching criteria for Customer Service? (Choose four.)",
+    "options": [
+      { "id": "A", "text": "Matching Skills", "correct": true },
+      { "id": "B", "text": "Last Assigned", "correct": true },
+      { "id": "C", "text": "Certifications", "correct": false },
+      { "id": "D", "text": "Distance", "correct": false },
+      { "id": "E", "text": "Assigned Cases", "correct": true },
+      { "id": "F", "text": "Availability Today", "correct": true },
+      { "id": "G", "text": "Partner Hours", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 16,
+    "type": "single",
+    "question": "What is a supported external customer that, in turn, sells to and supports one or more customers?",
+    "options": [
+      { "id": "A", "text": "Partner", "correct": true },
+      { "id": "B", "text": "Account", "correct": false },
+      { "id": "C", "text": "Contact", "correct": false },
+      { "id": "D", "text": "Consumer", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 17,
+    "type": "single",
+    "question": "Customer Service Trending Topics is a capability that enables companies to use Predictive Intelligence to quickly pinpoint factors driving up case volume and act to mitigate them. Which of the following would be a benefit of using Predictive Intelligence Customer Service Trending Topics?",
+    "options": [
+      { "id": "A", "text": "Eliminate the need for more traditional performance analytics", "correct": false },
+      { "id": "B", "text": "Auto-generate clusters of cases that point to similar underlying issues", "correct": true },
+      { "id": "C", "text": "Create root cause solutions for similar cases", "correct": false },
+      { "id": "D", "text": "A guaranteed reduction in call volume per month", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 18,
+    "type": "multiple",
+    "question": "Which ServiceNow applications can be integrated out-of-the-box with CSM? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Service Portfolio Management", "correct": true },
+      { "id": "B", "text": "Project Management", "correct": true },
+      { "id": "C", "text": "DevOps", "correct": false },
+      { "id": "D", "text": "Risk Management", "correct": false },
+      { "id": "E", "text": "ITOM Event Management", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 19,
+    "type": "multiple",
+    "question": "Which of the following are benefits that may be gained from using communities? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Reduce support costs", "correct": true },
+      { "id": "B", "text": "Engagement with Customers", "correct": true },
+      { "id": "C", "text": "Get product feedback", "correct": true },
+      { "id": "D", "text": "Reduce cost per sales", "correct": false },
+      { "id": "E", "text": "Increase marketing effectiveness", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 20,
+    "type": "single",
+    "question": "What is a case?",
+    "options": [
+      { "id": "A", "text": "An individual record that handles and resolves incidents for external customers", "correct": false },
+      { "id": "B", "text": "An individual record that is used to identify and create automation opportunities", "correct": false },
+      { "id": "C", "text": "An individual record that is used to identify and resolve a question or issue for an external customer", "correct": true },
+      { "id": "D", "text": "An individual record that handles and routes issues for internal users", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 21,
+    "type": "single",
+    "question": "External content integration is important for agents to be able to access knowledge articles from external sources. ALL external sources must be:",
+    "options": [
+      { "id": "A", "text": "WebDAV-versioned", "correct": false },
+      { "id": "B", "text": "Web-configurable", "correct": false },
+      { "id": "C", "text": "WebDAV-compliant", "correct": true },
+      { "id": "D", "text": "Web-based", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 22,
+    "type": "multiple",
+    "question": "An Account Relationship is based on a defined account relationship type. Users with the System Administrator role can define two types of relationships: (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Partner-to-customer", "correct": false },
+      { "id": "B", "text": "Account-to-customer", "correct": false },
+      { "id": "C", "text": "Account-to-account", "correct": true },
+      { "id": "D", "text": "Customer-to-Consumer", "correct": false },
+      { "id": "E", "text": "Partner-to-account", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 23,
+    "type": "single",
+    "question": "Which knowledge records can be configured with User Criteria?",
+    "options": [
+      { "id": "A", "text": "Knowledge Base", "correct": false },
+      { "id": "B", "text": "Knowledge Base and Category", "correct": false },
+      { "id": "C", "text": "Knowledge Base, Category and Article", "correct": false },
+      { "id": "D", "text": "Knowledge Base and Article", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 24,
+    "type": "multiple",
+    "question": "When the virtual agent plugin is installed NLU is activated but is not available for use until what two configurations are completed? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Choose the NLU service provider", "correct": true },
+      { "id": "B", "text": "In the NLU Settings configure the Intent confidence threshold", "correct": false },
+      { "id": "C", "text": "Enable NLU in Virtual Agent", "correct": true },
+      { "id": "D", "text": "In the NLU Settings configure the Entity confidence threshold", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 25,
+    "type": "multiple",
+    "question": "An entitlement defines the types of support a customer receives. Entitlements are based on a number of standard fields such as product and asset. When Proactive Customer Service Operations is implemented which additional fields could be used? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Contact", "correct": false },
+      { "id": "B", "text": "Configuration Item", "correct": false },
+      { "id": "C", "text": "Business Service", "correct": false },
+      { "id": "D", "text": "Install base item", "correct": true },
+      { "id": "E", "text": "Sold product", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 26,
+    "type": "single",
+    "question": "When implementing Knowledge Product Entitlements, what is enabled when activating the Enable access control of Knowledge Articles system property?",
+    "options": [
+      { "id": "A", "text": "Allows access to knowledge articles based on customer's security access", "correct": false },
+      { "id": "B", "text": "Allows access to knowledge articles that are related to entitlements owned by a customer", "correct": false },
+      { "id": "C", "text": "Allows access to multi-product line knowledge articles", "correct": false },
+      { "id": "D", "text": "Allows access to knowledge articles that are related to products owned by a customer", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 27,
+    "type": "multiple",
+    "question": "Advance Work Assignment assigns work to agents based on their availability, capacity, and skills. Agent Affinity enhances the Advanced Work Assignment process by adding additional agent details organized by affinity type. Which of these are these affinity types? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Skill seniority", "correct": false },
+      { "id": "B", "text": "Account team responsibility", "correct": true },
+      { "id": "C", "text": "Historical", "correct": true },
+      { "id": "D", "text": "Related task", "correct": true },
+      { "id": "E", "text": "Product expertise", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 28,
+    "type": "single",
+    "question": "In Agent Workspace Chat, Agents have the ability to use quick actions to work more efficiently. What action does the /r quick action perform?",
+    "options": [
+      { "id": "A", "text": "Rejects an incoming chat and moves it automatically to the \"General\" queue", "correct": false },
+      { "id": "B", "text": "Routes the chat towards another group", "correct": false },
+      { "id": "C", "text": "Uses response templates to insert as text in a conversation", "correct": true },
+      { "id": "D", "text": "Rolls up the current chat history towards an existing case", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 29,
+    "type": "single",
+    "question": "Name a security benefit gained from using scoped applications:",
+    "options": [
+      { "id": "A", "text": "Prevents changes to tables without explicit permission from IT", "correct": false },
+      { "id": "B", "text": "Prevents third party integrations", "correct": false },
+      { "id": "C", "text": "Limits accessibility to other applications in the instance", "correct": true },
+      { "id": "D", "text": "Limits the number of update sets that can be applied", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 30,
+    "type": "single",
+    "question": "The CSM application has a feature that can be used to filter records in CSM-related tables which are accessible by users with CSM roles. This feature makes it unnecessary to create business logic for those persona access the data. What is this feature?",
+    "options": [
+      { "id": "A", "text": "CSM Query Rules", "correct": true },
+      { "id": "B", "text": "Data Policies", "correct": false },
+      { "id": "C", "text": "Filtered Lists", "correct": false },
+      { "id": "D", "text": "Access Types", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 31,
+    "type": "single",
+    "question": "In Advanced Work Assignment, what does the overflow assignment capability do, if defined?",
+    "options": [
+      { "id": "A", "text": "When one support group reaches capacity the work item is automatically routed to another group", "correct": true },
+      { "id": "B", "text": "Uses matching and assignment rules to send work items to the agent with the highest availability", "correct": false },
+      { "id": "C", "text": "Routes cases to different groups based on their skill set and availability", "correct": false },
+      { "id": "D", "text": "Uses matching and assignment rules to send work items to the agent with the most capacity", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 32,
+    "type": "single",
+    "question": "Which role must B2B and B2C customers obtain, at a MINIMUM, to access to a ServiceNow instance?",
+    "options": [
+      { "id": "A", "text": "External (snc_external)", "correct": true },
+      { "id": "B", "text": "Account Contact (sn_customeservice.account_contact)", "correct": false },
+      { "id": "C", "text": "Customer (sn_customerservice.customer)", "correct": false },
+      { "id": "D", "text": "Case Creator (sn_customerservice.case_creator)", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 33,
+    "type": "single",
+    "question": "Which Flow Designer flow can be used to automatically close resolved cases if customers do not respond within a specified time?",
+    "options": [
+      { "id": "A", "text": "Close Cases in Resolved state", "correct": false },
+      { "id": "B", "text": "Auto Close Resolved Cases", "correct": true },
+      { "id": "C", "text": "Resolved to Close State", "correct": false },
+      { "id": "D", "text": "Move Resolved Cases to Closed", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 34,
+    "type": "single",
+    "question": "What role can be assigned to employees who are not fulfillers, such as those in sales and services, or do not have other CSM-specific roles, but have a need to create cases on behalf of customers?",
+    "options": [
+      { "id": "A", "text": "Consumer (sn_customservice.consumer)", "correct": false },
+      { "id": "B", "text": "Customer (sn_suctomservice.customer)", "correct": false },
+      { "id": "C", "text": "External (snc_external)", "correct": false },
+      { "id": "D", "text": "Proxy Contact (sn_customservice.proxy_contact)", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 35,
+    "type": "multiple",
+    "question": "Proactive Customer Service Operations works Event Management to proactively monitor and fix issues affecting customers. It can also trigger case workflow's and enable organizations to notify customers whose services or products are impacted by an outage or issue. What are the three main components that make up Proactive Customer Service Operations? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Proactive Prevention", "correct": false },
+      { "id": "B", "text": "Service-Aware Install Base", "correct": true },
+      { "id": "C", "text": "Service Reporting", "correct": false },
+      { "id": "D", "text": "Proactive Case", "correct": true },
+      { "id": "E", "text": "Service-Aware CMDB", "correct": false },
+      { "id": "F", "text": "Service Monitoring", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 36,
+    "type": "multiple",
+    "question": "Which roles are considered external? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Consumer Support Agent (sn_customerservice.consumer_agent)", "correct": false },
+      { "id": "B", "text": "Customer Admin (sn_customerservice.customer_admin)", "correct": true },
+      { "id": "C", "text": "Partner Admin (sn_customerservice.partner_admin)", "correct": true },
+      { "id": "D", "text": "Customer Service Agent (sn_customerservice_agent)", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 37,
+    "type": "single",
+    "question": "The default configuration automatically closes resolved Cases after how many days?",
+    "options": [
+      { "id": "A", "text": "5 days", "correct": false },
+      { "id": "B", "text": "Cases are not automatically closed by default", "correct": true },
+      { "id": "C", "text": "3 days", "correct": false },
+      { "id": "D", "text": "10 days", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 38,
+    "type": "single",
+    "question": "What do blue circles in the timeline of a case form represent?",
+    "options": [
+      { "id": "A", "text": "Triggered SLAs", "correct": false },
+      { "id": "B", "text": "Activity updates", "correct": false },
+      { "id": "C", "text": "Customer comments", "correct": false },
+      { "id": "D", "text": "State changes", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 39,
+    "type": "multiple",
+    "question": "What are the different resource matching methods on the Matching Rule form? (Choose four.)",
+    "options": [
+      { "id": "A", "text": "History", "correct": false },
+      { "id": "B", "text": "Scripted", "correct": true },
+      { "id": "C", "text": "Advanced", "correct": true },
+      { "id": "D", "text": "Simple", "correct": true },
+      { "id": "E", "text": "Skill", "correct": false },
+      { "id": "F", "text": "Selection Criteria", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 40,
+    "type": "multiple",
+    "question": "Which of the following child case states would cause parent - child case synchronization to fail? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Resolved", "correct": true },
+      { "id": "B", "text": "In Progress", "correct": false },
+      { "id": "C", "text": "Awaiting Info", "correct": false },
+      { "id": "D", "text": "New", "correct": false },
+      { "id": "E", "text": "Closed", "correct": true },
+      { "id": "F", "text": "Cancelled", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 41,
+    "type": "single",
+    "question": "External customers can view the problem, change, and request records associated with their customer service cases from the Customer and Consumer Service Portals. Which of the following can they approve in relation to cases via the portals?",
+    "options": [
+      { "id": "A", "text": "Request Records and Escalations", "correct": false },
+      { "id": "B", "text": "Change Records and Request Records", "correct": true },
+      { "id": "C", "text": "Problem Records and Escalations", "correct": false },
+      { "id": "D", "text": "Problem Records and Incident Records", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 42,
+    "type": "multiple",
+    "question": "Playbooks for CSM provide step-by-step guidance for resolving specific types of customer service cases. What are the three out-of-the-box playbooks for CSM? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Case playbook for Onboarding", "correct": true },
+      { "id": "B", "text": "Case playbook for Services", "correct": false },
+      { "id": "C", "text": "Case playbook for Product Support", "correct": true },
+      { "id": "D", "text": "Case playbook for Complaints", "correct": true },
+      { "id": "E", "text": "Case playbook for Billing", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 43,
+    "type": "multiple",
+    "question": "Based on which out-of-box attributes can Special handling Notes be applied to cases? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Service Contract", "correct": false },
+      { "id": "B", "text": "Install Base Item", "correct": false },
+      { "id": "C", "text": "Product", "correct": true },
+      { "id": "D", "text": "Account", "correct": true },
+      { "id": "E", "text": "Contact", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 44,
+    "type": "single",
+    "question": "As an agent you can report a knowledge gap, if you cannot find relevant articles that could help resolve a case. Which action is required to create the knowledge gap?",
+    "options": [
+      { "id": "A", "text": "Document the knowledge gap in the case work notes and escalate the case", "correct": false },
+      { "id": "B", "text": "Post a question in one of the various Customer Service Management knowledge bases", "correct": false },
+      { "id": "C", "text": "Use Related Links on the case form to report a knowledge gap", "correct": true },
+      { "id": "D", "text": "Use the Create Knowledge button on the case form to report a knowledge gap", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 45,
+    "type": "single",
+    "question": "What feature does the Product Model and Catalog Items Relationship plugin enable?",
+    "options": [
+      { "id": "A", "text": "Agents are automatically proposed catalog items related to the chosen product on the case form", "correct": false },
+      { "id": "B", "text": "Consumers can track what products they have purchased via the catalog", "correct": false },
+      { "id": "C", "text": "It provides a contextual service catalog based on the customer's subscribed services", "correct": true },
+      { "id": "D", "text": "Customer service managers can track the financial cost of customer's subscribed services and the related requests", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 46,
+    "type": "single",
+    "question": "What happens to a case whenever the state of one of the associated IT Service Management records (incident, problem, change) is updated?",
+    "options": [
+      { "id": "A", "text": "The case escalates to an assignment group as defined in the default escalation template", "correct": false },
+      { "id": "B", "text": "The case work notes are updated automatically", "correct": true },
+      { "id": "C", "text": "The case action status changes to Related Task Updated", "correct": false },
+      { "id": "D", "text": "The case displays a special handling note highlighting the update", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 47,
+    "type": "multiple",
+    "question": "Application Scoping from a security perspective brings the following benefits: (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Improves instance security by limiting access to other applications on the instance", "correct": true },
+      { "id": "B", "text": "Scoped applications prevent versioning for complex instances", "correct": false },
+      { "id": "C", "text": "Scoping hold the records and acts as a container for the desired CSM applications", "correct": true },
+      { "id": "D", "text": "Scoped applications limits autonomy and control of all aspects of the CSM application", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 48,
+    "type": "single",
+    "question": "How can multiple service catalogs be made available on the Customer Service Portal?",
+    "options": [
+      { "id": "A", "text": "Include them in the list of service catalogs on the Customer Service Portal record", "correct": true },
+      { "id": "B", "text": "Add them to the list of service catalogs in the Customer Service Portal header widget options", "correct": false },
+      { "id": "C", "text": "Only the Customer Service service catalog can be used on the Customer Service Portal", "correct": false },
+      { "id": "D", "text": "Create user criteria for each of the applicable service catalogs", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 49,
+    "type": "single",
+    "question": "Now Create provides a prescriptive methodology, leading practices, and accelerators to help with ServiceNow implementations and upgrades. How many sequential project phases and exit gates are there in the Now Create Methodology?",
+    "options": [
+      { "id": "A", "text": "Three", "correct": false },
+      { "id": "B", "text": "Five", "correct": true },
+      { "id": "C", "text": "Four", "correct": false },
+      { "id": "D", "text": "Six", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 50,
+    "type": "single",
+    "question": "From which one of the following can an agent create a CSM Case:",
+    "options": [
+      { "id": "A", "text": "Human Resource Application", "correct": false },
+      { "id": "B", "text": "Incident Management", "correct": false },
+      { "id": "C", "text": "Chat", "correct": true },
+      { "id": "D", "text": "Special Handling Note", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 51,
+    "type": "single",
+    "question": "Using the out-of-the-box major issue management process flow, a consumer service agent proposes an existing case in the Open state as a major case candidate. The major case candidate has a consumer defined and is approved by the customer service manager What happens to the major case candidate?",
+    "options": [
+      { "id": "A", "text": "The major case candidate becomes a major case", "correct": false },
+      { "id": "B", "text": "A new major case is created and the major case candidate is added as a child to the major case", "correct": true },
+      { "id": "C", "text": "The major case candidate requires an approval from the major issue manager", "correct": false },
+      { "id": "D", "text": "The major case candidate is closed and a new major case is created", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 52,
+    "type": "multiple",
+    "question": "What types of escalation templates can be created? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Case", "correct": true },
+      { "id": "B", "text": "Sold Product", "correct": false },
+      { "id": "C", "text": "Consumer", "correct": false },
+      { "id": "D", "text": "Account", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 53,
+    "type": "multiple",
+    "question": "What are the recommended good practices when running implementation workshops? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Give the customers the data they need so they can make an informed decision", "correct": true },
+      { "id": "B", "text": "Any financial implication of a decision should be handled by the delivery and sales team", "correct": false },
+      { "id": "C", "text": "Enforce customers to adapt their processes towards the baseline processes", "correct": false },
+      { "id": "D", "text": "Engage with customers to gain deep understanding of their organization", "correct": true },
+      { "id": "E", "text": "Guide the customer toward industry best practices", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 54,
+    "type": "single",
+    "question": "What is the specific type of catalog item called that allows users to create task-based records, such as case records, from the Service Catalog?",
+    "options": [
+      { "id": "A", "text": "Request Item", "correct": false },
+      { "id": "B", "text": "Record Producer", "correct": true },
+      { "id": "C", "text": "Catalog Processor", "correct": false },
+      { "id": "D", "text": "Case Template", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 55,
+    "type": "single",
+    "question": "Out-of-box, which functionality handles state transitioning for case management?",
+    "options": [
+      { "id": "A", "text": "Workflows", "correct": false },
+      { "id": "B", "text": "State Flows", "correct": true },
+      { "id": "C", "text": "Business Rules", "correct": false },
+      { "id": "D", "text": "Flows", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 56,
+    "type": "multiple",
+    "question": "Which of the following are benefits of customer access management? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "It defaults the responsibility for access management to the customer service agent.", "correct": false },
+      { "id": "B", "text": "It increases security by automatically providing access to case information based on account hierarchy", "correct": false },
+      { "id": "C", "text": "It increases automation by automatically granting access to cases based on access to sold product", "correct": true },
+      { "id": "D", "text": "It improves the customer experience by enabling related parties to track and collaborate on cases.", "correct": true },
+      { "id": "E", "text": "It defaults the responsibility for access management to the customer", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 57,
+    "type": "multiple",
+    "question": "What are the advantages of leading indicators over lagging indicators? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Hard to influence", "correct": false },
+      { "id": "B", "text": "Prospective", "correct": true },
+      { "id": "C", "text": "Retrospective", "correct": false },
+      { "id": "D", "text": "Easy to influence", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 58,
+    "type": "single",
+    "question": "Customer Service Management Administrators can delegate Contact Administration activities to specific contacts within accounts by assigning specific roles to one or more users. Which of the following roles, if assigned, would allow the user to create contacts?",
+    "options": [
+      { "id": "A", "text": "Customer case manager (sn_customerservice.customer_case_manager)", "correct": false },
+      { "id": "B", "text": "Customer account manager (sn_customerservice.customer_account_manager)", "correct": false },
+      { "id": "C", "text": "Customer admin (sn_customerservice.customer_admln)", "correct": true },
+      { "id": "D", "text": "Customer (sn_customerservice.customer)", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 59,
+    "type": "single",
+    "question": "What is knowledge article versioning?",
+    "options": [
+      { "id": "A", "text": "A content tracker for knowledge articles", "correct": false },
+      { "id": "B", "text": "A knowledge article publishing guide", "correct": false },
+      { "id": "C", "text": "The ability to manage and track article updates", "correct": true },
+      { "id": "D", "text": "A knowledge article numbering guide", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 60,
+    "type": "single",
+    "question": "Service providers use business models to support their various customers. What type of customer is supported with the Business-to-Consumer (B2C) model?",
+    "options": [
+      { "id": "A", "text": "Individuals", "correct": true },
+      { "id": "B", "text": "Partners", "correct": false },
+      { "id": "C", "text": "Contacts", "correct": false },
+      { "id": "D", "text": "Accounts", "correct": false }
+    ],
+    "explanation": ""
+  },{
+    "id": 1,
+    "type": "single",
+    "question": "When configuring email in Communication Channels, how many outgoing email addresses are supported?",
+    "options": [
+      { "id": "A", "text": "One", "correct": true },
+      { "id": "B", "text": "Two", "correct": false },
+      { "id": "C", "text": "Three", "correct": false },
+      { "id": "D", "text": "Unlimited", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 2,
+    "type": "multiple",
+    "question": "Which of the following roles have permission to create a relationship between a contact and an account? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "sn_customerservice_agent", "correct": false },
+      { "id": "B", "text": "sn_customerservice.customer_admm", "correct": false },
+      { "id": "C", "text": "sn_customerservice.partner_admin", "correct": false },
+      { "id": "D", "text": "sn_customerservice_manager", "correct": true },
+      { "id": "E", "text": "admin", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 3,
+    "type": "single",
+    "question": "In CSM Asset Management has a different meaning than in ITSM or Corporate Finance Which of the following defines Asset Management in CSM?",
+    "options": [
+      { "id": "A", "text": "The process of developing, operating, maintaining, upgrading, and disposing of assets in me most cost-effective manner", "correct": false },
+      { "id": "B", "text": "A generic activity or process responsible for tracking and reporting the value and ownership of assets throughout their lifecycle", "correct": false },
+      { "id": "C", "text": "Asset management has different use cases for tracking specific products or services customers are using", "correct": true },
+      { "id": "D", "text": "It includes all of the data crucial to support customers as efficiently as possible", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 4,
+    "type": "single",
+    "question": "What is KCS (Knowledge Centered Services)?",
+    "options": [
+      { "id": "A", "text": "A bunch of tables strictly pertaining to CSM case articles that focus on mapping articles to Knowledge management", "correct": false },
+      { "id": "B", "text": "A documented methodology to provide a set of best practices for creating and maintaining knowledge", "correct": true },
+      { "id": "C", "text": "A dashboard with specific visualization of the different knowledge bases and categories", "correct": false },
+      { "id": "D", "text": "An application that helps agents and managers to create cases from Knowledge articles", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 5,
+    "type": "multiple",
+    "question": "When creating or importing assets for CSM, model categories are used to: (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Define whether a Configuration Item (CI) is created when an Asset record is created or vice versa", "correct": true },
+      { "id": "B", "text": "Group assets together", "correct": true },
+      { "id": "C", "text": "Build a classification structure for product models", "correct": false },
+      { "id": "D", "text": "Model the configuration options for each product model being sold to customers", "correct": false },
+      { "id": "E", "text": "Define a link between Asset classes and Configuration Item (CI) classes", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 6,
+    "type": "multiple",
+    "question": "Viewing a customer's install base in the CSM Workspaces enables customer service agents to: (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Close an upsell of related products and services not yet purchased by a customer", "correct": true },
+      { "id": "B", "text": "See the detailed configurations of the products and services deployed for a customer to determine the action needed", "correct": true },
+      { "id": "C", "text": "Trace Information provided in a case to the right product or service to which it relates", "correct": false },
+      { "id": "D", "text": "Monitor related operational services and configuration items that affect service health", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 7,
+    "type": "multiple",
+    "question": "Benefits of Proactive Customer Service Operations include: (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Reduced inbound calls from customers", "correct": true },
+      { "id": "B", "text": "Reduction in staff turnover", "correct": false },
+      { "id": "C", "text": "Major cases can be eliminated as there will be no Impact to customers", "correct": false },
+      { "id": "D", "text": "Reduced Mean Time To Resolve (MTTR)", "correct": true },
+      { "id": "E", "text": "Guaranteed increase in customer satisfaction", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 8,
+    "type": "multiple",
+    "question": "What features are included with the Customer Service Portal? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Header with links for different customer activities such as creating a case", "correct": true },
+      { "id": "B", "text": "Search feature to get information from several repositories", "correct": true },
+      { "id": "C", "text": "Links to information sources such as the knowledge base, community and customer support", "correct": true },
+      { "id": "D", "text": "Links to marketing promotions and product coupons", "correct": false },
+      { "id": "E", "text": "The ability to create new accounts", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 9,
+    "type": "single",
+    "question": "What does NLU stand for?",
+    "options": [
+      { "id": "A", "text": "Natural-Learning Userability", "correct": false },
+      { "id": "B", "text": "Natural-Language Understanding", "correct": true },
+      { "id": "C", "text": "Natural-Learning URL", "correct": false },
+      { "id": "D", "text": "Natural-Language URL", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 10,
+    "type": "single",
+    "question": "Out-of-the-box. cases are automatically closed after how many days?",
+    "options": [
+      { "id": "A", "text": "3 days", "correct": false },
+      { "id": "B", "text": "5 days", "correct": false },
+      { "id": "C", "text": "10 days", "correct": false },
+      { "id": "D", "text": "Cases are not automatically closed by default", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 11,
+    "type": "single",
+    "question": "When are any changes to the platform considered a customization?",
+    "options": [
+      { "id": "A", "text": "When they require an implementation spread across all project phases", "correct": false },
+      { "id": "B", "text": "If they are NOT applied through the usage of built-in tools on the Now Platform", "correct": false },
+      { "id": "C", "text": "When they are solely implemented for a custom application", "correct": false },
+      { "id": "D", "text": "When there are business demands for custom functionality that is not offered out-of the-box", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 12,
+    "type": "single",
+    "question": "Which solution must be implemented to let a breakdown dashboard appear as a pop-up window on the case form?",
+    "options": [
+      { "id": "A", "text": "Service Analytics", "correct": false },
+      { "id": "B", "text": "In-form Analytics", "correct": true },
+      { "id": "C", "text": "Case Spotlight", "correct": false },
+      { "id": "D", "text": "CSM Prediction Results", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 13,
+    "type": "multiple",
+    "question": "The case digests feature includes which types of case communication? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Case Lifecycle Reports", "correct": false },
+      { "id": "B", "text": "Case Action Summaries", "correct": true },
+      { "id": "C", "text": "Post Case Reviews", "correct": true },
+      { "id": "D", "text": "Case Post Mortem", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 14,
+    "type": "multiple",
+    "question": "By default what can customers with the customer (sn_customerservice.customer) role see on the customer service portal? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Assets", "correct": true },
+      { "id": "B", "text": "Publications", "correct": true },
+      { "id": "C", "text": "Products", "correct": true },
+      { "id": "D", "text": "Contacts", "correct": false },
+      { "id": "E", "text": "Contracts", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 15,
+    "type": "single",
+    "question": "Which feature allows an agent to copy reusable messages to case or task forms to provide quick and consistent messages to users?",
+    "options": [
+      { "id": "A", "text": "Quick Messages", "correct": false },
+      { "id": "B", "text": "Quick Actions", "correct": false },
+      { "id": "C", "text": "Response Templates", "correct": true },
+      { "id": "D", "text": "Templates", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 16,
+    "type": "single",
+    "question": "In the Customer Service Management space what defines the term asset?",
+    "options": [
+      { "id": "A", "text": "A physical item", "correct": false },
+      { "id": "B", "text": "A specific product instance supported for a customer", "correct": true },
+      { "id": "C", "text": "A product that a company supports", "correct": false },
+      { "id": "D", "text": "A resource that allows a business service", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 17,
+    "type": "multiple",
+    "question": "Which capabilities does the integration with Microsoft Outlook add-in offer? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Escalate a case on the add-m panel of Outlook", "correct": false },
+      { "id": "B", "text": "Register the sender of an email as contact", "correct": true },
+      { "id": "C", "text": "As the Microsoft Outlook user, register yourself as self-contributor", "correct": false },
+      { "id": "D", "text": "Create cases using email content in Outlook for the customer contact", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 18,
+    "type": "single",
+    "question": "To which entities can Special Handling Notes be applied out of the box?",
+    "options": [
+      { "id": "A", "text": "Consumer", "correct": true },
+      { "id": "B", "text": "Entitlement", "correct": false },
+      { "id": "C", "text": "Sold Product", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 19,
+    "type": "multiple",
+    "question": "Which service catalogs are available out-of-the-box in the customer portals? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Partner Service", "correct": false },
+      { "id": "B", "text": "Customer Service", "correct": true },
+      { "id": "C", "text": "Consumer Service", "correct": true },
+      { "id": "D", "text": "Product Service", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 20,
+    "type": "single",
+    "question": "Partner admin (sn_customerservice.partner_admin) contacts have access to:",
+    "options": [
+      { "id": "A", "text": "Their customer account", "correct": false },
+      { "id": "B", "text": "Their partner accounts", "correct": false },
+      { "id": "C", "text": "Both", "correct": true },
+      { "id": "D", "text": "Neither", "correct": false }
+    ],
+    "explanation": ""
+  },{
+    "id": 21,
+    "type": "multiple",
+    "question": "From a security perspective, scoping brings several benefits: (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Improves instance security by limiting accessibility to other applications on the instance", "correct": true },
+      { "id": "B", "text": "Provides CSM teams the autonomy and control needed to configure and manage the CSM application, but not the CSM Service Portals", "correct": false },
+      { "id": "C", "text": "IT can manage and control the pace of the CSM teams because dependencies have been put in place", "correct": false },
+      { "id": "D", "text": "The scope holds the records and acts as a container for the desired Customer Service Management Applications", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 22,
+    "type": "single",
+    "question": "Advanced Work Assignment (AWA) pushes work to qualified agents using work item queues, routing conditions, and assignment criteria that you define. Which step would ensure the work was allocated to the appropriate agent?",
+    "options": [
+      { "id": "A", "text": "Set the Agent Experience (What agents see in their Workspace inbox)", "correct": false },
+      { "id": "B", "text": "Define Assignment Rules (How to assign work items)", "correct": true },
+      { "id": "C", "text": "Define Work Item Queues (Where to route)", "correct": false },
+      { "id": "D", "text": "Configure Service Channels (What to route)", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 23,
+    "type": "single",
+    "question": "What action can be performed by a Partner Admin (sn_customerservice.partner_admin) and NOT by a Partner (sn_customerservice partner) in the Customer Service Portal?",
+    "options": [
+      { "id": "A", "text": "Can view assets belonging to their partner accounts", "correct": false },
+      { "id": "B", "text": "Can create, view, and edit cases for their partner accounts", "correct": false },
+      { "id": "C", "text": "Can resolve cases reported by their partner accounts", "correct": false },
+      { "id": "D", "text": "Can create and update contacts for their partner accounts", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 24,
+    "type": "single",
+    "question": "What is a household entity?",
+    "options": [
+      { "id": "A", "text": "Group of users that usually share a common address and use services as a group", "correct": false },
+      { "id": "B", "text": "Group of people that usually share a common address and use services as a group", "correct": false },
+      { "id": "C", "text": "Group of customers that usually share a common address and use services as a group", "correct": false },
+      { "id": "D", "text": "Group of consumers that usually share a common address and use services as a group", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 25,
+    "type": "single",
+    "question": "Why does the implementation team need to deliver core functionality to the customer as quickly as possible?",
+    "options": [
+      { "id": "A", "text": "To expand the technical reach", "correct": false },
+      { "id": "B", "text": "To facilitate the requirement gathering during the workshops", "correct": false },
+      { "id": "C", "text": "To complete any complex customizations early enough", "correct": false },
+      { "id": "D", "text": "To realize near-term ROI (Return on Investment)", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 26,
+    "type": "multiple",
+    "question": "Assignment workbench enables customer service managers to assign tasks to agents via configurable criteria known as Matching Rules. Which out-of-the-box configurable criteria can be used? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Assigned Cases", "correct": true },
+      { "id": "B", "text": "Agent Affinity", "correct": false },
+      { "id": "C", "text": "Availability Today", "correct": true },
+      { "id": "D", "text": "Matching Skills", "correct": true },
+      { "id": "E", "text": "Agent History", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 27,
+    "type": "single",
+    "question": "Regarding Account Teams, what is the purpose of marking a role as 'unique'?",
+    "options": [
+      { "id": "A", "text": "The role then becomes a child responsibility", "correct": false },
+      { "id": "B", "text": "Ensure there is a dedicated account manager for that account", "correct": false },
+      { "id": "C", "text": "The role then becomes a parent responsibility", "correct": false },
+      { "id": "D", "text": "Prevent the same role being used on different customer accounts", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 28,
+    "type": "single",
+    "question": "Configuration items (CIs) are entities that capture the individual configurations for each product sold to the customer CIs are stored in the configuration management database (CMDB). Assets are specific product instances that are supported for a customer. Which of the following statements is correct for CIs and assets?",
+    "options": [
+      { "id": "A", "text": "The contract and entitlements of an asset dictate whether or not it is stored in the CMDB", "correct": false },
+      { "id": "B", "text": "The CMDB only tracks CIs, assets cannot be CIs", "correct": false },
+      { "id": "C", "text": "While the CMDB may track some assets as configuration items (CIs) not ALL assets are CIs", "correct": true },
+      { "id": "D", "text": "The CMDB tracks all assets as configuration items (CIs)", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 29,
+    "type": "single",
+    "question": "Which of the following statements is correct when the 'Contact Local Time' field is enabled in a case form?",
+    "options": [
+      { "id": "A", "text": "The field is not based of the customers profile time zone", "correct": false },
+      { "id": "B", "text": "The field is active in the base form", "correct": false },
+      { "id": "C", "text": "The field is always based on the system time zone", "correct": false },
+      { "id": "D", "text": "Agents can use the field to identify if it is the right time to contact customer", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 30,
+    "type": "multiple",
+    "question": "Which of the following roles can update a consumer's record? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Consumer Support Agent {sn_customerservice.consumer_agent)", "correct": true },
+      { "id": "B", "text": "Customer Service Manager (sn_customerservice_manager)", "correct": true },
+      { "id": "C", "text": "Customer Service Agent (sn_customerservice_agent)", "correct": false },
+      { "id": "D", "text": "Customer (sn_customerservice.customer)", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 31,
+    "type": "single",
+    "question": "Which CSM Configurable Workspace feature enables agents to quickly view records in the contextual side panel without switching tabs?",
+    "options": [
+      { "id": "A", "text": "Contextual Search", "correct": false },
+      { "id": "B", "text": "Agent Assist", "correct": false },
+      { "id": "C", "text": "Dynamic Related Records", "correct": true },
+      { "id": "D", "text": "Record Information", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 32,
+    "type": "single",
+    "question": "With the Auto Close Resolved Cases flow enabled, and using its default settings, when will a reminder be sent to a non-responsive customer?",
+    "options": [
+      { "id": "A", "text": "After 3 days", "correct": false },
+      { "id": "B", "text": "After 5 days", "correct": true },
+      { "id": "C", "text": "After 1 day", "correct": false },
+      { "id": "D", "text": "After 7 days", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 33,
+    "type": "single",
+    "question": "The self-registration feature enables new customer contacts to submit registration requests from the customer portal. Which role is responsible for creating the unique registration code for each account?",
+    "options": [
+      { "id": "A", "text": "Customer Service Manager (sn_customerservice_manager)", "correct": false },
+      { "id": "B", "text": "System administrator (admin)", "correct": true },
+      { "id": "C", "text": "Service organization administrator (sn_customerservice.service_organization_admin)", "correct": false },
+      { "id": "D", "text": "Customer admin (sn_customerservice.customer_admin)", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 34,
+    "type": "single",
+    "question": "What action is required to enable agents to create an incident record for a case?",
+    "options": [
+      { "id": "A", "text": "They must be assigned with the read role for incident", "correct": false },
+      { "id": "B", "text": "They must be assigned with the itil role", "correct": true },
+      { "id": "C", "text": "They must be assigned with the snc_intemal role", "correct": false },
+      { "id": "D", "text": "They must be assigned with the sn_customerservice.itsm_contributor role", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 35,
+    "type": "multiple",
+    "question": "In the 'Action Status' column on a case list what could a red indicator dot mean? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Blocked by approval", "correct": false },
+      { "id": "B", "text": "Blocked by case task", "correct": false },
+      { "id": "C", "text": "Blocked internally and by customer", "correct": true },
+      { "id": "D", "text": "Blocked by internally", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 36,
+    "type": "multiple",
+    "question": "Which of the following are correct for parent/child synchronization? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Multiple child cases can be managed from a parent case as in Major Issue Management", "correct": true },
+      { "id": "B", "text": "The Administrator can choose which fields to synchronize from parent to child cases", "correct": true },
+      { "id": "C", "text": "Parent to child cases can be synchronized regardless of which state the case is in", "correct": false },
+      { "id": "D", "text": "The property to synchronize parent to child cases is automatically enabled", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 37,
+    "type": "single",
+    "question": "When the channel field on a case form is set to Social where are details of the social media conversations related to the case stored?",
+    "options": [
+      { "id": "A", "text": "Social Channels", "correct": false },
+      { "id": "B", "text": "Social Profiles", "correct": false },
+      { "id": "C", "text": "Social Logs", "correct": true },
+      { "id": "D", "text": "Work notes", "correct": false },
+      { "id": "E", "text": "Additional comments", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 38,
+    "type": "single",
+    "question": "Once a major case candidate is approved a major case is created. What then happens to the customer case?",
+    "options": [
+      { "id": "A", "text": "The customer case becomes a child case of the major case", "correct": true },
+      { "id": "B", "text": "The customer case will be automatically closed", "correct": false },
+      { "id": "C", "text": "The customer case becomes the parent case of the major case", "correct": false },
+      { "id": "D", "text": "The customer case will automatically be related to a problem", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 39,
+    "type": "multiple",
+    "question": "What are the types of units used to measure entitlements? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Hours", "correct": true },
+      { "id": "B", "text": "Contract", "correct": false },
+      { "id": "C", "text": "Cost", "correct": false },
+      { "id": "D", "text": "Case", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 40,
+    "type": "multiple",
+    "question": "How are ServiceNow's out-of-the-box Customer Service Management applications packaged? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Store Apps", "correct": true },
+      { "id": "B", "text": "Update Sets", "correct": false },
+      { "id": "C", "text": "Through private scopes", "correct": false },
+      { "id": "D", "text": "Plugins", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 41,
+    "type": "single",
+    "question": "Which of the following statements is correct regarding product models in CSM?",
+    "options": [
+      { "id": "A", "text": "Products models can only contain digital (logical) items", "correct": false },
+      { "id": "B", "text": "Product models can contain either physical items or digital (logical) items but not both in the same model", "correct": false },
+      { "id": "C", "text": "Product models can only contain physical items", "correct": false },
+      { "id": "D", "text": "Product models can contain both physical items and digital (logical) items in the same mode", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 42,
+    "type": "single",
+    "question": "Which of the following is correct regarding the create contact (consumer) feature in CSM Workspaces?",
+    "options": [
+      { "id": "A", "text": "The create contact (consumer) feature is available in all CSM Workspaces", "correct": false },
+      { "id": "B", "text": "The create contact (consumer) feature is not available in any of the CSM Workspaces", "correct": false },
+      { "id": "C", "text": "The create contact (consumer) feature is only available in the CSM Configurable Workspace", "correct": true },
+      { "id": "D", "text": "The create contact (consumer) feature is only available in the Agent Workspace", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 43,
+    "type": "single",
+    "question": "Depending on which CSM workspace you are operating within, certain steps can be applied to configure the form header. Which of the following is correct regarding form headers in the CSM Configurable workspace?",
+    "options": [
+      { "id": "A", "text": "The form header's secondary values can only he displayed above the ribbon components", "correct": false },
+      { "id": "B", "text": "The form header's primary values can be displayed in the contextual side panes instead of above the ribbon components", "correct": false },
+      { "id": "C", "text": "The form header's secondary values can be displayed in the contextual side panel instead of above the ribbon components", "correct": true },
+      { "id": "D", "text": "The form header for the case form can display five levels of field values from the case table", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 44,
+    "type": "single",
+    "question": "User criteria records may be applied to which knowledge items?",
+    "options": [
+      { "id": "A", "text": "Knowledge Base and Category", "correct": false },
+      { "id": "B", "text": "Knowledge Base Category and Article", "correct": false },
+      { "id": "C", "text": "Knowledge Base and Article", "correct": true },
+      { "id": "D", "text": "Knowledge Base", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 45,
+    "type": "multiple",
+    "question": "What are the three main components that make up Proactive Customer Service Operations? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Service Monitoring", "correct": true },
+      { "id": "B", "text": "Service Reporting", "correct": false },
+      { "id": "C", "text": "Service-Aware CMDB", "correct": false },
+      { "id": "D", "text": "Service-Aware Install Base", "correct": true },
+      { "id": "E", "text": "Proactive Case", "correct": true },
+      { "id": "F", "text": "Proactive Prevention", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 46,
+    "type": "multiple",
+    "question": "What are the three out-of-the-box playbooks for CSM? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Case playbook for Onboarding", "correct": true },
+      { "id": "B", "text": "Case playbook for Billing", "correct": false },
+      { "id": "C", "text": "Case playbook for Accounts", "correct": false },
+      { "id": "D", "text": "Case playbook for Product Support", "correct": true },
+      { "id": "E", "text": "Case playbook for Complaints", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 47,
+    "type": "multiple",
+    "question": "Which of the following allows you to install out-of-the-box Customer Service Management applications within your ServiceNow instance? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "XML unloads", "correct": false },
+      { "id": "B", "text": "Plugins", "correct": true },
+      { "id": "C", "text": "Store Apps", "correct": true },
+      { "id": "D", "text": "Update Sets", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 48,
+    "type": "multiple",
+    "question": "What are available matching criteria for case assignment in Customer Service Management? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Partner Hours", "correct": false },
+      { "id": "B", "text": "Matching Skills", "correct": true },
+      { "id": "C", "text": "Distance", "correct": false },
+      { "id": "D", "text": "Certifications", "correct": false },
+      { "id": "E", "text": "Assigned Cases", "correct": true },
+      { "id": "F", "text": "Availability Today", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 49,
+    "type": "single",
+    "question": "What is the purpose of the sidebar feature in CSM Configurable Workspace?",
+    "options": [
+      { "id": "A", "text": "Enables agents to keep information regarding details of the case visible at all times", "correct": false },
+      { "id": "B", "text": "Enables agents to access response templates to help them resolve cases faster and more efficiently", "correct": false },
+      { "id": "C", "text": "To enable agents to collaborate with other agents or Subject Matter Experts (SMEs) in real-time for faster case resolution", "correct": true },
+      { "id": "D", "text": "Enables managers to discreetly monitor chats between agents and customers", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 50,
+    "type": "single",
+    "question": "What is the specific type of catalog item that allows users to create any type of task, such as cases, from the Service Catalog?",
+    "options": [
+      { "id": "A", "text": "Request Item", "correct": false },
+      { "id": "B", "text": "Service Catalog Request", "correct": false },
+      { "id": "C", "text": "Record Producer", "correct": true },
+      { "id": "D", "text": "Catalog Item", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 51,
+    "type": "single",
+    "question": "Which feature sends an email notification containing a list of relevant knowledge articles to the case submitter and watchlist users associated with the case whenever a case is created?",
+    "options": [
+      { "id": "A", "text": "Trending Topics", "correct": false },
+      { "id": "B", "text": "Auto-Responder", "correct": true },
+      { "id": "C", "text": "Proactive Customer Service Operations", "correct": false },
+      { "id": "D", "text": "Self-Service Analytics", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 52,
+    "type": "multiple",
+    "question": "Depending on the CSM application configurations, cases can be assigned to agents manually or by using auto-assignment. Which routing and assignment features leverage matching rules? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "State Flows", "correct": false },
+      { "id": "B", "text": "Assignment Workbench", "correct": true },
+      { "id": "C", "text": "Assignment Rules", "correct": true },
+      { "id": "D", "text": "CSM Workspace", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 53,
+    "type": "single",
+    "question": "What does Major issue Management use to identify all other customers impacted by a major case?",
+    "options": [
+      { "id": "A", "text": "Account lists", "correct": false },
+      { "id": "B", "text": "Customer Product lists", "correct": false },
+      { "id": "C", "text": "Notify lists", "correct": false },
+      { "id": "D", "text": "Recipient lists", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 54,
+    "type": "single",
+    "question": "Which of the following is correct regarding the social media channel?",
+    "options": [
+      { "id": "A", "text": "Cases cannot be created from any of the social channels", "correct": false },
+      { "id": "B", "text": "Cases are NOT created automatically from any of the social channels", "correct": false },
+      { "id": "C", "text": "Cases can be created automatically depending on which social channel is used", "correct": true },
+      { "id": "D", "text": "Cases are created automatically from all of the social channels", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 55,
+    "type": "single",
+    "question": "When integrating Customer Service Management with IT Service management what separate action is required for Request Management?",
+    "options": [
+      { "id": "A", "text": "Activation of the Customer Service with Service Management plugin (com.sn_cs_sm)", "correct": false },
+      { "id": "B", "text": "Activation of the Customer Service with Request Management plugin (com.sn_cs_sm_request)", "correct": true },
+      { "id": "C", "text": "Activation of the Customer Service Case Action Status plugin (com.snc.csm_action_status)", "correct": false },
+      { "id": "D", "text": "Activation of the Customer Service plugin (com.sn_customerservice)", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 56,
+    "type": "single",
+    "question": "New case tasks use the following prefix:",
+    "options": [
+      { "id": "A", "text": "CSMTASK prefix", "correct": false },
+      { "id": "B", "text": "CASETASK prefix", "correct": false },
+      { "id": "C", "text": "CSTASK prefix", "correct": true },
+      { "id": "D", "text": "No specific task prefix just existing TASK prefix", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 57,
+    "type": "single",
+    "question": "When are child cases updated from the parent case?",
+    "options": [
+      { "id": "A", "text": "Clicking on the Child Sync UI", "correct": false },
+      { "id": "B", "text": "Scheduled Job", "correct": false },
+      { "id": "C", "text": "Automatically upon update of parent", "correct": true },
+      { "id": "D", "text": "When the Sync scheduled job runs", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 58,
+    "type": "multiple",
+    "question": "Which of the following features are specific to CSM Workspaces and will not be found in the Platform UI view? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Special handing notes", "correct": false },
+      { "id": "B", "text": "Lookup and verify", "correct": true },
+      { "id": "C", "text": "Related search", "correct": false },
+      { "id": "D", "text": "Agent assist", "correct": true }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 59,
+    "type": "multiple",
+    "question": "Customer service agents can use Agent Assist to search for information from an interaction. BY DEFAULT, what are the available search sources? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Knowledge articles", "correct": true },
+      { "id": "B", "text": "Service catalog", "correct": true },
+      { "id": "C", "text": "Communities", "correct": true },
+      { "id": "D", "text": "Consumer service portal", "correct": false },
+      { "id": "E", "text": "Customer service portal", "correct": false }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 60,
+    "type": "single",
+    "question": "Entitlements are counted using two types of units:",
+    "options": [
+      { "id": "A", "text": "SLAs and contracts", "correct": false },
+      { "id": "B", "text": "Days and assets", "correct": false },
+      { "id": "C", "text": "Cases and products", "correct": false },
+      { "id": "D", "text": "Hours and cases", "correct": true }
+    ],
+    "explanation": ""
+  },{
+    "id": 1,
+    "type": "multiple",
+    "question": "Service-aware Install Base consists of which entities? (Choose three.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Installed Products",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Install Base Items",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Assets",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Sold Products",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Configuration Items",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 2,
+    "type": "single",
+    "question": "What is the primary output from the Requirements Gathering workshop?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Schedules",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Use Cases",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Stories",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Personas",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 3,
+    "type": "single",
+    "question": "What is a limitation regarding synchronization between a case and its associated work order?",
+    "options": [
+      {
+        "id": "A",
+        "text": "If information changes on the Case form it is not updated on the Work Order form",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Updates on a case or work order will only synchronize after the work order is approved",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "When creating a work order from a case only the Account field on the work order form is filed in but not the Company field",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "The data copied over to the Work Order form when creating a work order from a case cannot be configured or customized",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 4,
+    "type": "multiple",
+    "question": "Which roles can propose a case as a Major Case candidate? (Choose three.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Proxy contact (sn_customerservice.proxy_contact)",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Customer case manager (sn_customerservice.customer_case_manager)",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Customer service manager (sn_customerservice_manager)",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Customer service agent (sn_customerservice_agent)",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Major issue manager (sn_majorissue_mgt.major_issue_manager)",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 5,
+    "type": "single",
+    "question": "Which of the following is a required field in the Resolution Information tab in order to close a case?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cause",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Closed",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Resolution notes",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Closed by",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 6,
+    "type": "single",
+    "question": "Access to a Knowledge base or Article can be restricted based on a customer's assets and the product models using which of the following?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Knowledge Product Entitlements",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Data Policy",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "ACL",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "User Criteria",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 7,
+    "type": "multiple",
+    "question": "What benefits does scoping an application bring? (Choose three.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "CSM teams can move at their desired pace, independent of IT",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Provides CSM teams autonomy and control",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "CSM application data and business logic is protected from changes by other applications",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Account records can be changed only while in the CSM scope",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Changes in different scopes can be addressed in a single update set",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 8,
+    "type": "multiple",
+    "question": "A customer service agent wants to escalate an account but is unable to use the Escalate Account related link on the Account form. What could be the reasons why the customer service agent is not able to use it? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "No escalation approval flow is configured",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "The parent account of the account to be escalated is not active",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "The customer service agent is not assigned with the escalation requester role",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "The account already has an open escalation record",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 9,
+    "type": "single",
+    "question": "After installing the Performance Analytics Content Pack for Customer Service, which job must be run to retrieve daily case data from previous months?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Customer Service Historic Data Collection",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Customer Service Initial Data Collection",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Customer Service Daily Data Collection",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Customer Service Case Data Collection",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 10,
+    "type": "multiple",
+    "question": "When working with communication channels, what inbound email flows are available by default? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create case for product",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Create case for asset",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Update case from forward email",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Create case from email",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Update case using reply",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 11,
+    "type": "single",
+    "question": "What determines how an escalation request is processed?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Escalation Rule",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Escalation Template",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Escalation Severity",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Escalation Justification",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 12,
+    "type": "single",
+    "question": "What allows the implementation of phases and tasks to meet performance goals track progress and measure success?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Performance Analytics Spotlight",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Scheduled Reporting",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Service Level Agreement Tasks",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Continual Improvement Management",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 13,
+    "type": "single",
+    "question": "For security purposes certain roles cannot be assigned to a group or individual at the same time. Which of the following two roles would be restricted?",
+    "options": [
+      {
+        "id": "A",
+        "text": "snc_intemai and snc_external",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "snc_internal and sn_customerservice.consumer_agent",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "snc_internal and sn_customerservice_agent",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "snc_external and sn_customerservice.customer",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 14,
+    "type": "single",
+    "question": "What are Special Handling Notes used for?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Bring important information about individual records to an agent's attention",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "For agents to view articles an attach them to a case",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "To ensure customers get the service they are entitled to receive",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Help agents identify in which time zone a contact is located",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 15,
+    "type": "multiple",
+    "question": "A customer service manager would like to limit the reading and creation of knowledge articles within a specific Knowledge Base to the Customer Support group only. Which features should be used to accomplish this? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Can Read user criteria",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Whitelist all other groups from the Knowledge Base",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Hide the Knowledge Base from the Knowledge Base Portal",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Cannot Contribute user criteria",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 16,
+    "type": "single",
+    "question": "In case management, Parent Child Synchronization allows for which of the following:",
+    "options": [
+      {
+        "id": "A",
+        "text": "Enabling the Customer Service agent to create cases so that all the children cases can be managed by managing the parent case",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Parent cases to automatically generate child cases when all fields are filled out thus synchronized auto-population",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Child cases to be separated from Parent cases and will not be synchronized automatically",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Synchronization of all child cases as well as children of child cases on all levels",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 17,
+    "type": "multiple",
+    "question": "Which predefined conversations are available for Customer Service Virtual Agent? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create Contact",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Check Case Status",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Close Case",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Get Help with an Order",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Get Help with an Asset",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 18,
+    "type": "single",
+    "question": "What will be the state of a case after a customer rejects the solution proposed by an agent?",
+    "options": [
+      {
+        "id": "A",
+        "text": "In Progress",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Open",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "New",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Solution Rejected",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 19,
+    "type": "multiple",
+    "question": "Which of the following statements is correct with regards to partners vs. third-parties in ServiceNow's CSM application? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "A partner will own the relationship with their customer",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "A partner and a third party are the same in ServiceNow's CSM application",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "A partner does not own the relationship with a customer. This relationship is owned by the organization they are partnering",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "A partner is an organization that has been contracted to sell products and services they have actually purchased from another organization",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "A partner does not own any of the products or services provided by their partnering organization, instead they help to sell, deliver and support them on their behalf",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 20,
+    "type": "multiple",
+    "question": "Advanced Work Assignment (AWA) automatically routes and assigns work items to agents based on which of the following rules? (Choose four.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Experience",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Skills",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Availability",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Shifts",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Capacity",
+        "correct": true
+      },
+      {
+        "id": "F",
+        "text": "Products",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 21,
+    "type": "multiple",
+    "question": "From which places in ServiceNow can a customer service agent [sn_customerservice_agent] create a case? (Choose three.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Account",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Incident",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Customer Service Application",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Special Handling Note",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Chat",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 22,
+    "type": "single",
+    "question": "Which table must be extended when creating a new case type?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Case (sn_customerservice_case)",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Case Task (sn_customerservice_case_task)",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Task (task)",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Case Type (sn_case_type)",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 23,
+    "type": "multiple",
+    "question": "What are benefits of the Conversation History feature? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Shorter calls for agents by reducing the time to search for information",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "A customized admin chat toolbar with emojis for agents to use in chat messages",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Improved customer satisfaction as agents can respond to and resolve customer issues faster",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Better language management by flagging key words and alerting chat managers when agents use one or more of those words",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 24,
+    "type": "single",
+    "question": "What is the benefit of a phased release approach?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Team members schedules are able to synchronize",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "More time to develop stories",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Working across multiple systems of record",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Delivery of core functionality quickly",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 25,
+    "type": "multiple",
+    "question": "On the Customer Service Portal which personas can see work orders from their company hierarchy? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Partner admin",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Partner contact",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Customer admin",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Customer contact",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 26,
+    "type": "single",
+    "question": "What is the most efficient way to get cases to be closed automatically after a few days?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Set the property glide.auto.close.cases resolved to true",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Create a workflow associated with cases with a timer that changes the state after a few days",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Create a Scheduled job that looks at the resolved_at date",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Activate the Auto Close Resolved Cases flow",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 27,
+    "type": "multiple",
+    "question": "Which roles can specify both skills and mandatory skills for cases and tasks? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Customer service manager (sn_customerservice_manager)",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Customer service agent (sn_customerservice_agent)",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Customer administrator (sn_customerservice.customer_admin)",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Partner (sn_customerservice.partner)",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 28,
+    "type": "single",
+    "question": "An account is a supported external customer and a contact is a user who is an employee of an account. How many accounts can a contact be associated with?",
+    "options": [
+      {
+        "id": "A",
+        "text": "One",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Two",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Three",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Multiple",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 29,
+    "type": "multiple",
+    "question": "A contact can submit a self-registration request from the customer portal with a registration code. Which of the following roles can approve the request? (Choose three.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Customer service manager (sn_customerservice_manager)",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "System administrator (admin)",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Customer administrator (sn_customerservice.customer_admin)",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Partner administrator [sn_customerservice.partner_admon]",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Service organization administrator (sn_customerservice.service_organization_admin)",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 30,
+    "type": "multiple",
+    "question": "What benefits can be gained by integrating CSM with Field Service Management? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Reduces agent workload",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Reduces monthly case volume",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Work orders can be created from a case",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Customer can access work order details and tasks created for their case",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 31,
+    "type": "single",
+    "question": "Guided decisions is a decision authoring and execution capability that dynamically guides agents to resolve complex cases. Guided decisions consist of decision trees. What is a decision tree?",
+    "options": [
+      {
+        "id": "A",
+        "text": "A step-by-step methodology for creating and solving different case types",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "A detailed check list for customer service teams",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "A multi-step process consisting of a series of questions answers, and guidance",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "A set of steps used to define a complex process",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 32,
+    "type": "single",
+    "question": "In the 'Action Status' column on a case list, what could a blue indicator dot mean?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Needs attention",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Blocked internally",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Blocked externally",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Work in progress",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 33,
+    "type": "multiple",
+    "question": "Customer service personnel who are allocated the customer service agent (sn_customerservice_agent) role are responsible for which of the following tasks? (Choose four.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Assist customers with questions, issues and problems",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Create cases",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Propose major cases",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "View, edit, and work on cases",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Approve customer contacts",
+        "correct": false
+      },
+      {
+        "id": "F",
+        "text": "Manage customer entitlements",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 34,
+    "type": "single",
+    "question": "The ServiceNow add-in for Microsoft Outlook enables you to manage workflows such as creating and updating contacts and cases from within Microsoft Outlook. How could this feature positively affect customer experience?",
+    "options": [
+      {
+        "id": "A",
+        "text": "As email is being used fewer agents would be required to create cases so service costs would go down",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "It is easier to report on data in emails which means managers would be better placed to track performance",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "It can lead to faster resolution of customer issues and faster response to customer inquiries",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "It would guarantee less wait time for customers who chose to call the customer service center",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 35,
+    "type": "single",
+    "question": "In ServiceNow's CSM Application, what is an interaction?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Any configuration item that has been made accessible to customers",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "A record that a Customer Service Agent uses to identify and resolve a question or an issue for an external customer",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "A binding agreement between two parties",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "A request for assistance made through a chat, phone call, or walk-up",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 36,
+    "type": "multiple",
+    "question": "Which services does a Customer (sn_customerservice.customer) have access to? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Can research questions issues, or problems, and create view and edit cases for only their own accounts",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Can assign the roles to other contacts in the same account",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Can view assets belonging to their account",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Can edit information or roles for existing contacts",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 37,
+    "type": "multiple",
+    "question": "To which recipient types can targeted communications (publications) be sent? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Outsourced Service Providers",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Contacts",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Internal users",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Households",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 38,
+    "type": "multiple",
+    "question": "What does viewing a customer's install base enable customer service agents to do? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "See the detailed configurations of the products and services deployed for a customer to determine the action needed",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Monitor alerts for operational services and configuration items that affect service health",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Trace information provided in a case to the right product or service to which it relates",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Close an upsell of related products and services not yet purchased by a customer",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 39,
+    "type": "single",
+    "question": "Which step in Advanced Work Assignment (AWA) would ensure the work was allocated to the appropriate agent?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Set the Agent Experience",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Define Assignment Rules",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Define Work Item Queues",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Configure Service Channels",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 40,
+    "type": "single",
+    "question": "When working with case types, what is the lowest level in the case type hierarchy called?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Sub-level",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Leaf-level",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Decision-level",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Base-level",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 41,
+    "type": "multiple",
+    "question": "Which roles are responsible for maintaining account team membership? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Customer Admin [sn_customerservice.customer.admin]",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Customer Case Manager [sn_customerservice.customer_case_manager]",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "System Administrator [admin]",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Customer Service Manager [sn_customerservice_manager]",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 42,
+    "type": "multiple",
+    "question": "What can a person assigned with the customer role access on the customer service portal by default? (Choose three.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cases",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Related parties",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Assets",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Social profiles",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Sold products",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 43,
+    "type": "multiple",
+    "question": "Which of the following are benefits of customer access management? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "It increases security by automatically granting access to cases based on access to sold product.",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "It defaults the responsibility for access management to the customer.",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "It defaults the responsibility for access management to the customer service agent.",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "It improves the customer experience by enabling related parties to track and collaborate on cases.",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 44,
+    "type": "multiple",
+    "question": "Which ServiceNow products can be integrated out-of-the-box with CSM? (Choose three.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "ITOM Event Management",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Risk Management",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Strategic Portfolio Management",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "DevOps",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Financial Management",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 45,
+    "type": "single",
+    "question": "When activating the Customer Service Management Demo Data plugin, which case type is available besides product case?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Order",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Offer",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Monitoring",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "FAQ",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Request",
+        "correct": false
+      },
+      {
+        "id": "F",
+        "text": "Contract",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 46,
+    "type": "multiple",
+    "question": "What are the different resource matching methods on the Matching Rule form? (Choose four.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Simple",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Advanced",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Selection Criteria",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Skill",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Affinity",
+        "correct": false
+      },
+      {
+        "id": "F",
+        "text": "Scripted",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 47,
+    "type": "single",
+    "question": "What is the purpose of the Guided Decisions capability?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Provide agents with an escalation guide",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Dynamically assist agents through account management",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Dynamically help agents to resolve complex cases",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Provide agents with a knowledge guide",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 48,
+    "type": "single",
+    "question": "Which feature enables employees to request support for themselves and for external customers?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Contributor Users",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Business Locations",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Responsibility Definitions",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Account Management",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 49,
+    "type": "single",
+    "question": "What functionality is required to automatically close resolved cases if customers do not respond within a specified time?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Auto Close Resolved Cases Business Rule",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Auto Close Resolved Cases Scheduled Job",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Auto Close Resolved Cases Flow Designer Flow",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Auto Close Resolved Cases Workflow",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 50,
+    "type": "multiple",
+    "question": "What are the ways the Customer Portal Locale feature can be used? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Restrict access to a customer service portal based on where a user is physically located",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Ensure only authenticated users can choose a language/locale on a customer service portal",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Allow authenticated and guest users to choose a language/locale on a customer service portal",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Forward authenticated and guest users to a translated customer service portal",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 51,
+    "type": "multiple",
+    "question": "Advanced Work Assignment (AWA) automatically routes and assigns work items to agents based on which of the following rules? (Choose three.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Experience",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Skills",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Products",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Schedule",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Workload",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 52,
+    "type": "single",
+    "question": "Which feature provides easy-to-configure integrations between the Now Platform and third party Customer Relationship Management (CRM) and Enterprise Resource Planning (ERP) tools or platforms?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Import sets",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Active Directory",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Web Services",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Integration Hub",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 53,
+    "type": "single",
+    "question": "Which table does the Account (customer_account) table extend?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Customer (sn_customer_service_customer)",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Business Location (sn_csm_business_location)",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Company (core_company)",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Service Organization (sn_customer_service_organization)",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 54,
+    "type": "single",
+    "question": "Which combination of roles is restricted for security purposes?",
+    "options": [
+      {
+        "id": "A",
+        "text": "snc_internal and sn_customerservice_agent",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "snc_internal and sn_customerservice.partner_admin",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "snc_internal and sn_customerservice.consumer_agent",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "snc_external and sn_customerservice.customer",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 55,
+    "type": "single",
+    "question": "What must a system administrator configure to define a different approval workflow for an escalation request?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Escalation Decision",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Escalation Rule",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Escalation Template",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Escalation Reason",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 56,
+    "type": "single",
+    "question": "Which entity represents specific versions of products being sold to and supported for customers?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Sold Products",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Product Categories",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Product Models",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Portfolio Products",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 57,
+    "type": "single",
+    "question": "After an assignment group is chosen, which mandatory step in Advanced Work Assignment (AWA) ensures the work is allocated to the appropriate agent?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Configure Work Item Queues",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Set the Agent Experience",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Set up Skills for Agents",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Define Assignment Rules",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 58,
+    "type": "multiple",
+    "question": "Which decisions does Predictive Intelligence support? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Case Escalation",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Case Prioritization",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Case Categorization",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Case Resolution",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 59,
+    "type": "single",
+    "question": "What is the term for a formal agreement between a service provider and a customer that provides the customer with an expectation of service within a known timescale?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Service Level Agreement",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Service Entitlement Agreement",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Contractual Service Agreement",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Operational Service Agreement",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 60,
+    "type": "single",
+    "question": "Which Service-Aware Install Base entity defines configuration items accessible to customers?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Model",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Install Base Item",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Sold Product",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Asset",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 61,
+    "type": "single",
+    "question": "Installing the Customer Service Management plugin activates:",
+    "options": [
+      {
+        "id": "A",
+        "text": "Only one other plugin - Field Service Management Plugin",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "No other Plugins",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Only two other plugins - Portal and Case Management",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Many other plugins at the same time",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 62,
+    "type": "multiple",
+    "question": "What benefits can be gained by integrating CSM with Field Service Management? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Reduces agent workload",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Reduces monthly case volume",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Work orders can be created from a case",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Customer can access work order details and tasks created for their case",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 63,
+    "type": "single",
+    "question": "What functionality is required to automatically close resolved cases if customers do not respond within a specified time?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Auto Close Resolved Cases Business Rule",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Auto Close Resolved Cases Scheduled Job",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Auto Close Resolved Cases Flow Designer Flow",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Auto Close Resolved Cases Workflow",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 64,
+    "type": "single",
+    "question": "Which feature provides easy-to-configure integrations between the Now Platform and third-party CRM/ERP tools?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Import sets",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Active Directory",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Web Services",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Integration Hub",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 65,
+    "type": "single",
+    "question": "Which combination of roles is restricted for security purposes?",
+    "options": [
+      {
+        "id": "A",
+        "text": "snc_internal and sn_customerservice_agent",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "snc_internal and sn_customerservice.partner_admin",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "snc_internal and sn_customerservice.consumer_agent",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "snc_external and sn_customerservice.customer",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 66,
+    "type": "single",
+    "question": "Which entity represents specific versions of products being sold to and supported for customers?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Sold Products",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Product Categories",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Product Models",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Portfolio Products",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  }]
+
+  var count = 0;
+  var arrQuestions = [];
+
+  arr.forEach((element,index) => {
+    if(element.type=='multiple'){console.log(index + ': ' + element.question); count++; element.id = count;arrQuestions.push(element);};
+  });
+
+  console.log(arrQuestions);
+</script>
