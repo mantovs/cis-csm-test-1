@@ -4221,7 +4221,8 @@
   var arrQuestions = [];
 
   arr.forEach((element,index) => {
-    if(element.type=='multiple'){console.log(index + ': ' + element.question); count++; element.id = count;arrQuestions.push(element);};
+    // if(element.type=='multiple'){console.log(index + ': ' + element.question); count++; element.id = count;arrQuestions.push(element);};
+    if(element.question.indexOf('role')>-1){console.log(index + ': ' + element.question); count++; element.id = count;arrQuestions.push(element);};
   });
 
   console.log(arrQuestions);
