@@ -371,6 +371,79 @@ const QUESTIONS_BANK_RAW = [{
       { "id": "D", "text": "Case Viewer (sn_customerservice.case_viewer)", "correct": false }
     ],
     "explanation": ""
+  },{
+    "id": 45,
+    "type": "single",
+    "question": "What feature does the Product Model and Catalog Items Relationship plugin enable?",
+    "options": [
+      { "id": "A", "text": "Agents are automatically proposed catalog items related to the chosen product on the case form", "correct": false },
+      { "id": "B", "text": "Consumers can track what products they have purchased via the catalog", "correct": false },
+      { "id": "C", "text": "It provides a contextual service catalog based on the customer's subscribed services", "correct": true },
+      { "id": "D", "text": "Customer service managers can track the financial cost of customer's subscribed services and the related requests", "correct": false }
+    ],
+    "explanation": ""
+  },{
+    "id": 26,
+    "type": "multiple",
+    "question": "Assignment workbench enables customer service managers to assign tasks to agents via configurable criteria known as Matching Rules. Which out-of-the-box configurable criteria can be used? (Choose three.)",
+    "options": [
+      { "id": "A", "text": "Assigned Cases", "correct": true },
+      { "id": "B", "text": "Agent Affinity", "correct": false },
+      { "id": "C", "text": "Availability Today", "correct": true },
+      { "id": "D", "text": "Matching Skills", "correct": true },
+      { "id": "E", "text": "Agent History", "correct": false }
+    ],
+    "explanation": ""
+  },{
+    "id": 7,
+    "type": "multiple",
+    "question": "Benefits of Proactive Customer Service Operations include: (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Reduced inbound calls from customers", "correct": true },
+      { "id": "B", "text": "Reduction in staff turnover", "correct": false },
+      { "id": "C", "text": "Major cases can be eliminated as there will be no Impact to customers", "correct": false },
+      { "id": "D", "text": "Reduced Mean Time To Resolve (MTTR)", "correct": true },
+      { "id": "E", "text": "Guaranteed increase in customer satisfaction", "correct": false }
+    ],
+    "explanation": ""
+  },{
+    "id": 30,
+    "type": "multiple",
+    "question": "Which of the following roles can update a consumer's record? (Choose two.)",
+    "options": [
+      { "id": "A", "text": "Consumer Support Agent {sn_customerservice.consumer_agent)", "correct": true },
+      { "id": "B", "text": "Customer Service Manager (sn_customerservice_manager)", "correct": true },
+      { "id": "C", "text": "Customer Service Agent (sn_customerservice_agent)", "correct": false },
+      { "id": "D", "text": "Customer (sn_customerservice.customer)", "correct": false }
+    ],
+    "explanation": ""
+  },{
+    "id": 3,
+    "type": "single",
+    "question": "What is a limitation regarding synchronization between a case and its associated work order?",
+    "options": [
+      {
+        "id": "A",
+        "text": "If information changes on the Case form it is not updated on the Work Order form",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Updates on a case or work order will only synchronize after the work order is approved",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "When creating a work order from a case only the Account field on the work order form is filed in but not the Company field",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "The data copied over to the Work Order form when creating a work order from a case cannot be configured or customized",
+        "correct": false
+      }
+    ],
+    "explanation": ""
   }];
 
 function normalizeType(t){ return t === 'multiple' ? 'multi' : t; }
