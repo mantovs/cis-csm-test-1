@@ -68,34 +68,6 @@ const HIDE_OPTION_IDS = true; // Se quiser voltar a mostrar IDs (A., B., 1-, etc
  * ============================== */
 const QUESTIONS_BANK_RAW = [
     {
-        "id": 1,
-        "type": "multiple",
-        "question": "What role does the Engagement Manager play before the Workshop? (Choose two.)",
-        "options": [
-            {
-                "id": "A",
-                "text": "Project Manager",
-                "correct": true
-            },
-            {
-                "id": "B",
-                "text": "Acts as intermediary",
-                "correct": false
-            },
-            {
-                "id": "C",
-                "text": "Provides answers to technical problems",
-                "correct": false
-            },
-            {
-                "id": "D",
-                "text": "Assists with technical requirements",
-                "correct": true
-            }
-        ],
-        "explanation": ""
-    },
-    {
         "id": 2,
         "type": "multiple",
         "question": "Users with the sn_customerservice.proxy_contact role can do which of the following? (Choose two.)",
@@ -151,143 +123,6 @@ const QUESTIONS_BANK_RAW = [
             {
                 "id": "D",
                 "text": "admin",
-                "correct": false
-            }
-        ],
-        "explanation": ""
-    },
-    {
-        "id": 4,
-        "type": "matching",
-        "question": "Match the definitions for roles relationships.",
-        "left": [
-            {
-                "id": "A",
-                "text": "A customer account, a partner, account, or both"
-            },
-            {
-                "id": "B",
-                "text": "A supported external customer that, sells and supports one or more customers"
-            },
-            {
-                "id": "C",
-                "text": "A member of an account"
-            },
-            {
-                "id": "D",
-                "text": "A person who purchases goods and services for personal UserActivation"
-            }
-        ],
-        "right": [
-            {
-                "id": "1",
-                "text": "Partner"
-            },
-            {
-                "id": "2",
-                "text": "Account"
-            },
-            {
-                "id": "3",
-                "text": "Contact"
-            },
-            {
-                "id": "4",
-                "text": "Consumer"
-            }
-        ],
-        "answerMap": {
-            "A": "2",
-            "B": "1",
-            "C": "3",
-            "D": "4"
-        },
-        "explanation": ""
-    },
-    {
-        "id": 5,
-        "type": "multiple",
-        "question": "An Account Relationship is based on a defined account relationship type. Users with the System Administrator role can define two types of relationships: (Choose two.)",
-        "options": [
-            {
-                "id": "A",
-                "text": "Partner-to-customer",
-                "correct": false
-            },
-            {
-                "id": "B",
-                "text": "Account-to-customer",
-                "correct": false
-            },
-            {
-                "id": "C",
-                "text": "Account-to-account",
-                "correct": true
-            },
-            {
-                "id": "D",
-                "text": "Customer-to-Consumer",
-                "correct": false
-            },
-            {
-                "id": "E",
-                "text": "Partner-to-account",
-                "correct": true
-            }
-        ],
-        "explanation": ""
-    },
-    {
-        "id": 6,
-        "type": "single",
-        "question": "The CSM application has a feature that can be used to filter records in CSM-related tables which are accessible by users with CSM roles. This feature makes it unnecessary to create business logic for those persona access the data. What is this feature?",
-        "options": [
-            {
-                "id": "A",
-                "text": "CSM Query Rules",
-                "correct": true
-            },
-            {
-                "id": "B",
-                "text": "Data Policies",
-                "correct": false
-            },
-            {
-                "id": "C",
-                "text": "Filtered Lists",
-                "correct": false
-            },
-            {
-                "id": "D",
-                "text": "Access Types",
-                "correct": false
-            }
-        ],
-        "explanation": ""
-    },
-    {
-        "id": 7,
-        "type": "single",
-        "question": "Which role must B2B and B2C customers obtain, at a MINIMUM, to access to a ServiceNow instance?",
-        "options": [
-            {
-                "id": "A",
-                "text": "External (snc_external)",
-                "correct": true
-            },
-            {
-                "id": "B",
-                "text": "Account Contact (sn_customeservice.account_contact)",
-                "correct": false
-            },
-            {
-                "id": "C",
-                "text": "Customer (sn_customerservice.customer)",
-                "correct": false
-            },
-            {
-                "id": "D",
-                "text": "Case Creator (sn_customerservice.case_creator)",
                 "correct": false
             }
         ],
@@ -444,34 +279,6 @@ const QUESTIONS_BANK_RAW = [
         "explanation": ""
     },
     {
-        "id": 13,
-        "type": "single",
-        "question": "Regarding Account Teams, what is the purpose of marking a role as 'unique'?",
-        "options": [
-            {
-                "id": "A",
-                "text": "The role then becomes a child responsibility",
-                "correct": false
-            },
-            {
-                "id": "B",
-                "text": "Ensure there is a dedicated account manager for that account",
-                "correct": false
-            },
-            {
-                "id": "C",
-                "text": "The role then becomes a parent responsibility",
-                "correct": false
-            },
-            {
-                "id": "D",
-                "text": "Prevent the same role being used on different customer accounts",
-                "correct": true
-            }
-        ],
-        "explanation": ""
-    },
-    {
         "id": 14,
         "type": "multiple",
         "question": "Which of the following roles can update a consumer's record? (Choose two.)",
@@ -556,34 +363,6 @@ const QUESTIONS_BANK_RAW = [
                 "id": "E",
                 "text": "Major issue manager (sn_majorissue_mgt.major_issue_manager)",
                 "correct": true
-            }
-        ],
-        "explanation": ""
-    },
-    {
-        "id": 17,
-        "type": "single",
-        "question": "For security purposes certain roles cannot be assigned to a group or individual at the same time. Which of the following two roles would be restricted?",
-        "options": [
-            {
-                "id": "A",
-                "text": "snc_intemai and snc_external",
-                "correct": true
-            },
-            {
-                "id": "B",
-                "text": "snc_internal and sn_customerservice.consumer_agent",
-                "correct": false
-            },
-            {
-                "id": "C",
-                "text": "snc_internal and sn_customerservice_agent",
-                "correct": false
-            },
-            {
-                "id": "D",
-                "text": "snc_external and sn_customerservice.customer",
-                "correct": false
             }
         ],
         "explanation": ""
@@ -744,62 +523,6 @@ const QUESTIONS_BANK_RAW = [
                 "id": "E",
                 "text": "Sold products",
                 "correct": true
-            }
-        ],
-        "explanation": ""
-    },
-    {
-        "id": 23,
-        "type": "single",
-        "question": "Which combination of roles is restricted for security purposes?",
-        "options": [
-            {
-                "id": "A",
-                "text": "snc_internal and sn_customerservice_agent",
-                "correct": false
-            },
-            {
-                "id": "B",
-                "text": "snc_internal and sn_customerservice.partner_admin",
-                "correct": true
-            },
-            {
-                "id": "C",
-                "text": "snc_internal and sn_customerservice.consumer_agent",
-                "correct": false
-            },
-            {
-                "id": "D",
-                "text": "snc_external and sn_customerservice.customer",
-                "correct": false
-            }
-        ],
-        "explanation": ""
-    },
-    {
-        "id": 24,
-        "type": "single",
-        "question": "Which combination of roles is restricted for security purposes?",
-        "options": [
-            {
-                "id": "A",
-                "text": "snc_internal and sn_customerservice_agent",
-                "correct": false
-            },
-            {
-                "id": "B",
-                "text": "snc_internal and sn_customerservice.partner_admin",
-                "correct": true
-            },
-            {
-                "id": "C",
-                "text": "snc_internal and sn_customerservice.consumer_agent",
-                "correct": false
-            },
-            {
-                "id": "D",
-                "text": "snc_external and sn_customerservice.customer",
-                "correct": false
             }
         ],
         "explanation": ""
