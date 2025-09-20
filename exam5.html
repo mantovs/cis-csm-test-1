@@ -67,384 +67,678 @@ const HIDE_OPTION_IDS = true; // Se quiser voltar a mostrar IDs (A., B., 1-, etc
  * QUESTÕES (JSON BASE) - exemplo incluindo matching
  * ============================== */
 const QUESTIONS_BANK_RAW = [{
-    "id": 31,
-    "type": "multiple",
-    "question": "What are features of Customer Service Management? (Choose four.)",
-    "options": [
-      { "id": "A", "text": "Timed Audits", "correct": false },
-      { "id": "B", "text": "Service Entitlements", "correct": true },
-      { "id": "C", "text": "Demand Management", "correct": false },
-      { "id": "D", "text": "Service Prospecting", "correct": false },
-      { "id": "E", "text": "Real-time SLAs", "correct": true },
-      { "id": "F", "text": "Service Contracts", "correct": true },
-      { "id": "G", "text": "Skills-based routing", "correct": true }
-    ],
-    "explanation": ""
-  },{
-    "id": 11,
-    "type": "multiple",
-    "question": "Which Business Rules are part of the Customer Service Management baseline configuration? (Choose two.)",
-    "options": [
-      { "id": "A", "text": "Apply Role by Customer", "correct": false },
-      { "id": "B", "text": "Auto Assessment", "correct": true },
-      { "id": "C", "text": "Change Update to Close", "correct": false },
-      { "id": "D", "text": "Update Case Entitlement", "correct": true }
-    ],
-    "explanation": ""
-  },{
-    "id": 35,
-    "type": "multiple",
-    "question": "Proactive Customer Service Operations works Event Management to proactively monitor and fix issues affecting customers. It can also trigger case workflow's and enable organizations to notify customers whose services or products are impacted by an outage or issue. What are the three main components that make up Proactive Customer Service Operations? (Choose three.)",
-    "options": [
-      { "id": "A", "text": "Proactive Prevention", "correct": false },
-      { "id": "B", "text": "Service-Aware Install Base", "correct": true },
-      { "id": "C", "text": "Service Reporting", "correct": false },
-      { "id": "D", "text": "Proactive Case", "correct": true },
-      { "id": "E", "text": "Service-Aware CMDB", "correct": false },
-      { "id": "F", "text": "Service Monitoring", "correct": true }
-    ],
-    "explanation": ""
-  },{
-    "id": 27,
-    "type": "multiple",
-    "question": "Advance Work Assignment assigns work to agents based on their availability, capacity, and skills. Agent Affinity enhances the Advanced Work Assignment process by adding additional agent details organized by affinity type. Which of these are these affinity types? (Choose three.)",
-    "options": [
-      { "id": "A", "text": "Skill seniority", "correct": false },
-      { "id": "B", "text": "Account team responsibility", "correct": true },
-      { "id": "C", "text": "Historical", "correct": true },
-      { "id": "D", "text": "Related task", "correct": true },
-      { "id": "E", "text": "Product expertise", "correct": false }
-    ],
-    "explanation": ""
-  },{
-    "id": 25,
-    "type": "multiple",
-    "question": "An entitlement defines the types of support a customer receives. Entitlements are based on a number of standard fields such as product and asset. When Proactive Customer Service Operations is implemented which additional fields could be used? (Choose two.)",
-    "options": [
-      { "id": "A", "text": "Contact", "correct": false },
-      { "id": "B", "text": "Configuration Item", "correct": false },
-      { "id": "C", "text": "Business Service", "correct": false },
-      { "id": "D", "text": "Install base item", "correct": true },
-      { "id": "E", "text": "Sold product", "correct": true }
-    ],
-    "explanation": ""
-  },{
-    "id": 26,
-    "type": "single",
-    "question": "When implementing Knowledge Product Entitlements, what is enabled when activating the Enable access control of Knowledge Articles system property?",
-    "options": [
-      { "id": "A", "text": "Allows access to knowledge articles based on customer's security access", "correct": false },
-      { "id": "B", "text": "Allows access to knowledge articles that are related to entitlements owned by a customer", "correct": false },
-      { "id": "C", "text": "Allows access to multi-product line knowledge articles", "correct": false },
-      { "id": "D", "text": "Allows access to knowledge articles that are related to products owned by a customer", "correct": true }
-    ],
-    "explanation": ""
-  }, {
-    "id": 12,
-    "type": "multiple",
-    "question": "Asset classes are defined to allow for logical grouping of assets. There are five asset classes provided to group assets, each Asset class provides unique functionality for that group of Assets in the platform. Which of the following are the asset classes used? (Choose five.)",
-    "options": [
-      { "id": "A", "text": "Hardware assets", "correct": true },
-      { "id": "B", "text": "Facility assets", "correct": true },
-      { "id": "C", "text": "Configuration assets", "correct": false },
-      { "id": "D", "text": "Software licenses assets", "correct": true },
-      { "id": "E", "text": "Enterprise Software assets", "correct": true },
-      { "id": "F", "text": "Network assets", "correct": false },
-      { "id": "G", "text": "Consumables assets", "correct": true }
-    ],
-    "explanation": ""
-  },{
-    "id": 43,
-    "type": "multiple",
-    "question": "Based on which out-of-box attributes can Special handling Notes be applied to cases? (Choose three.)",
-    "options": [
-      { "id": "A", "text": "Service Contract", "correct": false },
-      { "id": "B", "text": "Install Base Item", "correct": false },
-      { "id": "C", "text": "Product", "correct": true },
-      { "id": "D", "text": "Account", "correct": true },
-      { "id": "E", "text": "Contact", "correct": true }
-    ],
-    "explanation": ""
-  },{
-    "id": 52,
-    "type": "multiple",
-    "question": "What types of escalation templates can be created? (Choose two.)",
-    "options": [
-      { "id": "A", "text": "Case", "correct": true },
-      { "id": "B", "text": "Sold Product", "correct": false },
-      { "id": "C", "text": "Consumer", "correct": false },
-      { "id": "D", "text": "Account", "correct": true }
-    ],
-    "explanation": ""
-  },{
-    "id": 3,
-    "type": "single",
-    "question": "In CSM Asset Management has a different meaning than in ITSM or Corporate Finance Which of the following defines Asset Management in CSM?",
-    "options": [
-      { "id": "A", "text": "The process of developing, operating, maintaining, upgrading, and disposing of assets in me most cost-effective manner", "correct": false },
-      { "id": "B", "text": "A generic activity or process responsible for tracking and reporting the value and ownership of assets throughout their lifecycle", "correct": false },
-      { "id": "C", "text": "Asset management has different use cases for tracking specific products or services customers are using", "correct": true },
-      { "id": "D", "text": "It includes all of the data crucial to support customers as efficiently as possible", "correct": false }
-    ],
-    "explanation": ""
-  },{
-    "id": 45,
-    "type": "multiple",
-    "question": "What are the three main components that make up Proactive Customer Service Operations? (Choose three.)",
-    "options": [
-      { "id": "A", "text": "Service Monitoring", "correct": true },
-      { "id": "B", "text": "Service Reporting", "correct": false },
-      { "id": "C", "text": "Service-Aware CMDB", "correct": false },
-      { "id": "D", "text": "Service-Aware Install Base", "correct": true },
-      { "id": "E", "text": "Proactive Case", "correct": true },
-      { "id": "F", "text": "Proactive Prevention", "correct": false }
-    ],
-    "explanation": ""
-  },{
-    "id": 8,
-    "type": "multiple",
-    "question": "A customer service agent wants to escalate an account but is unable to use the Escalate Account related link on the Account form. What could be the reasons why the customer service agent is not able to use it? (Choose two.)",
-    "options": [
-      {
-        "id": "A",
-        "text": "No escalation approval flow is configured",
-        "correct": false
-      },
-      {
-        "id": "B",
-        "text": "The parent account of the account to be escalated is not active",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "The customer service agent is not assigned with the escalation requester role",
-        "correct": true
-      },
-      {
-        "id": "D",
-        "text": "The account already has an open escalation record",
-        "correct": true
-      }
-    ],
-    "explanation": ""
-  },{
-    "id": 1,
-    "type": "multiple",
-    "question": "Service-aware Install Base consists of which entities? (Choose three.)",
-    "options": [
-      {
-        "id": "A",
-        "text": "Installed Products",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "Install Base Items",
-        "correct": true
-      },
-      {
-        "id": "C",
-        "text": "Assets",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "Sold Products",
-        "correct": true
-      },
-      {
-        "id": "E",
-        "text": "Configuration Items",
-        "correct": false
-      }
-    ],
-    "explanation": ""
-  },{
-    "id": 20,
-    "type": "multiple",
-    "question": "Advanced Work Assignment (AWA) automatically routes and assigns work items to agents based on which of the following rules? (Choose four.)",
-    "options": [
-      {
-        "id": "A",
-        "text": "Experience",
-        "correct": false
-      },
-      {
-        "id": "B",
-        "text": "Skills",
-        "correct": true
-      },
-      {
-        "id": "C",
-        "text": "Availability",
-        "correct": true
-      },
-      {
-        "id": "D",
-        "text": "Shifts",
-        "correct": true
-      },
-      {
-        "id": "E",
-        "text": "Capacity",
-        "correct": true
-      },
-      {
-        "id": "F",
-        "text": "Products",
-        "correct": false
-      }
-    ],
-    "explanation": ""
-  },{
-    "id": 42,
-    "type": "multiple",
-    "question": "What can a person assigned with the customer role access on the customer service portal by default? (Choose three.)",
-    "options": [
-      {
-        "id": "A",
-        "text": "Cases",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "Related parties",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Assets",
-        "correct": true
-      },
-      {
-        "id": "D",
-        "text": "Social profiles",
-        "correct": false
-      },
-      {
-        "id": "E",
-        "text": "Sold products",
-        "correct": true
-      }
-    ],
-    "explanation": ""
-  },{
-    "id": 4,
-    "type": "multiple",
-    "question": "Which roles can propose a case as a Major Case candidate? (Choose three.)",
-    "options": [
-      {
-        "id": "A",
-        "text": "Proxy contact (sn_customerservice.proxy_contact)",
-        "correct": false
-      },
-      {
-        "id": "B",
-        "text": "Customer case manager (sn_customerservice.customer_case_manager)",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Customer service manager (sn_customerservice_manager)",
-        "correct": true
-      },
-      {
-        "id": "D",
-        "text": "Customer service agent (sn_customerservice_agent)",
-        "correct": true
-      },
-      {
-        "id": "E",
-        "text": "Major issue manager (sn_majorissue_mgt.major_issue_manager)",
-        "correct": true
-      }
-    ],
-    "explanation": ""
-  },{
-    "id": 10,
-    "type": "multiple",
-    "question": "Who can create a customer service case from a community discussion? (Choose two.)",
-    "options": [
-      { "id": "A", "text": "Customer service agent (sn_customerservice_agent)", "correct": true },
-      { "id": "B", "text": "Proxy case creator (sn_customerservice.proxy_case_creator)", "correct": true },
-      { "id": "C", "text": "Partner (sn_customerservice.partner)", "correct": false },
-      { "id": "D", "text": "Case Viewer (sn_customerservice.case_viewer)", "correct": false }
-    ],
-    "explanation": ""
-  },{
-    "id": 45,
-    "type": "single",
-    "question": "What feature does the Product Model and Catalog Items Relationship plugin enable?",
-    "options": [
-      { "id": "A", "text": "Agents are automatically proposed catalog items related to the chosen product on the case form", "correct": false },
-      { "id": "B", "text": "Consumers can track what products they have purchased via the catalog", "correct": false },
-      { "id": "C", "text": "It provides a contextual service catalog based on the customer's subscribed services", "correct": true },
-      { "id": "D", "text": "Customer service managers can track the financial cost of customer's subscribed services and the related requests", "correct": false }
-    ],
-    "explanation": ""
-  },{
-    "id": 26,
-    "type": "multiple",
-    "question": "Assignment workbench enables customer service managers to assign tasks to agents via configurable criteria known as Matching Rules. Which out-of-the-box configurable criteria can be used? (Choose three.)",
-    "options": [
-      { "id": "A", "text": "Assigned Cases", "correct": true },
-      { "id": "B", "text": "Agent Affinity", "correct": false },
-      { "id": "C", "text": "Availability Today", "correct": true },
-      { "id": "D", "text": "Matching Skills", "correct": true },
-      { "id": "E", "text": "Agent History", "correct": false }
-    ],
-    "explanation": ""
-  },{
-    "id": 7,
-    "type": "multiple",
-    "question": "Benefits of Proactive Customer Service Operations include: (Choose two.)",
-    "options": [
-      { "id": "A", "text": "Reduced inbound calls from customers", "correct": true },
-      { "id": "B", "text": "Reduction in staff turnover", "correct": false },
-      { "id": "C", "text": "Major cases can be eliminated as there will be no Impact to customers", "correct": false },
-      { "id": "D", "text": "Reduced Mean Time To Resolve (MTTR)", "correct": true },
-      { "id": "E", "text": "Guaranteed increase in customer satisfaction", "correct": false }
-    ],
-    "explanation": ""
-  },{
-    "id": 30,
-    "type": "multiple",
-    "question": "Which of the following roles can update a consumer's record? (Choose two.)",
-    "options": [
-      { "id": "A", "text": "Consumer Support Agent {sn_customerservice.consumer_agent)", "correct": true },
-      { "id": "B", "text": "Customer Service Manager (sn_customerservice_manager)", "correct": true },
-      { "id": "C", "text": "Customer Service Agent (sn_customerservice_agent)", "correct": false },
-      { "id": "D", "text": "Customer (sn_customerservice.customer)", "correct": false }
-    ],
-    "explanation": ""
-  },{
-    "id": 3,
-    "type": "single",
-    "question": "What is a limitation regarding synchronization between a case and its associated work order?",
-    "options": [
-      {
-        "id": "A",
-        "text": "If information changes on the Case form it is not updated on the Work Order form",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "Updates on a case or work order will only synchronize after the work order is approved",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "When creating a work order from a case only the Account field on the work order form is filed in but not the Company field",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "The data copied over to the Work Order form when creating a work order from a case cannot be configured or customized",
-        "correct": false
-      }
-    ],
-    "explanation": ""
-  }];
+  "id": 1,
+  "type": "multiple",
+  "question": "What are features of Customer Service Management? (Choose four.)",
+  "options": [{
+      "id": "A",
+      "text": "Timed Audits",
+      "correct": false
+    },
+    {
+      "id": "B",
+      "text": "Service Entitlements",
+      "correct": true
+    },
+    {
+      "id": "C",
+      "text": "Demand Management",
+      "correct": false
+    },
+    {
+      "id": "D",
+      "text": "Service Prospecting",
+      "correct": false
+    },
+    {
+      "id": "E",
+      "text": "Real-time SLAs",
+      "correct": true
+    },
+    {
+      "id": "F",
+      "text": "Service Contracts",
+      "correct": true
+    },
+    {
+      "id": "G",
+      "text": "Skills-based routing",
+      "correct": true
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 2,
+  "type": "multiple",
+  "question": "Which Business Rules are part of the Customer Service Management baseline configuration? (Choose two.)",
+  "options": [{
+      "id": "A",
+      "text": "Apply Role by Customer",
+      "correct": false
+    },
+    {
+      "id": "B",
+      "text": "Auto Assessment",
+      "correct": true
+    },
+    {
+      "id": "C",
+      "text": "Change Update to Close",
+      "correct": false
+    },
+    {
+      "id": "D",
+      "text": "Update Case Entitlement",
+      "correct": true
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 3,
+  "type": "multiple",
+  "question": "Proactive Customer Service Operations works Event Management to proactively monitor and fix issues affecting customers. It can also trigger case workflow's and enable organizations to notify customers whose services or products are impacted by an outage or issue. What are the three main components that make up Proactive Customer Service Operations? (Choose three.)",
+  "options": [{
+      "id": "A",
+      "text": "Proactive Prevention",
+      "correct": false
+    },
+    {
+      "id": "B",
+      "text": "Service-Aware Install Base",
+      "correct": true
+    },
+    {
+      "id": "C",
+      "text": "Service Reporting",
+      "correct": false
+    },
+    {
+      "id": "D",
+      "text": "Proactive Case",
+      "correct": true
+    },
+    {
+      "id": "E",
+      "text": "Service-Aware CMDB",
+      "correct": false
+    },
+    {
+      "id": "F",
+      "text": "Service Monitoring",
+      "correct": true
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 4,
+  "type": "multiple",
+  "question": "Advance Work Assignment assigns work to agents based on their availability, capacity, and skills. Agent Affinity enhances the Advanced Work Assignment process by adding additional agent details organized by affinity type. Which of these are these affinity types? (Choose three.)",
+  "options": [{
+      "id": "A",
+      "text": "Skill seniority",
+      "correct": false
+    },
+    {
+      "id": "B",
+      "text": "Account team responsibility",
+      "correct": true
+    },
+    {
+      "id": "C",
+      "text": "Historical",
+      "correct": true
+    },
+    {
+      "id": "D",
+      "text": "Related task",
+      "correct": true
+    },
+    {
+      "id": "E",
+      "text": "Product expertise",
+      "correct": false
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 5,
+  "type": "multiple",
+  "question": "An entitlement defines the types of support a customer receives. Entitlements are based on a number of standard fields such as product and asset. When Proactive Customer Service Operations is implemented which additional fields could be used? (Choose two.)",
+  "options": [{
+      "id": "A",
+      "text": "Contact",
+      "correct": false
+    },
+    {
+      "id": "B",
+      "text": "Configuration Item",
+      "correct": false
+    },
+    {
+      "id": "C",
+      "text": "Business Service",
+      "correct": false
+    },
+    {
+      "id": "D",
+      "text": "Install base item",
+      "correct": true
+    },
+    {
+      "id": "E",
+      "text": "Sold product",
+      "correct": true
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 6,
+  "type": "single",
+  "question": "When implementing Knowledge Product Entitlements, what is enabled when activating the Enable access control of Knowledge Articles system property?",
+  "options": [{
+      "id": "A",
+      "text": "Allows access to knowledge articles based on customer's security access",
+      "correct": false
+    },
+    {
+      "id": "B",
+      "text": "Allows access to knowledge articles that are related to entitlements owned by a customer",
+      "correct": false
+    },
+    {
+      "id": "C",
+      "text": "Allows access to multi-product line knowledge articles",
+      "correct": false
+    },
+    {
+      "id": "D",
+      "text": "Allows access to knowledge articles that are related to products owned by a customer",
+      "correct": true
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 7,
+  "type": "multiple",
+  "question": "Asset classes are defined to allow for logical grouping of assets. There are five asset classes provided to group assets, each Asset class provides unique functionality for that group of Assets in the platform. Which of the following are the asset classes used? (Choose five.)",
+  "options": [{
+      "id": "A",
+      "text": "Hardware assets",
+      "correct": true
+    },
+    {
+      "id": "B",
+      "text": "Facility assets",
+      "correct": true
+    },
+    {
+      "id": "C",
+      "text": "Configuration assets",
+      "correct": false
+    },
+    {
+      "id": "D",
+      "text": "Software licenses assets",
+      "correct": true
+    },
+    {
+      "id": "E",
+      "text": "Enterprise Software assets",
+      "correct": true
+    },
+    {
+      "id": "F",
+      "text": "Network assets",
+      "correct": false
+    },
+    {
+      "id": "G",
+      "text": "Consumables assets",
+      "correct": true
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 8,
+  "type": "multiple",
+  "question": "Based on which out-of-box attributes can Special handling Notes be applied to cases? (Choose three.)",
+  "options": [{
+      "id": "A",
+      "text": "Service Contract",
+      "correct": false
+    },
+    {
+      "id": "B",
+      "text": "Install Base Item",
+      "correct": false
+    },
+    {
+      "id": "C",
+      "text": "Product",
+      "correct": true
+    },
+    {
+      "id": "D",
+      "text": "Account",
+      "correct": true
+    },
+    {
+      "id": "E",
+      "text": "Contact",
+      "correct": true
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 9,
+  "type": "multiple",
+  "question": "What types of escalation templates can be created? (Choose two.)",
+  "options": [{
+      "id": "A",
+      "text": "Case",
+      "correct": true
+    },
+    {
+      "id": "B",
+      "text": "Sold Product",
+      "correct": false
+    },
+    {
+      "id": "C",
+      "text": "Consumer",
+      "correct": false
+    },
+    {
+      "id": "D",
+      "text": "Account",
+      "correct": true
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 10,
+  "type": "single",
+  "question": "In CSM Asset Management has a different meaning than in ITSM or Corporate Finance Which of the following defines Asset Management in CSM?",
+  "options": [{
+      "id": "A",
+      "text": "The process of developing, operating, maintaining, upgrading, and disposing of assets in me most cost-effective manner",
+      "correct": false
+    },
+    {
+      "id": "B",
+      "text": "A generic activity or process responsible for tracking and reporting the value and ownership of assets throughout their lifecycle",
+      "correct": false
+    },
+    {
+      "id": "C",
+      "text": "Asset management has different use cases for tracking specific products or services customers are using",
+      "correct": true
+    },
+    {
+      "id": "D",
+      "text": "It includes all of the data crucial to support customers as efficiently as possible",
+      "correct": false
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 11,
+  "type": "multiple",
+  "question": "What are the three main components that make up Proactive Customer Service Operations? (Choose three.)",
+  "options": [{
+      "id": "A",
+      "text": "Service Monitoring",
+      "correct": true
+    },
+    {
+      "id": "B",
+      "text": "Service Reporting",
+      "correct": false
+    },
+    {
+      "id": "C",
+      "text": "Service-Aware CMDB",
+      "correct": false
+    },
+    {
+      "id": "D",
+      "text": "Service-Aware Install Base",
+      "correct": true
+    },
+    {
+      "id": "E",
+      "text": "Proactive Case",
+      "correct": true
+    },
+    {
+      "id": "F",
+      "text": "Proactive Prevention",
+      "correct": false
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 12,
+  "type": "multiple",
+  "question": "A customer service agent wants to escalate an account but is unable to use the Escalate Account related link on the Account form. What could be the reasons why the customer service agent is not able to use it? (Choose two.)",
+  "options": [{
+      "id": "A",
+      "text": "No escalation approval flow is configured",
+      "correct": false
+    },
+    {
+      "id": "B",
+      "text": "The parent account of the account to be escalated is not active",
+      "correct": false
+    },
+    {
+      "id": "C",
+      "text": "The customer service agent is not assigned with the escalation requester role",
+      "correct": true
+    },
+    {
+      "id": "D",
+      "text": "The account already has an open escalation record",
+      "correct": true
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 13,
+  "type": "multiple",
+  "question": "Service-aware Install Base consists of which entities? (Choose three.)",
+  "options": [{
+      "id": "A",
+      "text": "Installed Products",
+      "correct": true
+    },
+    {
+      "id": "B",
+      "text": "Install Base Items",
+      "correct": true
+    },
+    {
+      "id": "C",
+      "text": "Assets",
+      "correct": false
+    },
+    {
+      "id": "D",
+      "text": "Sold Products",
+      "correct": true
+    },
+    {
+      "id": "E",
+      "text": "Configuration Items",
+      "correct": false
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 14,
+  "type": "multiple",
+  "question": "Advanced Work Assignment (AWA) automatically routes and assigns work items to agents based on which of the following rules? (Choose four.)",
+  "options": [{
+      "id": "A",
+      "text": "Experience",
+      "correct": false
+    },
+    {
+      "id": "B",
+      "text": "Skills",
+      "correct": true
+    },
+    {
+      "id": "C",
+      "text": "Availability",
+      "correct": true
+    },
+    {
+      "id": "D",
+      "text": "Shifts",
+      "correct": true
+    },
+    {
+      "id": "E",
+      "text": "Capacity",
+      "correct": true
+    },
+    {
+      "id": "F",
+      "text": "Products",
+      "correct": false
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 15,
+  "type": "multiple",
+  "question": "What can a person assigned with the customer role access on the customer service portal by default? (Choose three.)",
+  "options": [{
+      "id": "A",
+      "text": "Cases",
+      "correct": true
+    },
+    {
+      "id": "B",
+      "text": "Related parties",
+      "correct": false
+    },
+    {
+      "id": "C",
+      "text": "Assets",
+      "correct": true
+    },
+    {
+      "id": "D",
+      "text": "Social profiles",
+      "correct": false
+    },
+    {
+      "id": "E",
+      "text": "Sold products",
+      "correct": true
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 16,
+  "type": "multiple",
+  "question": "Which roles can propose a case as a Major Case candidate? (Choose three.)",
+  "options": [{
+      "id": "A",
+      "text": "Proxy contact (sn_customerservice.proxy_contact)",
+      "correct": false
+    },
+    {
+      "id": "B",
+      "text": "Customer case manager (sn_customerservice.customer_case_manager)",
+      "correct": false
+    },
+    {
+      "id": "C",
+      "text": "Customer service manager (sn_customerservice_manager)",
+      "correct": true
+    },
+    {
+      "id": "D",
+      "text": "Customer service agent (sn_customerservice_agent)",
+      "correct": true
+    },
+    {
+      "id": "E",
+      "text": "Major issue manager (sn_majorissue_mgt.major_issue_manager)",
+      "correct": true
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 17,
+  "type": "multiple",
+  "question": "Who can create a customer service case from a community discussion? (Choose two.)",
+  "options": [{
+      "id": "A",
+      "text": "Customer service agent (sn_customerservice_agent)",
+      "correct": true
+    },
+    {
+      "id": "B",
+      "text": "Proxy case creator (sn_customerservice.proxy_case_creator)",
+      "correct": true
+    },
+    {
+      "id": "C",
+      "text": "Partner (sn_customerservice.partner)",
+      "correct": false
+    },
+    {
+      "id": "D",
+      "text": "Case Viewer (sn_customerservice.case_viewer)",
+      "correct": false
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 18,
+  "type": "single",
+  "question": "What feature does the Product Model and Catalog Items Relationship plugin enable?",
+  "options": [{
+      "id": "A",
+      "text": "Agents are automatically proposed catalog items related to the chosen product on the case form",
+      "correct": false
+    },
+    {
+      "id": "B",
+      "text": "Consumers can track what products they have purchased via the catalog",
+      "correct": false
+    },
+    {
+      "id": "C",
+      "text": "It provides a contextual service catalog based on the customer's subscribed services",
+      "correct": true
+    },
+    {
+      "id": "D",
+      "text": "Customer service managers can track the financial cost of customer's subscribed services and the related requests",
+      "correct": false
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 19,
+  "type": "multiple",
+  "question": "Assignment workbench enables customer service managers to assign tasks to agents via configurable criteria known as Matching Rules. Which out-of-the-box configurable criteria can be used? (Choose three.)",
+  "options": [{
+      "id": "A",
+      "text": "Assigned Cases",
+      "correct": true
+    },
+    {
+      "id": "B",
+      "text": "Agent Affinity",
+      "correct": false
+    },
+    {
+      "id": "C",
+      "text": "Availability Today",
+      "correct": true
+    },
+    {
+      "id": "D",
+      "text": "Matching Skills",
+      "correct": true
+    },
+    {
+      "id": "E",
+      "text": "Agent History",
+      "correct": false
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 20,
+  "type": "multiple",
+  "question": "Benefits of Proactive Customer Service Operations include: (Choose two.)",
+  "options": [{
+      "id": "A",
+      "text": "Reduced inbound calls from customers",
+      "correct": true
+    },
+    {
+      "id": "B",
+      "text": "Reduction in staff turnover",
+      "correct": false
+    },
+    {
+      "id": "C",
+      "text": "Major cases can be eliminated as there will be no Impact to customers",
+      "correct": false
+    },
+    {
+      "id": "D",
+      "text": "Reduced Mean Time To Resolve (MTTR)",
+      "correct": true
+    },
+    {
+      "id": "E",
+      "text": "Guaranteed increase in customer satisfaction",
+      "correct": false
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 21,
+  "type": "multiple",
+  "question": "Which of the following roles can update a consumer's record? (Choose two.)",
+  "options": [{
+      "id": "A",
+      "text": "Consumer Support Agent {sn_customerservice.consumer_agent)",
+      "correct": true
+    },
+    {
+      "id": "B",
+      "text": "Customer Service Manager (sn_customerservice_manager)",
+      "correct": true
+    },
+    {
+      "id": "C",
+      "text": "Customer Service Agent (sn_customerservice_agent)",
+      "correct": false
+    },
+    {
+      "id": "D",
+      "text": "Customer (sn_customerservice.customer)",
+      "correct": false
+    }
+  ],
+  "explanation": ""
+}, {
+  "id": 22,
+  "type": "single",
+  "question": "What is a limitation regarding synchronization between a case and its associated work order?",
+  "options": [{
+      "id": "A",
+      "text": "If information changes on the Case form it is not updated on the Work Order form",
+      "correct": true
+    },
+    {
+      "id": "B",
+      "text": "Updates on a case or work order will only synchronize after the work order is approved",
+      "correct": false
+    },
+    {
+      "id": "C",
+      "text": "When creating a work order from a case only the Account field on the work order form is filed in but not the Company field",
+      "correct": false
+    },
+    {
+      "id": "D",
+      "text": "The data copied over to the Work Order form when creating a work order from a case cannot be configured or customized",
+      "correct": false
+    }
+  ],
+  "explanation": ""
+}];
 
 function normalizeType(t){ return t === 'multiple' ? 'multi' : t; }
 const QUESTIONS_BANK = QUESTIONS_BANK_RAW.map(q => ({ ...q, type: normalizeType(q.type) }));
