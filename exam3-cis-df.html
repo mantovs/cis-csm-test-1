@@ -1,0 +1,2461 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="light">
+<head>
+<meta charset="UTF-8" />
+<title>CIS-DF Exam 3</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<style>
+  body { background:#fff; }
+  .option-card { cursor:pointer; transition:.15s; }
+  .option-card:not(.disabled):hover { border-color:#6f42c1; box-shadow:0 0 0 .15rem rgba(111,66,193,.15); }
+  .option-card.selected { border-width:2px; border-color:#6f42c1; background:#f9f5ff; }
+  .option-card.correct-user, .option-card.correct { border-color:#198754!important; background:#d1e7dd; }
+  .option-card.incorrect-user { border-color:#dc3545!important; background:#f8d7da; }
+  .badge-label { font-size:.65rem; letter-spacing:.5px; text-transform:uppercase; font-weight:600; }
+  .feedback-area { animation:fadeIn .35s; }
+  @keyframes fadeIn { from {opacity:0;transform:translateY(4px)} to {opacity:1;transform:translateY(0)} }
+  .donut-wrapper { position:relative; width:160px; height:160px; margin:auto; }
+  .donut-wrapper canvas { width:100%; height:100%; }
+  .donut-center { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:1.3rem; }
+  .question-header-mini { font-size:.8rem; color:#6c757d; text-transform:uppercase; letter-spacing:.5px; }
+  .toggle-theme { position:fixed; bottom:1rem; right:1rem; z-index:1000; }
+  .question-status-alert { font-size:.8rem; }
+
+  /* Matching */
+  .matching-row {
+    display:flex;
+    gap:1rem;
+    align-items:flex-start;
+    padding:.75rem .9rem;
+    border:1px solid #dee2e6;
+    border-radius:.5rem;
+    margin-bottom:.6rem;
+    background:#fff;
+  }
+  .matching-row select { min-width:150px; }
+  .matching-row.correct { border-color:#198754; background:#d1e7dd; }
+  .matching-row.incorrect { border-color:#dc3545; background:#f8d7da; }
+  .matching-left-text { flex:1; }
+  .matching-badge {
+    font-size:.6rem;
+    letter-spacing:.5px;
+    font-weight:600;
+    text-transform:uppercase;
+  }
+  @media (max-width: 576px){
+    .matching-row { flex-direction:column; }
+    .matching-row select { width:100%; }
+  }
+
+  #themeBtn{
+    display: none;
+  }
+</style>
+</head>
+<body>
+<div class="container py-4" id="appRoot"></div>
+<button class="btn btn-outline-secondary btn-sm toggle-theme" id="themeBtn" title="Alternar Tema">🌓</button>
+
+<script>
+/* ==============================
+ * CONFIG
+ * ============================== */
+const HIDE_OPTION_IDS = true; // Se quiser voltar a mostrar IDs (A., B., 1-, etc.) mude para false.
+
+/* ==============================
+ * QUESTÕES (JSON BASE) - exemplo incluindo matching
+ * ============================== */
+const QUESTIONS_BANK_RAW = [
+  {
+    "id": 1,
+    "type": "single",
+    "question": "A new custom class is needed to reflect a new application being managed in the CMDB. Which roles are minimally needed to add this custom CI class?",
+    "options": [
+      {
+        "id": "A",
+        "text": "data_classification_admin and personalize_dictionary",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "sn_cmdb_admin and personalize_dictionary",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "cmdb_inst_admin and personalize_form",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "itil_admin and personalize_form",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 2,
+    "type": "multiple",
+    "question": "A CMDB Administrator wants to create a CMDB query to find all databases located in Seattle that are connected to application services. They also want to include incidents related to those databases. Which actions does the company take to build this query? ( Choose 2 )",
+    "options": [
+      {
+        "id": "A",
+        "text": "Add a filter to the database node for location = Seattle",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Set the relationship level to 'Up to 2nd level relationships'",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Add to the canvas the Incident table from the Non-CMDB Tables list",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Add property columns to the application service node",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 3,
+    "type": "single",
+    "question": "Which table stores the granular, detailed states of a Configuration Item (such as In Use, In Maintenance, Pending Disposal, or Sold) that provide specific context within a broader lifecycle phase? [ It was Drag and Drop ]",
+    "options": [
+      {
+        "id": "A",
+        "text": "life_cycle_stage_status",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "life_cycle_mapping",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "life_cycle_stage",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "lifecycle_status",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 4,
+    "type": "single",
+    "question": "The HR department has a centralized support process called \"Employee Benefits Support.\" They define two specific service tiers for this process: a \"Standard Support\" commitment (response within 4 hours, 5-day week) and a \"Premium Support\" commitment (response within 1 hour, 7-day week). Which CSDM element is the specific record that defines the Premium Support commitment, including its specific response time and availability?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Business Application",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Service Offering",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Business Service",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Technical Service",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 5,
+    "type": "single",
+    "question": "Which core process is NOT handled by the CMDB Data Manager and must instead be addressed by separate governance features like the CMDB Health Correctness Scorecard or the Duplicate CI Remediator wizard?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Certification",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Retire",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Attest",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Archive",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "De-duplication",
+        "correct": true
+      },
+      {
+        "id": "F",
+        "text": "Delete",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 6,
+    "type": "single",
+    "question": "A CMDB Analyst needs to continuously identify data gaps in the CMDB structure by finding all Business Applications that are not currently related to any Application Service (i.e., they are not deployed). The analyst needs the result set to be automatically generated and saved weekly for review by the CMDB governance board. Which CMDB Workspace feature is best suited for building and automating this complex, relationship-based analysis?",
+    "options": [
+      {
+        "id": "A",
+        "text": "CMDB Query Builder scheduled reports.",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "CI Class Manager Reconciliation Rules.",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "CMDB Data Manager policies.",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Duplicate CI Remediator wizard.",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 7,
+    "type": "single",
+    "question": "A CMDB administrator recently set the global system property glide.class.downgrade.enabled to false. The administrator runs Discovery against a specific server. The IRE identifies that the server exists in the CMDB as a Windows Server CI, but the incoming payload suggests it should be reclassified to the generic Server class (a class downgrade). What is the resulting action in the system, and why?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The CI is automatically moved to the Server class, but a log entry is created.",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "The IRE stops processing the payload, and the CI remains untouched, without any task generated.",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "A Reclassification Task is generated, allowing the administrator to manually approve or reject the downgrade.",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "The CI is automatically deleted from the Windows Server class.",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 8,
+    "type": "single",
+    "question": "When utilizing the Duplicate CI Remediator wizard to resolve duplication tasks, the system provides recommendations to help the administrator select the Main CI (Master CI) to retain. Which field is updated on the discarded duplicate CI record to indicate the CI that was chosen as the original master record?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Duplicate Of",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Last Updated",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Operational Status",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Discovery Source (set to 'duplicate')",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 9,
+    "type": "single",
+    "question": "Question: The Windows Server class has two reconciliation rules configured for the RAM (MB) attribute: Static Reconciliation Rule: Prioritizes SCCM (Priority 100) over all other sources.Dynamic Reconciliation Rule: Set to Largest Value.An incoming payload from ServiceNow Discovery reports RAM as 8192 MB, while the SCCM data reports 4096 MB. The CI record updates to 8192 MB (ServiceNow’s value), despite the Static Rule prioritizing SCCM. What is the most likely cause of this behavior?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The Static Reconciliation Rule was configured incorrectly and should have priority 200.",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "The Dynamic Reconciliation Rule (Largest Value) takes precedence over the Static Reconciliation Rule, overriding the priority set for SCCM.",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "The glide.identification_engine.multisource_enabled property is set to false.",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "The CI was last updated by ServiceNow Discovery, causing the \"Last Update Wins\" principle to apply.",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 10,
+    "type": "single",
+    "question": "After an external inventory source runs, the Identification and Reconciliation Engine (IRE) attempts to change an existing Windows Server CI to the generic Server CI class because essential Windows-specific attributes were lost or missing. What type of reclassification behavior is the IRE attempting to execute?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Downgrade",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Switch",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Upgrade",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 11,
+    "type": "single",
+    "question": "Reconciliation rules are configured to control which of the following?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Updates to a CI",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Deletion of a CI",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Inserts of a CI",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Reading of a CI",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 12,
+    "type": "multiple",
+    "question": "Aligning to the Common Service Data Model (CSDM) allows for auto-population of the assignment group field on new incident and change request records. Which of the following are true when creating a new Incident or Change Request in ServiceNow? ( Choose 2 )",
+    "options": [
+      {
+        "id": "A",
+        "text": "Managed by group on the selected CI auto-populates the assignment group field on the incident form.",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Change group on the selected CI auto-populates the assignment group field on the change request form.",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Support group on the selected CI auto-populates the assignment group field on the incident form.",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Approval group on the selected CI auto-populates the assignment group field on the change request form.",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 13,
+    "type": "single",
+    "question": "The CMDB and CSDM Data Foundations Dashboards are acquired from the ServiceNow Store. Which statement highlights the key difference in configurability between the Data Foundations Dashboards and the CMDB Health Dashboard?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The Data Foundations Dashboards are part of the base instance, while CMDB Health requires a store application.",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "The Data Foundations Dashboards come with fixed, non-customizable metrics, whereas the CMDB Health Dashboard allows for flexible metric customization and filtering.",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "The Data Foundations Dashboards are suitable for internal audiences only.",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "The Data Foundations Dashboards calculate Correctness, Completeness, and Compliance scores, while CMDB Health only shows Audit results.",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 14,
+    "type": "single",
+    "question": "Which of the following describes the key benefit of leveraging Dynamic Reconciliation Rules over Static Reconciliation Rules?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Dynamic rules leverage raw data stored in the Multisource CMDB to determine the best value based on criteria like Largest Value or Most Reported.",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Dynamic rules can be configured using the IRE API via an onBefore script.",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Dynamic rules rely solely on the data source priority (e.g., ServiceNow Priority 100).",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Dynamic rules only apply to non-discoverable attributes like Support Group.",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 15,
+    "type": "multiple",
+    "question": "You are configuring the CMDB Health Dashboard to assist the CI maintenance team. You need to set up automated or guided actions to fix data quality issues found during the health scans. Which of the following specific mechanisms are used by ServiceNow to execute these remediation actions? ( Choose 2 )",
+    "options": [
+      {
+        "id": "A",
+        "text": "Duplicate CI Remediator",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Workflow",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Scheduled Job",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Business Rule",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 16,
+    "type": "single",
+    "question": "A multinational healthcare provider is preparing for a HIPAA compliance audit. The Chief Privacy Officer (CPO) needs an immediate report of every Business Application in the portfolio that processes or transmits \"Patient Diagnosis Records.\"The CMDB team has already mapped all Application Services to their underlying Servers and Database Instances. However, the CPO argues that knowing where the data lives physically (e.g., ORACLE-DB-01) is insufficient; they need to track the specific content classification to determine which applications are in scope for the audit.To satisfy this requirement using the CSDM framework, you need to create a logical record representing \"Patient Diagnosis Records\" and associate it with the relevant Business Applications. Which specific CI class should be used to create this logical data record?",
+    "options": [
+      {
+        "id": "A",
+        "text": "DB Catalog [cmdb_ci_db_catalog]",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Information Object [cmdb_ci_information_object]",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Data Domain [cmdb_ci_data_domain]",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Business Capability [cmdb_ci_business_capability]",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 17,
+    "type": "multiple",
+    "question": "Which are general usage guidelines for location records? ( Choose 3 )",
+    "options": [
+      {
+        "id": "A",
+        "text": "Hierarchical",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Non-hierarchical",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Unique",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Parent field populated occasionally",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Come from multiple sources",
+        "correct": false
+      },
+      {
+        "id": "F",
+        "text": "Clear to end users",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 18,
+    "type": "multiple",
+    "question": "Which three metrics are visible in the CMDB 360 view within the CMDB Workspace, providing key analytics on multisource data ingestion? (Select 3)",
+    "options": [
+      {
+        "id": "A",
+        "text": "CIs by number of Discovery sources (reported by multiple sources)",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Total number of CIs collected for each discovery source",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "CIs reported by a single discovery source",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Unassigned Data Manager task",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Duplicate CI Remediator status",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 19,
+    "type": "single",
+    "question": "What is the primary operational consequence when a CMDB Administrator sets the`glide.class.switched.enabled` system property to false?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The CI's Discovery Source is set to 'duplicate'.",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "The system prevents all class upgrades and downgrades.",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "The CI is automatically deleted from the CMDB.",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "If the IRE finds a match but determines the CI belongs to a different branch (Class Switch), a Reclassification Task is generated.",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 20,
+    "type": "multiple",
+    "question": "What are 3 pillars to focus on to achieve a successful data foundation?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Compliance",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Insight",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Correctness",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Completeness",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Ingest",
+        "correct": true
+      },
+      {
+        "id": "F",
+        "text": "Govern",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 21,
+    "type": "multiple",
+    "question": "Cloud Dimensions wants to use Dynamic Reconciliation Rules and the CMDB 360 View to retain historical attribute values from multiple discovery sources. What two prerequisites must the CMDB Administrator fulfill to enable this functionality? ( Choose 2 )",
+    "options": [
+      {
+        "id": "A",
+        "text": "Run the CMDB Get Well Metric Collection job.",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Install the ITOM Discovery License plugin.",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Configure reconciliation rules for all CI classes.",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Set the system property glide.identification_engine.multisource_enabled to true (referenced as required Multisource system property).",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 22,
+    "type": "multiple",
+    "question": "When configuring a Dynamic Reconciliation Rule to resolve attribute conflicts from Multisource CMDB data, which of the following are valid validation types (statuses) you can select? (Choose two.)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Most reported",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Last updated",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Highest priority",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Last created",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Owner approved",
+        "correct": false
+      },
+      {
+        "id": "F",
+        "text": "Smallest value",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 23,
+    "type": "single",
+    "question": "Which feature of the CMDB Workspace provides a visual, graphical representation of CIs and their relationships, offering contextual information on associated Incidents, Changes, and Problems?",
+    "options": [
+      {
+        "id": "A",
+        "text": "CMDB Query Builder",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Intelligent Search",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "CMDB 360 View",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Unified Map",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 24,
+    "type": "single",
+    "question": "The CMDB team configures health inclusion rules so that:Network devices in a certain lab are excluded from CMDB HealthAll other network devices remain included Later, a manager asks why the health score for the Network gear looks higher after this change.Which is the most accurate explanation?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Inclusion rules only change the dashboard layout, not the scores",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Inclusion rules automatically repair all CIs covered by them",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Inclusion rules turn off metrics at class level for all network devices",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Inclusion rules move excluded CIs to a separate archive table",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Excluding the lab devices means they are no longer counted in the health calculations",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 25,
+    "type": "single",
+    "question": "What is the main purpose of the Life Cycle Mapping [life_cycle_mapping] table?",
+    "options": [
+      {
+        "id": "A",
+        "text": "It stores the current lifecycle values for every CI and asset, one row per record",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "It stores CMDB group definitions used by CMDB Health dashboards",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "It stores all possible combinations of lifecycle stage and lifecycle status that are allowed in the system",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "It stores mappings from lifecycle fields to Service Portfolio entries only",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "It stores mapping rules from one legacy status field (for example, install_status or operational_status) to a CSDM lifecycle pair (lifecycle stage + lifecycle status), including an optional reverse-sync choice",
+        "correct": true
+      },
+      {
+        "id": "F",
+        "text": "This choice is correct because the main purpose of the Life Cycle Mapping table is to store mapping rules from legacy status fields to CSDM lifecycle pairs, allowing for the synchronization of lifecycle statuses.",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 26,
+    "type": "single",
+    "question": "You have 10 servers part of a CMDB group. (Servers 1 -10).What will be the percentage listed on the Correctness scorecard - non-duplicate metric for the group giventhe following information.Server 1 fails the non-duplicate metricServer 2 fails the non-duplicate metricServer 3 fails the non-stale metricServer 4 fails the non-orphan metricThe remaining servers pass all three metrics.",
+    "options": [
+      {
+        "id": "A",
+        "text": "60%",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "20%",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "80%",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "90%",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 27,
+    "type": "single",
+    "question": "Defines policies for retiring CIs that are no longer in use, often based on criteria like age or lack of discovery.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Retire",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Delete",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Archive",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Attestation",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Data Certification",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 28,
+    "type": "single",
+    "question": "Your CMDB has many server CIs that have not been updated for more than 18 months.The infrastructure team confirms that most of these servers were physically removed from the data center, but they still want some time to refer to configuration history for audits before the records are fully removed.As the CMDB admin using CMDB Data Manager, which combination of policies best fits this requirement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Only an Archive policy that moves the CIs to an archive table as soon as they are stale",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "A Retire policy followed by a Delete policy that runs on archived records",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "A Retire policy followed by an Archive policy for the stale servers",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Only a Delete policy that removes the CI as soon as it becomes stale",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "A Data Certification policy that asks owners to confirm each server CI every 30 days",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 29,
+    "type": "single",
+    "question": "You are a CMDB Architect designing a new integration to bring hardware assets into the CMDB from a third- party source. You need a solution that processes data through the Identification and Reconciliation Engine (IRE) to respect CI Identification Rules and Reconciliation Rules.Which data ingestion method inherently leverages the IRE for this purpose?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Table API (REST or SOAP)",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Import sets with transform maps",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "IntegrationHub ETL",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 30,
+    "type": "multiple",
+    "question": "An administrator is attempting to import User (sys_user) data into the CMDB using a new IntegrationHub ETL integration to ensure all user records adhere to CMDB quality standards. The integration fails, even though the target table is listed as supported. The log indicates that the IRE is not properly engaging the User table for identification. What are the two prerequisite steps the administrator must verify or complete to enable IRE support for the User table? ( Choose 2 )",
+    "options": [
+      {
+        "id": "A",
+        "text": "The administrator must set the glide.required.attribute.enabled property to true",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "The User table name (sys_user) must be added to the system property glide.identification_engine.non_cmdb_tables.",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "An Identification Rule (CI Identifier) must be created specifically for the User table.",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "The User table must be extended from the cmdb_ci table.",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 31,
+    "type": "single",
+    "question": "Cloud Dimensions is reviewing the metrics provided by their CMDB Correctness Scorecard. In reviewing the Duplicate metric for the Server class, it displays Healthy CIs/Evaluated 700/800. Which of the following is true regarding the duplicate server records calculated on the Duplicate metric?",
+    "options": [
+      {
+        "id": "A",
+        "text": "700 server records are duplicates in the CMDB",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "100 server records are duplicates in the CMDB",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "700 Linux and 800 Windows server records are duplicates in the CMDB",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "800 server records are duplicates in the CMDB",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 32,
+    "type": "single",
+    "question": "Cloud Dimensions is reviewing the metrics provided by the CMDB Correctness Scorecard. In reviewing the Duplicate metric for the Server class, it displays 1200/5000. In reviewing the Orphan metric, it displays 900/4200. Which of the following might be configured to display the difference in the scope of Server CIs (5000 vs 4200) used in both metrics.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The Orphan metric has a CMDB Group configured for the Server class",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "The Orphan metric has a Health Inclusion rule configured for the Server class",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "The Duplicate metric has a Health Inclusion rule configured for the Server class",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "The Duplicate metric has a CMDB Group configured for the Server class",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 33,
+    "type": "multiple",
+    "question": "From which of the following can the Managed by group be configured and synchronised to the underlying group or class of Configuration Items (CIs)? (Choose 2)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Technology Management Services",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Business Services",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Business Service Offerings",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "CI Class Manager",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "Technology Management Offerings",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 34,
+    "type": "single",
+    "question": "The CMDB Health Dashboard provides three KPIs: Correctness, Completeness, and Compliance. The calculation for the Overall Score reflects which stringent requirement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The percentage of CIs that successfully meet ALL metric criteria within the scorecards.",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "The average percentage of CIs that pass all three metrics.",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Only CIs with a populated Discovery Source are included in the overall calculation.",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "The percentage of CIs that pass either the Correctness or the Compliance metrics.",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 35,
+    "type": "single",
+    "question": "Which CMDB feature allows you to define data precedence rules to ensure that a trusted data source (e.g., ServiceNow Discovery) is not overwritten by a lower-priority source (e.g., a manual spreadsheet import) for specific CI attributes?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Reconciliation Rule",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Data Manager Policy",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Duplicate CI Remediator",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "De-duplication Task",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "De-duplication Template",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 36,
+    "type": "single",
+    "question": "In CI Class Manager, which element controls whether a CI class is visible and filterable in the \"Configuration Item\" reference field on ITSM forms (such as Incident, Problem, Change), helping to reduce clutter for end users?",
+    "options": [
+      {
+        "id": "A",
+        "text": "CI Identifier",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Extensible flag",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Managed By Group",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Principal Class",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 37,
+    "type": "single",
+    "question": "From the Get Well Playbook “Percentage of Dynamic CI Groups with CMDB Group”, which is a potential benefit to the business if this metric is properly governed?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Complicates the auto-population of affected CIs during changes",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Reduces IT asset management tracking capabilities",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Improves successful changes, such as patch management for all servers",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Decreases efficiency in impact analysis",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 38,
+    "type": "multiple",
+    "question": "What are two terms commonly used interchangeably with ServiceNow Discovery (Horizontal Discovery)?",
+    "options": [
+      {
+        "id": "A",
+        "text": "IP-based discovery",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Top-down discovery",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "ML powered mapping",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Tag-based discovery",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Agentless discovery",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 39,
+    "type": "single",
+    "question": "Which table acts as a governor to ensure data integrity by defining exactly which Stage and Stage Status combinations are valid for a specific CI Class (e.g., preventing a Server from being set to Operational + Pending Disposal)?",
+    "options": [
+      {
+        "id": "A",
+        "text": "life_cycle_policy",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "life_cycle_stage",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "life_cycle_validation",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "life_cycle_control",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 40,
+    "type": "single",
+    "question": "Remediation Playbooks that can be used to fix common CMDB and CSDM issues are accessible from which management tool?",
+    "options": [
+      {
+        "id": "A",
+        "text": "CMDB Query Builder",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Data Manager",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "CI Class Manager",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "CMDB and CSDM Data Foundations Dashboards",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 41,
+    "type": "single",
+    "question": "Cloud Dimensions recently integrated a new monitoring tool (SolarWinds) and wants it to supply the Memory (RAM) value for all virtual servers. However, this value must be prevented from being updated by the standard vCenter Discovery source, even though vCenter runs later. The administrator needs to configure this specific data source prioritization for a single attribute within the Virtual Server CI class. Which feature handles this data source control?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Duplicate CI Remediator wizard.",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "CMDB Query Builder scheduled reports.",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "CMDB Data Manager policies.",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "CI Class Manager Reconciliation Rules.",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 42,
+    "type": "single",
+    "question": "Which of the following is the key distinction between a Hosting Rule and a Containment Rule when defining Dependent Relationships in CI Class Manager?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Containment rules apply to applications, while hosting rules apply to hardware.",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Hosting rules are one level deep and always involve resources that are either physical or virtual hardware.",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Containment rules enforce data integrity, while hosting rules prevent duplicates.",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Hosting rules only apply to relationships discovered by Service Mapping.",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 43,
+    "type": "single",
+    "question": "Responsible for the technical configuration, access controls (ACLs), and setting up Discovery schedules.",
+    "options": [
+      {
+        "id": "A",
+        "text": "CMDB Process Owner",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "CMDB Admin",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Service Owner",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Configuration Manager",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "CI Analyst",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 44,
+    "type": "multiple",
+    "question": "Why do organisations fail to complete implementation or realise business value from the CMDB?Select 3 Answers from the below options.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Ill-defined relationships among Configuration Items",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Unknown Configuration Items",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Inconsistent data quality",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "Too many non-IT Configuration Items",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 45,
+    "type": "single",
+    "question": "CMDB class owners are receiving tasks under the “My Work” tab in the CMDB Workspace. Which CMDB management tool is generating those tasks?",
+    "options": [
+      {
+        "id": "A",
+        "text": "De-duplication templates",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "CMDB Data Manager",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "CMDB Health Dashboard",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 46,
+    "type": "single",
+    "question": "A Data Center Manager is working with the CMDB CI Class Manager to define the relationship between Application Servers and the Applications they host. The company has multiple Application Servers that host one or more Applications.Which describes the relationship between the Application Server table and the Application table?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Many-to-many",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Many-to-one",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "One-to-one",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "One-to-many",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 47,
+    "type": "multiple",
+    "question": "The Configuration Manager is preparing justification to utilize the CMDB Data Foundations Dashboard. Which benefits align with the usage of this dashboard? ( Choose 2 )",
+    "options": [
+      {
+        "id": "A",
+        "text": "It automates approval processes for Change Management",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "It provides actionable insights to improve data quality and completeness",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "It helps detect and eliminate duplicate records in the CMDB",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "It enables monitoring and tracking of CMDB health over time",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 48,
+    "type": "single",
+    "question": "Drag and drop the CMDB Health Dashboard metric to the correct description.Picture1: (Question) Picture2: (Answer)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Picture1",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Picture2",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 49,
+    "type": "single",
+    "question": "A manufacturing organization has implemented Incident Management in ServiceNow and wants to integrate additional products to enhance its functionality.Drag each ServiceNow product to the value it brings in supporting Incident Management.Picture1: (Question) Picture2: (Answer)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Picture1",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Picture2",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 50,
+    "type": "multiple",
+    "question": "Configuration Management needs to ensure data quality for all CIs in the CMDB. What areas of data quality for CIs are included in the CMDB Health Dashboard? (Choose 2)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Downgraded CIs",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Missing CIs",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Upgraded CIs",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Stale CIs",
+        "correct": false
+      },
+      {
+        "id": "E",
+        "text": "Duplicate CIs",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 51,
+    "type": "single",
+    "question": "A Configuration Manager wants to use the Unified Map.Where would it be accessed?",
+    "options": [
+      {
+        "id": "A",
+        "text": "CI Class Manager",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "CMDB Data Manager",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "CMDB Workspace",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 52,
+    "type": "multiple",
+    "question": "A Service Owner is using Unified Map to understand the composition of a service but wants to filter irrelevant information. Which options are available to the Service Owner from the filter panel? (Choose 2 options)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Managed by group",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Discovery source",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Business criticality",
+        "correct": true
+      },
+      {
+        "id": "D",
+        "text": "CI type",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 53,
+    "type": "single",
+    "question": "Given a list of Service types in the platform, drag the appropriate service to its definition.Picture1 (Question): Picture2 (Answer):",
+    "options": [
+      {
+        "id": "A",
+        "text": "Picture1",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Picture2",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 54,
+    "type": "single",
+    "question": "A customer’s CMDB is aligned to the CSDM Walk stage.What benefit is provided by the CMDB?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Allows for additional stratification of technical teams’ support structure along the lines of OLAs and commitments",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Improves the implementation velocity of APM Foundation for future business application rationalization",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Enables impact assessments for incident, problem, and change on Business Services",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 55,
+    "type": "single",
+    "question": "A Configuration Manager has configured multiple data sources that are all authorized to update the same class and the same set of class attributes in the CMDB.What can the Configuration Manager do to control which data source should be the authoritative source of truth for a specific class or set of class attributes?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Assign a priority to each data source in reconciliation rules",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Manually run the data source updates in the correct order",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Configure data refresh rules with a specific time period",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Assign a run order to each data source in the identification rules",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 56,
+    "type": "single",
+    "question": "A CMDB Administrator wants to remove all Linux Servers in the organization that have not been updated in six months.Which recommended action should the Administrator take in Data Foundations?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create a business rule",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Create an archive policy",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Create a scheduled job",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 57,
+    "type": "multiple",
+    "question": "The CMDB Configuration Management team has successfully developed a healthy and trusted CMDB. They have integrated discovered infrastructure data, accurately referenced non-discoverable data (such as change and support group information), and made the CMDB service-aware using Service Mapping.How will these improvements enhance the change management process? (Choose Two)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Ensures that no changes result in service downtime, regardless of planning or execution",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Provides insight into the potential impact of the change",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Automatically schedules and deploys changes without human review or approval",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Enables auto-population of the assignment group field to dynamically route changes",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 58,
+    "type": "multiple",
+    "question": "A Configuration Management Process Owner is preparing solution options for presentation to technical governance for ingesting custom CIs into the CMDB. The solution must align with best practices, minimize future technical debt, and ensure upgrade compliance.Which solutions accomplish this? (Choose 2)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Repurposing a base CI class and renaming attributes as required",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Installing or upgrading theCMDB CI Class Models Store application to find a suitable existing CI class accommodating any new attributes",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Extending the existing Asset class table to custom CI class attributes",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Extending an existing CI class table to accommodate the custom CI class attributes",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 59,
+    "type": "single",
+    "question": "What is the difference between Data Certification and Attestation policies when managing a CI?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Attestation requires correcting specific attributes of a CI, while Data Certification tracks acknowledgement the CI still exists",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Attestation can be scheduled, while Data Certification cannot be scheduled",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Attestation can be assigned to a group or an individual, while Data Certification can only be assigned to an individual",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Attestation tracks acknowledgement the CI still exists, while Data Certification requires validating specific attributes of a CI",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 60,
+    "type": "multiple",
+    "question": "Which are business values of CMDB? (Choose 2)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Strengthening operational resiliency",
+        "correct": true
+      },
+      {
+        "id": "B",
+        "text": "Streamlining Incident and Change Management",
+        "correct": true
+      },
+      {
+        "id": "C",
+        "text": "Automating maintenance for CI relationships",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Collecting and managing financial data",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 61,
+    "type": "single",
+    "question": "DRAG DROP -A CMDB Administrator seeks to understand the available tools for preventing, addressing, and remediatingduplicate CIs.Drag and drop each feature with the corresponding outcome.Some options may not apply.Picture1( Question ):- Picture2( Answer ):-",
+    "options": [
+      {
+        "id": "A",
+        "text": "Picture1",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Picture2",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 62,
+    "type": "single",
+    "question": "A Configuration Manager needs to leverage a policy type to automate the creation and assignment of tasks to validate the existence of CIs.Which policy type should be used to accomplish this goal?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Retire",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Certification",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "Delete",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "Attestation",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 63,
+    "type": "single",
+    "question": "In a company there is a need to understand the CSDM maturity level needed. Different stakeholders listed anumber of use cases that they expect over time.Which use case requires information objects?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The Event Operations team wants to automate their events into incident for operational actions.",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "The Business Service Management team wants to understand the operational impact for their consumer parties.",
+        "correct": false
+      },
+      {
+        "id": "C",
+        "text": "The Customer Service team wants to onboard pro-active case management.",
+        "correct": false
+      },
+      {
+        "id": "D",
+        "text": "The SecOps team wants to understand the operational risk in the Business Application context.",
+        "correct": true
+      },
+      {
+        "id": "E",
+        "text": "The Asset Management wants to understand to asset life cycle compliancy in a Business Application context.",
+        "correct": false
+      }
+    ],
+    "explanation": ""
+  },
+  {
+    "id": 64,
+    "type": "single",
+    "question": "DRAG DROP -A CMDB Owner starts on the CSDM journey and needs to become familiar with the CSDM domains.Drag the CMDB objects to the correct CSDM domains.Picture1( Question ):- Picture2( Answer ):-",
+    "options": [
+      {
+        "id": "A",
+        "text": "Picture1",
+        "correct": false
+      },
+      {
+        "id": "B",
+        "text": "Picture2",
+        "correct": true
+      }
+    ],
+    "explanation": ""
+  }
+];
+
+function normalizeType(t){ return t === 'multiple' ? 'multi' : t; }
+const QUESTIONS_BANK = QUESTIONS_BANK_RAW.map(q => ({ ...q, type: normalizeType(q.type) }));
+
+/* ==============================
+ * ESTADO / PERSISTÊNCIA
+ * ============================== */
+const QUIZ_SESSION_KEY = 'quizActiveSession_v3';
+let quizState = {
+  startTime: null,
+  endTime: null,
+  currentIndex: 0,
+  sequence: [],
+  answers: {}, // single/multi: { selected:Set }, matching: { pairs:{} }
+  locked: {},
+  reviewMode: false
+};
+const appRoot = document.getElementById("appRoot");
+
+/* Persistência */
+function saveSession() {
+  if (quizState.endTime) return;
+  try {
+    const serializable = {
+      startTime: quizState.startTime,
+      currentIndex: quizState.currentIndex,
+      sequence: quizState.sequence,
+      answers: Object.fromEntries(
+        Object.entries(quizState.answers).map(([qid, val]) => {
+          if (val.selected instanceof Set) return [qid, { selected: Array.from(val.selected) }];
+          return [qid, { pairs: val.pairs || {} }];
+        })
+      ),
+      locked: quizState.locked
+    };
+    localStorage.setItem(QUIZ_SESSION_KEY, JSON.stringify(serializable));
+  } catch(e){ console.warn("Falha salvar sessão", e); }
+}
+function restoreSessionIfAny() {
+  try {
+    const raw = localStorage.getItem(QUIZ_SESSION_KEY);
+    if(!raw) return false;
+    const data = JSON.parse(raw);
+    if(!Array.isArray(data.sequence)) return false;
+    quizState.startTime = data.startTime || Date.now();
+    quizState.currentIndex = data.currentIndex || 0;
+    quizState.sequence = data.sequence;
+    quizState.answers = {};
+    if (data.answers) {
+      Object.entries(data.answers).forEach(([qid,val])=>{
+        if(val.selected) quizState.answers[qid]={selected:new Set(val.selected)};
+        else if(val.pairs) quizState.answers[qid]={pairs:{...val.pairs}};
+      });
+    }
+    quizState.locked = data.locked || {};
+    return true;
+  } catch(e){ console.warn("Falha restaurar sessão", e); return false; }
+}
+function clearSession(){ localStorage.removeItem(QUIZ_SESSION_KEY); }
+
+/* Utilidades */
+function shuffle(a){ const arr=a.slice(); for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+function formatDuration(ms){ const s=Math.floor(ms/1000); const m=Math.floor(s/60); const r=s%60; return `${m}m ${r.toString().padStart(2,'0')}s`; }
+function getCurrentQuestion(){ return quizState.sequence[quizState.currentIndex]; }
+
+function initQuiz(){
+  clearSession();
+  quizState.startTime = Date.now();
+  quizState.endTime = null;
+  quizState.currentIndex = 0;
+  quizState.answers = {};
+  quizState.locked = {};
+  quizState.reviewMode = false;
+  quizState.sequence = shuffle(QUESTIONS_BANK.map(q=>{
+    if(q.type==='matching'){
+      return {
+        ...q,
+        left: shuffle(q.left.map(l=>({...l}))),
+        right: shuffle(q.right.map(r=>({...r})))
+      };
+    }
+    return { ...q, options: shuffle(q.options.map(o=>({...o}))) };
+  }));
+  renderLayout();
+  renderQuestion();
+  saveSession();
+}
+
+function countStats(){
+  let correct=0, incorrect=0, skipped=0;
+  quizState.sequence.forEach(q=>{
+    const ans=quizState.answers[q.id];
+    if(!ans || !quizState.locked[q.id]) { skipped++; return; }
+    let isCorrect=false;
+    if(q.type==='matching'){
+      const pairs = ans.pairs || {};
+      isCorrect = q.left.every(l=> pairs[l.id] === q.answerMap[l.id]);
+    } else {
+      const selected=ans.selected;
+      const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
+      isCorrect = selected.size===correctSet.size && Array.from(selected).every(id=>correctSet.has(id));
+    }
+    if(isCorrect) correct++; else incorrect++;
+  });
+  return {correct, incorrect, skipped, total:quizState.sequence.length};
+}
+
+/* Layout / Timer */
+let timerInterval=null;
+function renderLayout(){
+  appRoot.innerHTML=`
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0">Servicenow CIS-DF Exam 3</h5>
+      <div>
+  <a href="./home.html" class="btn btn-sm btn-outline-primary me-2">Home</a>
+  <button class="btn btn-sm btn-outline-danger me-2" onclick="finishQuiz()">Finalizar Teste</button>
+        <span class="small text-muted" id="timerSpan">00:00</span>
+      </div>
+    </div>
+    <div class="progress mb-3">
+      <div class="progress-bar" id="progressBar" style="width:0%"></div>
+    </div>
+    <div id="questionContainer"></div>
+  `;
+  startTimer();
+}
+function startTimer(){
+  if(timerInterval) clearInterval(timerInterval);
+  timerInterval=setInterval(()=>{
+    if(quizState.endTime){ clearInterval(timerInterval); return; }
+    const diff=Date.now()-quizState.startTime;
+    const s=Math.floor(diff/1000);
+    const m=Math.floor(s/60);
+    const r=s%60;
+    const el=document.getElementById('timerSpan');
+    if(el) el.textContent=`${m.toString().padStart(2,'0')}:${r.toString().padStart(2,'0')}`;
+  },1000);
+}
+
+/* Render questão */
+function renderQuestion(){
+  const q=getCurrentQuestion();
+  const container=document.getElementById("questionContainer");
+  if(!q || !container) return;
+  const idx=quizState.currentIndex+1;
+  const total=quizState.sequence.length;
+  const isLocked=!!quizState.locked[q.id];
+  const progressBar=document.getElementById("progressBar");
+  if(progressBar) progressBar.style.width = `${((idx-1)/total)*100}%`;
+
+  let answeredSet, pairs;
+  if(q.type==='matching'){
+    pairs = quizState.answers[q.id]?.pairs || {};
+  } else {
+    answeredSet = quizState.answers[q.id]?.selected || new Set();
+  }
+
+  // status geral
+  let statusAlertHTML='';
+  if(isLocked){
+    let isCorrect=false;
+    if(q.type==='matching'){
+      isCorrect = q.left.every(l=> (pairs||{})[l.id] === q.answerMap[l.id]);
+    } else {
+      const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
+      isCorrect = answeredSet.size===correctSet.size && Array.from(answeredSet).every(id=>correctSet.has(id));
+    }
+    statusAlertHTML = `
+      <div class="mb-3">
+        <div class="alert ${isCorrect?'alert-success':'alert-danger'} question-status-alert mb-0 py-2 px-3">
+          <strong>${isCorrect?'Correta':'Incorreta'}:</strong>
+          ${isCorrect?'Você acertou esta questão.':'Esta questão foi respondida incorretamente.'}
+        </div>
+      </div>
+    `;
+  }
+
+  let bodyHTML='';
+  if(q.type==='matching'){
+    bodyHTML = `
+      <h6 class="mb-3">${q.question}</h6>
+      ${statusAlertHTML}
+      ${renderMatchingQuestion(q, pairs, isLocked)}
+    `;
+  } else {
+    const correctNeeded = q.type==='multi' ? q.options.filter(o=>o.correct).length : 1;
+    bodyHTML = `
+      <h6 class="mb-3">${q.question} ${q.type==='multi'?`<span class="text-muted small">(Escolha ${correctNeeded})</span>`:''}</h6>
+      ${statusAlertHTML}
+      <div id="optionsWrapper">
+        ${q.options.map(opt=>{
+          const selected=answeredSet.has(opt.id);
+            const classes=["p-3","mb-2","border","rounded","option-card","d-flex","align-items-start"];
+            if(selected) classes.push("selected");
+            if(isLocked){
+              if(selected && opt.correct) classes.push("correct-user");
+              else if(!selected && opt.correct) classes.push("correct");
+              else if(selected && !opt.correct) classes.push("incorrect-user");
+            }
+            return `
+              <div class="${classes.join(' ')}" onclick="toggleSelect('${q.id}','${opt.id}')">
+                <div class="me-3 mt-1">
+                  ${q.type==='single'
+                    ? `<input type="radio" name="q_${q.id}" ${selected?'checked':''} ${isLocked?'disabled':''}/>`
+                    : `<input type="checkbox" ${selected?'checked':''} ${isLocked?'disabled':''}/>`}
+                </div>
+                <div class="flex-grow-1">
+                  <div class="fw-semibold">${HIDE_OPTION_IDS ? opt.text : `${opt.id}. ${opt.text}`}</div>
+                  ${isLocked ? renderOptionBadge(q,opt,selected):''}
+                </div>
+              </div>
+            `;
+        }).join('')}
+      </div>
+    `;
+  }
+
+  container.innerHTML = `
+    <div class="mb-2 question-header-mini">Questão ${idx} de ${total}</div>
+    ${bodyHTML}
+    <div id="feedbackZone"></div>
+    <div class="mt-3 d-flex justify-content-end gap-2 flex-wrap">
+      ${!isLocked
+        ? `${idx>1?'<button class="btn btn-outline-secondary" onclick="goPrev()">Voltar</button>':''}
+           <button class="btn btn-success" id="submitBtn" disabled onclick="evaluateCurrent()">Confirmar Resposta</button>`
+        : `${idx>1?'<button class="btn btn-outline-secondary" onclick="goPrev()">Voltar</button>':''}
+           <button class="btn btn-primary" onclick="goNextAfterLocked()">${idx===total?'Resultados':'Próxima >'}</button>`
+      }
+    </div>
+  `;
+
+  if(isLocked && q.explanation){
+    document.getElementById('feedbackZone').innerHTML = `
+      <div class="feedback-area mt-3 small text-muted">
+        <strong>Explicação:</strong> ${q.explanation}
+      </div>
+    `;
+  }
+
+  updateSubmitButtonState();
+}
+
+/* Matching render */
+function renderMatchingQuestion(q, pairs, isLocked){
+  return `
+    <div class="mb-2 small text-muted">Associe cada definição ao papel correto.</div>
+    <div id="matchingWrapper">
+      ${q.left.map(l=>{
+        const chosen = pairs[l.id] || '';
+        let rowClass='matching-row';
+        let badgeHTML='';
+        if(isLocked){
+          const correctId=q.answerMap[l.id];
+          const isCorrect = chosen === correctId;
+          rowClass += isCorrect ? ' correct' : ' incorrect';
+          badgeHTML = `<span class="badge ${isCorrect?'bg-success-subtle text-success border border-success':'bg-danger-subtle text-danger border border-danger'} matching-badge ms-2">
+            ${isCorrect?'Correto':'Incorreto'}${!isCorrect ? ' (Correto: '+ rightTextById(q, correctId) +')':''}
+          </span>`;
+        }
+        return `
+          <div class="${rowClass}" data-left="${l.id}">
+            <div class="matching-left-text">${l.text}</div>
+            <div>
+              <select class="form-select form-select-sm" ${isLocked?'disabled':''}
+                onchange="setMatchPair('${q.id}','${l.id}', this.value)">
+                <option value="">-- Selecione --</option>
+                ${q.right.map(r=>{
+                  const selected = r.id === chosen ? 'selected':'';
+                  let disable = '';
+                  if(!isLocked && chosen !== r.id && Object.values(pairs).includes(r.id)) disable='disabled';
+                  return `<option value="${r.id}" ${selected} ${disable}>${HIDE_OPTION_IDS ? r.text : (r.id + ' - ' + r.text)}</option>`;
+                }).join('')}
+              </select>
+              ${badgeHTML}
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+/* Badges single/multi */
+function renderOptionBadge(q,opt,userSelected){
+  if(q.type==='multi'){
+    if(userSelected && opt.correct) return `<span class="badge bg-success-subtle text-success border border-success badge-label mt-1">Sua seleção está correta</span>`;
+    if(!userSelected && opt.correct) return `<span class="badge bg-success-subtle text-success border border-success badge-label mt-1">Seleção correta</span>`;
+    if(userSelected && !opt.correct) return `<span class="badge bg-danger-subtle text-danger border border-danger badge-label mt-1">Sua seleção está incorreta</span>`;
+    return '';
+  } else {
+    if(opt.correct && userSelected) return `<span class="badge bg-success-subtle text-success border border-success badge-label mt-1">Resposta correta</span>`;
+    if(opt.correct && !userSelected) return `<span class="badge bg-success-subtle text-success border border-success badge-label mt-1">Resposta correta</span>`;
+    if(userSelected && !opt.correct) return `<span class="badge bg-danger-subtle text-danger border border-danger badge-label mt-1">Incorreta</span>`;
+    return '';
+  }
+}
+
+/* Estado botão confirmar */
+function updateSubmitButtonState(){
+  const q=getCurrentQuestion();
+  const btn=document.getElementById("submitBtn");
+  if(!btn) return;
+  if(q.type==='matching'){
+    const ans=quizState.answers[q.id];
+    const filled = ans && ans.pairs ? Object.values(ans.pairs).filter(v=>v).length : 0;
+    btn.disabled = filled !== q.left.length;
+  } else {
+    const ans=quizState.answers[q.id];
+    btn.disabled = !(ans && ans.selected.size>0);
+  }
+}
+
+/* Interação single/multi */
+function toggleSelect(qid, optId){
+  const q=quizState.sequence.find(q=>q.id==qid);
+  if(!q || q.type==='matching' || quizState.locked[q.id]) return;
+  if(!quizState.answers[q.id]) quizState.answers[q.id]={selected:new Set()};
+  const sel=quizState.answers[q.id].selected;
+  if(q.type==='single'){ sel.clear(); sel.add(optId); }
+  else {
+    if(sel.has(optId)) sel.delete(optId); else sel.add(optId);
+  }
+  renderQuestion(); saveSession();
+}
+
+/* Interação matching */
+function setMatchPair(qid,leftId,rightId){
+  const q=quizState.sequence.find(q=>q.id==qid);
+  if(!q || q.type!=='matching' || quizState.locked[q.id]) return;
+  if(!quizState.answers[q.id]) quizState.answers[q.id]={pairs:{}};
+  const pairs=quizState.answers[q.id].pairs;
+  if(rightId==='') delete pairs[leftId];
+  else {
+    Object.entries(pairs).forEach(([l,r])=>{
+      if(r===rightId && l!==leftId) delete pairs[l];
+    });
+    pairs[leftId]=rightId;
+  }
+  renderQuestion(); saveSession();
+}
+
+/* Avaliar */
+function evaluateCurrent(){
+  const q=getCurrentQuestion();
+  if(q.type==='matching'){
+    const ans=quizState.answers[q.id];
+    if(!ans || Object.keys(ans.pairs).length < q.left.length) return;
+    quizState.locked[q.id]=true;
+  } else {
+    const ans=quizState.answers[q.id];
+    if(!ans || ans.selected.size===0) return;
+    quizState.locked[q.id]=true;
+  }
+  if(q.explanation){
+    document.getElementById("feedbackZone").innerHTML=`
+      <div class="feedback-area mt-3 small text-muted">
+        <strong>Explicação:</strong> ${q.explanation}
+      </div>
+    `;
+  }
+  renderQuestion(); saveSession();
+}
+
+function goNextAfterLocked(){
+  if(quizState.currentIndex === quizState.sequence.length-1) finishQuiz();
+  else { quizState.currentIndex++; renderQuestion(); saveSession(); }
+}
+function goPrev(){
+  if(quizState.currentIndex===0) return;
+  quizState.currentIndex--; renderQuestion(); saveSession();
+}
+
+/* Resultados */
+function finishQuiz(){
+  quizState.endTime=Date.now();
+  const stats=countStats();
+  const duration=formatDuration(quizState.endTime-quizState.startTime);
+  clearSession();
+  const attemptsKey='quizAttempts';
+  let attempts=parseInt(localStorage.getItem(attemptsKey)||'0',10);
+  attempts++; localStorage.setItem(attemptsKey,attempts);
+  const percent = stats.total? Math.round((stats.correct/stats.total)*100) : 0;
+
+  appRoot.innerHTML=`
+    <div class="mb-4">
+      <h4 class="mb-0">Resultados do Quiz</h4>
+      <div class="text-muted small">Tentativa ${attempts} • ${new Date().toLocaleString('pt-BR')}</div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column justify-content-center">
+            <div class="donut-wrapper mb-3">
+              <canvas id="resultDonut" width="160" height="160"></canvas>
+              <div class="donut-center">${percent}%</div>
+            </div>
+            <div class="text-center small">
+              <span class="me-2"><span class="badge bg-success">&nbsp;</span> Corretas: ${stats.correct}</span>
+              <span class="me-2"><span class="badge bg-danger">&nbsp;</span> Incorretas: ${stats.incorrect}</span>
+              <span><span class="badge bg-secondary">&nbsp;</span> Puladas: ${stats.skipped}</span>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <strong>${stats.correct}/${stats.total}</strong> corretas<br/>Tempo: ${duration}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card h-100">
+          <div class="card-body">
+            <p class="mb-3">Você concluiu o quiz. Revise ou refaça para praticar novamente.</p>
+            <ul class="list-group mb-3 small">
+              <li class="list-group-item d-flex justify-content-between"><span>Total de questões</span><strong>${stats.total}</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Corretas</span><strong class="text-success">${stats.correct}</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Incorretas</span><strong class="text-danger">${stats.incorrect}</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Puladas</span><strong class="text-secondary">${stats.skipped}</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Percentual</span><strong>${percent}%</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Duração</span><strong>${duration}</strong></li>
+            </ul>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="./home.html" class="btn btn-outline-primary">Home</a>
+              <button class="btn btn-primary" onclick="reviewQuestions()">Rever Questes</button>
+              <button class="btn btn-success" onclick="initQuiz()">Refazer (Randomizar)</button>
+              <button class="btn btn-outline-secondary" onclick="toggleTheme()">Alternar Tema</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  drawDonut(stats.correct, stats.incorrect, stats.skipped);
+}
+
+/* Donut */
+function drawDonut(correct, incorrect, skipped){
+  const canvas=document.getElementById("resultDonut");
+  if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const total=correct+incorrect+skipped||1;
+  const data=[
+    {value:correct,color:'#198754'},
+    {value:incorrect,color:'#dc3545'},
+    {value:skipped,color:'#6c757d'}
+  ].filter(d=>d.value>0);
+  let start=-Math.PI/2;
+  data.forEach(d=>{
+    const slice=(d.value/total)*Math.PI*2;
+    ctx.beginPath();
+    ctx.moveTo(80,80);
+    ctx.arc(80,80,80,start,start+slice);
+    ctx.closePath();
+    ctx.fillStyle=d.color;
+    ctx.fill();
+    start+=slice;
+  });
+  ctx.globalCompositeOperation='destination-out';
+  ctx.beginPath(); ctx.arc(80,80,48,0,Math.PI*2); ctx.fill();
+  ctx.globalCompositeOperation='source-over';
+}
+
+/* Revisão */
+function reviewQuestions(){
+  const stats=countStats();
+  const blocks=quizState.sequence.map((q,i)=>{
+    const ans=quizState.answers[q.id];
+    let userCorrect=false;
+
+    if(q.type==='matching'){
+      const pairs = ans ? ans.pairs || {} : {};
+      userCorrect = ans && q.left.every(l=> pairs[l.id] === q.answerMap[l.id]);
+      return `
+        <div class="card mb-3">
+          <div class="card-header d-flex justify-content-between">
+            <span><strong>Questão ${i+1}:</strong> (Matching)</span>
+            <span class="badge ${userCorrect?'bg-success':'bg-danger'}">${userCorrect?'Correta':'Incorreta'}</span>
+          </div>
+          <div class="card-body">
+            <p class="mb-3">${q.question}</p>
+            ${q.left.map(l=>{
+              const chosen = (ans && ans.pairs)? ans.pairs[l.id] : '';
+              const correctId = q.answerMap[l.id];
+              const isRowCorrect = chosen === correctId;
+              return `
+                <div class="matching-row ${isRowCorrect?'correct':'incorrect'}">
+                  <div class="matching-left-text">${l.text}</div>
+                  <div class="small">
+                    <div><strong>Selecionado:</strong> ${chosen ? rightTextById(q, chosen) : '(vazio)'}</div>
+                    <div><strong>Correto:</strong> ${rightTextById(q, correctId)}</div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+            ${q.explanation?`<div class="small text-muted"><strong>Explicação:</strong> ${q.explanation}</div>`:''}
+          </div>
+        </div>
+      `;
+    } else {
+      const selected=ans ? ans.selected : new Set();
+      const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
+      userCorrect = ans && selected.size===correctSet.size && Array.from(selected).every(id=>correctSet.has(id));
+      return `
+        <div class="card mb-3">
+          <div class="card-header d-flex justify-content-between">
+            <span><strong>Questão ${i+1}:</strong> ${q.type==='multi'?'(Multi)':'(Única)'}</span>
+            <span class="badge ${userCorrect?'bg-success':'bg-danger'}">${userCorrect?'Correta':'Incorreta'}</span>
+          </div>
+          <div class="card-body">
+            <p class="mb-3">${q.question}</p>
+            ${q.options.map(o=>{
+              let classes="p-2 px-3 mb-2 border rounded small";
+              let badge='';
+              const userSel=selected.has(o.id);
+              if(o.correct && userSel){ classes+=" border-success bg-success-subtle"; badge='<span class="badge bg-success-subtle text-success border border-success badge-label">Sua seleção correta</span>'; }
+              else if(o.correct && !userSel){ classes+=" border-success bg-success-subtle"; badge='<span class="badge bg-success-subtle text-success border border-success badge-label">Resposta correta</span>'; }
+              else if(!o.correct && userSel){ classes+=" border-danger bg-danger-subtle"; badge='<span class="badge bg-danger-subtle text-danger border border-danger badge-label">Selecionada (Incorreta)</span>'; }
+              else { classes+=" border-light"; }
+              return `<div class="${classes}">${HIDE_OPTION_IDS?o.text:`<strong>${o.id}.</strong> ${o.text}`}<br/>${badge}</div>`;
+            }).join('')}
+            ${q.explanation?`<div class="small text-muted"><strong>Explicação:</strong> ${q.explanation}</div>`:''}
+          </div>
+        </div>
+      `;
+    }
+  }).join('');
+
+  appRoot.innerHTML=`
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0">Revisão das Questões</h4>
+      <div class="d-flex gap-2">
+        <button class="btn btn-success btn-sm" onclick="initQuiz()">Refazer</button>
+        <button class="btn btn-outline-secondary btn-sm" onclick="finishQuiz()">Voltar aos Resultados</button>
+      </div>
+    </div>
+    <div class="mb-3 small">
+      <span class="me-3"><span class="badge bg-success">&nbsp;</span> Corretas: ${stats.correct}</span>
+      <span class="me-3"><span class="badge bg-danger">&nbsp;</span> Incorretas: ${stats.incorrect}</span>
+      <span><span class="badge bg-secondary">&nbsp;</span> Puladas: ${stats.skipped}</span>
+    </div>
+    ${blocks}
+  `;
+}
+
+/* Helpers right text */
+function rightTextById(q, id){ const it=(q.right||[]).find(r=>r.id===id); return it?it.text:''; }
+
+/* Tema */
+const themeBtn=document.getElementById("themeBtn");
+function toggleTheme(){
+  const html=document.documentElement;
+  const cur=html.getAttribute('data-bs-theme')||'light';
+  const next=cur==='light'?'dark':'light';
+  html.setAttribute('data-bs-theme',next);
+  localStorage.setItem('quizTheme',next);
+}
+themeBtn.addEventListener('click',toggleTheme);
+(function(){ const saved=localStorage.getItem('quizTheme'); if(saved) document.documentElement.setAttribute('data-bs-theme',saved); })();
+
+/* Navegação & exposição */
+function goNextAfterLocked(){ if(quizState.currentIndex===quizState.sequence.length-1) finishQuiz(); else {quizState.currentIndex++; renderQuestion(); saveSession();} }
+function goPrev(){ if(quizState.currentIndex===0) return; quizState.currentIndex--; renderQuestion(); saveSession(); }
+
+window.toggleSelect=toggleSelect;
+window.evaluateCurrent=evaluateCurrent;
+window.finishQuiz=finishQuiz;
+window.reviewQuestions=reviewQuestions;
+window.goNextAfterLocked=goNextAfterLocked;
+window.goPrev=goPrev;
+window.toggleTheme=toggleTheme;
+window.initQuiz=initQuiz;
+window.setMatchPair=setMatchPair;
+
+/* Start */
+(function start(){
+  if(restoreSessionIfAny()){ renderLayout(); renderQuestion(); startTimer(); }
+  else initQuiz();
+})();
+</script>
+</body>
+</html>
