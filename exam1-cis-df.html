@@ -21,6 +21,7 @@
   .question-header-mini { font-size:.8rem; color:#6c757d; text-transform:uppercase; letter-spacing:.5px; }
   .toggle-theme { position:fixed; bottom:1rem; right:1rem; z-index:1000; }
   .question-status-alert { font-size:.8rem; }
+  .question-image { width:100%; max-width:100%; height:auto; border:1px solid #dee2e6; border-radius:.5rem; display:block; margin:1rem 0; }
 
   /* Matching */
   .matching-row {
@@ -1766,7 +1767,8 @@ const QUESTIONS_BANK_RAW = [
   {
     "id": 63,
     "type": "single",
-    "question": "The following identification rule for a Hardware CI class has been defined:Two new CI records are imported into the Hardware class of the CMDB:CI1: The name of this CI record matches the name of an existing CI record in the CMDB.CI2: The IP address of this CI record matches the IP address of an existing CI record in the CMDB.Which is correct based on the identification rule and the imported CI records?",
+    "question": "",
+    "href": "imagens/cis-df/q63.png",
     "options": [
       {
         "id": "A",
@@ -2021,9 +2023,15 @@ function renderQuestion(){
   }
 
   let bodyHTML='';
+  const imageHTML = q.href ? `
+      <div class="mb-3">
+        <img src="${String(q.href).replace(/"/g,'&quot;')}" class="question-image" alt="Imagem da questão ${idx}">
+      </div>
+    ` : '';
   if(q.type==='matching'){
     bodyHTML = `
       <h6 class="mb-3">${q.question}</h6>
+      ${imageHTML}
       ${statusAlertHTML}
       ${renderMatchingQuestion(q, pairs, isLocked)}
     `;
@@ -2031,6 +2039,7 @@ function renderQuestion(){
     const correctNeeded = q.type==='multi' ? q.options.filter(o=>o.correct).length : 1;
     bodyHTML = `
       <h6 class="mb-3">${q.question} ${q.type==='multi'?`<span class="text-muted small">(Escolha ${correctNeeded})</span>`:''}</h6>
+      ${imageHTML}
       ${statusAlertHTML}
       <div id="optionsWrapper">
         ${q.options.map(opt=>{
