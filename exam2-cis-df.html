@@ -1737,62 +1737,100 @@ const QUESTIONS_BANK_RAW = [
     ],
     "explanation": ""
   },
+  // {
+  //   "id": 64,
+  //   "type": "single",
+  //   "question": "",
+  //   "href": "imagens/cis-df/exam2-q64.png",
+  //   "options": [
+  //     {
+  //       "id": "A",
+  //       "text": "A → 1, B → 2, C → 4, D → 3",
+  //       "correct": true
+  //     },
+  //     {
+  //       "id": "B",
+  //       "text": "A → 3, B → 1, C → 2, D → 4",
+  //       "correct": false
+  //     },
+  //     {
+  //       "id": "C",
+  //       "text": "A → 2, B → 4, C → 1, D → 3",
+  //       "correct": false
+  //     },
+  //     {
+  //       "id": "D",
+  //       "text": "A → 4, B → 3, C → 2, D → 1",
+  //       "correct": false
+  //     }
+  //   ],
+  //   "explanation": ""
+  // },
   {
     "id": 64,
-    "type": "single",
-    "question": "",
-    "href": "imagens/cis-df/exam2-q64.png",
-    "options": [
-      {
-        "id": "A",
-        "text": "A → 1, B → 2, C → 4, D → 3",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "A → 3, B → 1, C → 2, D → 4",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "A → 2, B → 4, C → 1, D → 3",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "A → 4, B → 3, C → 2, D → 1",
-        "correct": false
-      }
+    "type": "matching",
+    "question": "Match each CSDM entity with its corresponding domain.",
+    "left": [
+      { "id": "A", "text": "Application Service" },
+      { "id": "B", "text": "Business Application" },
+      { "id": "C", "text": "Business Process" },
+      { "id": "D", "text": "Business Service" }
     ],
+    "right": [
+      { "id": "1", "text": "Design and Planning domain" },
+      { "id": "2", "text": "Foundation domain" },
+      { "id": "3", "text": "Service Delivery domain" },
+      { "id": "4", "text": "Sell / Consume domain" }
+    ],
+    "answerMap": { "A": "1", "B": "2", "C": "4", "D": "3" },
     "explanation": ""
   },
+  // {
+  //   "id": 65,
+  //   "type": "single",
+  //   "question": "",
+  //   "href": "imagens/cis-df/exam2-q65.png",
+  //   "options": [
+  //     {
+  //       "id": "A",
+  //       "text": "A → 2, B → 1, C → 4, D → 3",
+  //       "correct": true
+  //     },
+  //     {
+  //       "id": "B",
+  //       "text": "A → 3, B → 2, C → 1, D → 4",
+  //       "correct": false
+  //     },
+  //     {
+  //       "id": "C",
+  //       "text": "A → 1, B → 4, C → 3, D → 2",
+  //       "correct": false
+  //     },
+  //     {
+  //       "id": "D",
+  //       "text": "A → 4, B → 3, C → 2, D → 1",
+  //       "correct": false
+  //     }
+  //   ],
+  //   "explanation": ""
+  // }
   {
     "id": 65,
-    "type": "single",
-    "question": "",
-    "href": "imagens/cis-df/exam2-q65.png",
-    "options": [
-      {
-        "id": "A",
-        "text": "A → 2, B → 1, C → 4, D → 3",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "A → 3, B → 2, C → 1, D → 4",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "A → 1, B → 4, C → 3, D → 2",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "A → 4, B → 3, C → 2, D → 1",
-        "correct": false
-      }
+    "type": "matching",
+    "question": "Match each ServiceNow capability with the correct solution type.",
+    "left": [
+      { "id": "A", "text": "Agent Client Collector" },
+      { "id": "B", "text": "Import Sets" },
+      { "id": "C", "text": "Service Graph Connector" },
+      { "id": "D", "text": "ServiceNow Discovery" }
     ],
+    "right": [
+      { "id": "1", "text": "Organization-built solution using transform maps" },
+      { "id": "2", "text": "Automated agent-based solution running patterns" },
+      { "id": "3", "text": "Automated agentless solution running patterns" },
+      { "id": "4", "text": "Pre-built store integration solutions that require minimal customization" }
+    ],
+    "answerMap": { "A": "2", "B": "1", "C": "4", "D": "3" },
     "explanation": ""
   }
 ];

@@ -1487,38 +1487,40 @@ const QUESTIONS_BANK_RAW = [
   },
   {
     "id": 64,
-    "type": "single",
-    "question": "DRAG DROP -ServiceNow provides a suite of CMDB management tools designed to effectively ingest, manage, and maintain CIs and relationships.Drag and drop the design architecture to its management tool.Some options may not apply.Picture1( Question ):-Picture2( Answer ):-",
-    "options": [
-      {
-        "id": "A",
-        "text": "Picture1",
-        "correct": false
-      },
-      {
-        "id": "B",
-        "text": "Picture2",
-        "correct": true
-      }
+    "type": "matching",
+    "question": "Match each CSDM entity with its corresponding domain.",
+    "left": [
+      { "id": "A", "text": "Application Service" },
+      { "id": "B", "text": "Business Application" },
+      { "id": "C", "text": "Business Process" },
+      { "id": "D", "text": "Business Service" }
     ],
+    "right": [
+      { "id": "1", "text": "Design and Planning domain" },
+      { "id": "2", "text": "Foundation domain" },
+      { "id": "3", "text": "Service Delivery domain" },
+      { "id": "4", "text": "Sell / Consume domain" }
+    ],
+    "answerMap": { "A": "1", "B": "2", "C": "4", "D": "3" },
     "explanation": ""
   },
   {
     "id": 65,
-    "type": "single",
-    "question": "DRAG DROP -A new ServiceNow customer is assembling a Configuration Management team to support their CMDB.Drag each role to its corresponding job description.Picture1( Question ):- Picture2( Answer ):-",
-    "options": [
-      {
-        "id": "A",
-        "text": "Picture1",
-        "correct": false
-      },
-      {
-        "id": "B",
-        "text": "Picture2",
-        "correct": true
-      }
+    "type": "matching",
+    "question": "Match each ServiceNow capability with the correct solution type.",
+    "left": [
+      { "id": "A", "text": "Agent Client Collector" },
+      { "id": "B", "text": "Import Sets" },
+      { "id": "C", "text": "Service Graph Connector" },
+      { "id": "D", "text": "ServiceNow Discovery" }
     ],
+    "right": [
+      { "id": "1", "text": "Organization-built solution using transform maps" },
+      { "id": "2", "text": "Automated agent-based solution running patterns" },
+      { "id": "3", "text": "Automated agentless solution running patterns" },
+      { "id": "4", "text": "Pre-built store integration solutions that require minimal customization" }
+    ],
+    "answerMap": { "A": "2", "B": "1", "C": "4", "D": "3" },
     "explanation": ""
   }
 ];
