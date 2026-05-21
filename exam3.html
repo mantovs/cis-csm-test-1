@@ -1065,9 +1065,7 @@ function renderMatchingQuestion(q, pairs, isLocked){
                 <option value="">-- Selecione --</option>
                 ${q.right.map(r=>{
                   const selected = r.id === chosen ? 'selected':'';
-                  let disable = '';
-                  if(!isLocked && chosen !== r.id && Object.values(pairs).includes(r.id)) disable='disabled';
-                  return `<option value="${r.id}" ${selected} ${disable}>${HIDE_OPTION_IDS ? r.text : (r.id + ' - ' + r.text)}</option>`;
+                  return `<option value="${r.id}" ${selected}>${HIDE_OPTION_IDS ? r.text : (r.id + ' - ' + r.text)}</option>`;
                 }).join('')}
               </select>
               ${badgeHTML}
@@ -1130,9 +1128,6 @@ function setMatchPair(qid,leftId,rightId){
   const pairs=quizState.answers[q.id].pairs;
   if(rightId==='') delete pairs[leftId];
   else {
-    Object.entries(pairs).forEach(([l,r])=>{
-      if(r===rightId && l!==leftId) delete pairs[l];
-    });
     pairs[leftId]=rightId;
   }
   renderQuestion(); saveSession();
