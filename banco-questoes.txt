@@ -1,0 +1,36 @@
+Questions CMDB Workspace
+
+Exam 1
+A CMDB Administrator wants to leverage dynamic reconciliation rules. Which feature must be enabled?
+A CMDB Data Owner has requested better insights on the different data sources that make up the CMDB data set. The Platform Owner knows that the new Service Graph Connector Central plugin is just what is needed. After installing the plugin, what workspace will have the new Service Graph Connector Central tab available?
+A CMDB Administrator wants only the CIs of Principal Classes to appear in CI reference fields, for example the CI reference fields accessible from an Incident Form. Where does the CMDB Administrator designate Principal Classes?
+How does a CMDB Administrator use the ServiceNow Platform to ensure the data quality associated with Cls in the CMDB?
+A Configuration Manager wants to use the Unified Map. Where would it be accessed?
+
+Exam 2
+Where can an administrator perform Natural Language Queries (NLQ)?
+A CMDB Administrator is beginning the journey of populating the CMDB and needs to verify that any data which is no longer useful/applicable is removed. Which governance management tool will accomplish this?
+A CMDB Administrator is creating technical documentation for stakeholders, which includes a list of attributes, Identification and Reconciliation Engine (IRE) rules, and suggested relationships for several classes. Which central location does the CMDB Administrator use to collect this information?
+
+_______________________________________________________________________________
+Questions "Multiples"
+
+Exam 2
+Match each CSDM entity with its corresponding domain.
+Match each ServiceNow capability with the correct solution type.
+
+_______________________________________________________________________________
+Questions "Attestion/Certification"
+
+Exam 2
+A data center has many servers. The CMDB Administrator wants to confirm that all servers exist. Which Data Manager policy type does the Administrator implement?
+
+_______________________________________________________________________________
+Questions "Completeness/Correctness"
+
+Exam 1 
+A CMDB Administrator has been tasked with gathering information for a presentation to leadership. The Administrator needs to provide Duplicate Cl, Orphan Cl and Stale Cl metrics. Which scorecard provides this information on the CMDB Health Dashboard?
+A CMDB Administrator would like to minimize stale CIs in the CMDB. Which CMDB Health Dashboard scorecard displays this information?
+
+Exam 2
+A CMDB Administrator needs to track which CIs and CI classes are missing key data. Which CMDB Health Dashboard scorecard supports tracking this requirement?

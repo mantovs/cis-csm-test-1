@@ -1459,62 +1459,104 @@ const QUESTIONS_BANK_RAW = [
     ],
     "explanation": ""
   },
+  // {
+  //   "id": 48,
+  //   "type": "single",
+  //   "question": "",
+  //   "href": "imagens/cis-df/exam3-q48.png",
+  //   "options": [
+  //     {
+  //       "id": "A",
+  //       "text": "A → 1, B → 6, C → 3, D → 4, E → 2, F → 5",
+  //       "correct": true
+  //     },
+  //     {
+  //       "id": "B",
+  //       "text": "A → 2, B → 1, C → 5, D → 3, E → 4, F → 6",
+  //       "correct": false
+  //     },
+  //     {
+  //       "id": "C",
+  //       "text": "A → 6, B → 3, C → 2, D → 5, E → 1, F → 4",
+  //       "correct": false
+  //     },
+  //     {
+  //       "id": "D",
+  //       "text": "A → 4, B → 5, C → 1, D → 2, E → 6, F → 3",
+  //       "correct": false
+  //     }
+  //   ],
+  //   "explanation": ""
+  // },
   {
     "id": 48,
-    "type": "single",
-    "question": "",
-    "href": "imagens/cis-df/exam3-q48.png",
-    "options": [
-      {
-        "id": "A",
-        "text": "A → 1, B → 6, C → 3, D → 4, E → 2, F → 5",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "A → 2, B → 1, C → 5, D → 3, E → 4, F → 6",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "A → 6, B → 3, C → 2, D → 5, E → 1, F → 4",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "A → 4, B → 5, C → 1, D → 2, E → 6, F → 3",
-        "correct": false
-      }
+    "type": "matching",
+    "question": "Match each CMDB term with its correct description.",
+    "left": [
+      { "id": "A", "text": "Audits" },
+      { "id": "B", "text": "Duplicate CIs" },
+      { "id": "C", "text": "Orphan CIs" },
+      { "id": "D", "text": "Recommended fields" },
+      { "id": "E", "text": "Required fields" },
+      { "id": "F", "text": "Stale CIs" }
     ],
+    "right": [
+      { "id": "1", "text": "Use these to compare actual values with expected values" },
+      { "id": "2", "text": "Use of these should be minimized" },
+      { "id": "3", "text": "Certain attribute values are not set, or relationships are missing" },
+      { "id": "4", "text": "Preferable for them to be populated, as they could be useful in troubleshooting issues" },
+      { "id": "5", "text": "Have not been updated and may be outdated" },
+      { "id": "6", "text": "Detected during identification and reconciliation and have associated base system records" }
+    ],
+    "answerMap": { "A": "1", "B": "6", "C": "3", "D": "4", "E": "2", "F": "5" },
     "explanation": ""
   },
+  // {
+  //   "id": 49,
+  //   "type": "single",
+  //   "question": "",
+  //   "href": "imagens/cis-df/exam3-q49.png",
+  //   "options": [
+  //     {
+  //       "id": "A",
+  //       "text": "A → 3, B → 1, C → 2, D → 4",
+  //       "correct": true
+  //     },
+  //     {
+  //       "id": "B",
+  //       "text": "A → 1, B → 3, C → 4, D → 2",
+  //       "correct": false
+  //     },
+  //     {
+  //       "id": "C",
+  //       "text": "A → 2, B → 4, C → 1, D → 3",
+  //       "correct": false
+  //     },
+  //     {
+  //       "id": "D",
+  //       "text": "A → 4, B → 2, C → 3, D → 1",
+  //       "correct": false
+  //     }
+  //   ],
+  //   "explanation": ""
+  // },
   {
     "id": 49,
-    "type": "single",
-    "question": "",
-    "href": "imagens/cis-df/exam3-q49.png",
-    "options": [
-      {
-        "id": "A",
-        "text": "A → 3, B → 1, C → 2, D → 4",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "A → 1, B → 3, C → 4, D → 2",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "A → 2, B → 4, C → 1, D → 3",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "A → 4, B → 2, C → 3, D → 1",
-        "correct": false
-      }
+    "type": "matching",
+    "question": "Match each ServiceNow solution with its corresponding capability.",
+    "left": [
+      { "id": "A", "text": "Discovery" },
+      { "id": "B", "text": "Hardware Asset Management" },
+      { "id": "C", "text": "Risk Management" },
+      { "id": "D", "text": "Service Portfolio Management" }
     ],
+    "right": [
+      { "id": "1", "text": "Delivers asset actions and events for the management of assets during incidents" },
+      { "id": "2", "text": "Supplies critical IT and financial risk data, enabling the team the broader impact of incidents on business operations" },
+      { "id": "3", "text": "Offers detailed operational-level data on hardware and applications to improve incident resolution" },
+      { "id": "4", "text": "Provides life cycle information about services, helping to align incidents with the status of services" }
+    ],
+    "answerMap": { "A": "3", "B": "1", "C": "2", "D": "4" },
     "explanation": ""
   },
   {
@@ -1601,33 +1643,50 @@ const QUESTIONS_BANK_RAW = [
     ],
     "explanation": ""
   },
+  // {
+  //   "id": 53,
+  //   "type": "single",
+  //   "question": "",
+  //   "href": "imagens/cis-df/exam3-q53.png",
+  //   "options": [
+  //     {
+  //       "id": "A",
+  //       "text": "A → 1, B → 3, C → 2",
+  //       "correct": true
+  //     },
+  //     {
+  //       "id": "B",
+  //       "text": "A → 2, B → 1, C → 3",
+  //       "correct": false
+  //     },
+  //     {
+  //       "id": "C",
+  //       "text": "A → 3, B → 2, C → 1",
+  //       "correct": false
+  //     },
+  //     {
+  //       "id": "D",
+  //       "text": "A → 1, B → 2, C → 3",
+  //       "correct": false
+  //     }
+  //   ],
+  //   "explanation": ""
+  // },
   {
     "id": 53,
-    "type": "single",
-    "question": "",
-    "href": "imagens/cis-df/exam3-q53.png",
-    "options": [
-      {
-        "id": "A",
-        "text": "A → 1, B → 3, C → 2",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "A → 2, B → 1, C → 3",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "A → 3, B → 2, C → 1",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "A → 1, B → 2, C → 3",
-        "correct": false
-      }
+    "type": "matching",
+    "question": "Match each ServiceNow service type with its correct description.",
+    "left": [
+      { "id": "A", "text": "Application Service" },
+      { "id": "B", "text": "Business Service" },
+      { "id": "C", "text": "Technology Management Service (Technical Service)" }
     ],
+    "right": [
+      { "id": "1", "text": "Logical representation of a deployed system or application stack" },
+      { "id": "2", "text": "Published to Service Owners and underpins one or more business or application services" },
+      { "id": "3", "text": "Published to Business Users and underpins one or more business capabilities" }
+    ],
+    "answerMap": { "A": "1", "B": "3", "C": "2" },
     "explanation": ""
   },
   {
@@ -1816,33 +1875,53 @@ const QUESTIONS_BANK_RAW = [
     ],
     "explanation": ""
   },
+  // {
+  //   "id": 61,
+  //   "type": "single",
+  //   "question": "",
+  //   "href": "imagens/cis-df/exam3-q61.png",
+  //   "options": [
+  //     {
+  //       "id": "A",
+  //       "text": "A → 1, B → 2, C → 3, D → 4, E → 1",
+  //       "correct": true
+  //     },
+  //     {
+  //       "id": "B",
+  //       "text": "A → 1, B → 2, C → 1, D → 3, E → 4",
+  //       "correct": false
+  //     },
+  //     {
+  //       "id": "C",
+  //       "text": "A → 2, B → 4, C → 1, D → 3, E → 2",
+  //       "correct": false
+  //     },
+  //     {
+  //       "id": "D",
+  //       "text": "A → 4, B → 1, C → 2, D → 3, E → 1",
+  //       "correct": false
+  //     }
+  //   ],
+  //   "explanation": ""
+  // },
   {
     "id": 61,
-    "type": "single",
-    "question": "",
-    "href": "imagens/cis-df/exam3-q61.png",
-    "options": [
-      {
-        "id": "A",
-        "text": "A → 1, B → 2, C → 3, D → 4, E → 1",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "A → 1, B → 2, C → 1, D → 3, E → 4",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "A → 2, B → 4, C → 1, D → 3, E → 2",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "A → 4, B → 1, C → 2, D → 3, E → 1",
-        "correct": false
-      }
+    "type": "matching",
+    "question": "Match each CMDB de-duplication feature with its corresponding function.",
+    "left": [
+      { "id": "A", "text": "Certification Tasks" },
+      { "id": "B", "text": "CMDB Health Dashboard Correctness Scorecard" },
+      { "id": "C", "text": "De-Duplication Tasks" },
+      { "id": "D", "text": "De-Duplication Templates" },
+      { "id": "E", "text": "Duplicate CI Remediator" }
     ],
+    "right": [
+      { "id": "1", "text": "Can be assigned to groups for resolving duplicate CIs" },
+      { "id": "2", "text": "Offers insight into duplicate CIs within the CMDB" },
+      { "id": "3", "text": "Offers a solution to resolve de-duplication tasks in bulk" },
+      { "id": "4", "text": "Provides a wizard to resolve de-duplication tasks individually" }
+    ],
+    "answerMap": { "A": "1", "B": "2", "C": "3", "D": "4", "E": "1" },
     "explanation": ""
   },
   {
@@ -1906,33 +1985,52 @@ const QUESTIONS_BANK_RAW = [
     ],
     "explanation": ""
   },
+  // {
+  //   "id": 64,
+  //   "type": "single",
+  //   "question": "",
+  //   "href": "imagens/cis-df/exam3-q64.png",
+  //   "options": [
+  //     {
+  //       "id": "A",
+  //       "text": "A → 3, B → 1, C → 2, D → 4",
+  //       "correct": true
+  //     },
+  //     {
+  //       "id": "B",
+  //       "text": "A → 1, B → 3, C → 4, D → 2",
+  //       "correct": false
+  //     },
+  //     {
+  //       "id": "C",
+  //       "text": "A → 2, B → 4, C → 1, D → 3",
+  //       "correct": false
+  //     },
+  //     {
+  //       "id": "D",
+  //       "text": "A → 4, B → 2, C → 3, D → 1",
+  //       "correct": false
+  //     }
+  //   ],
+  //   "explanation": ""
+  // }
   {
     "id": 64,
-    "type": "single",
-    "question": "",
-    "href": "imagens/cis-df/exam3-q64.png",
-    "options": [
-      {
-        "id": "A",
-        "text": "A → 3, B → 1, C → 2, D → 4",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "A → 1, B → 3, C → 4, D → 2",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "A → 2, B → 4, C → 1, D → 3",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "A → 4, B → 2, C → 3, D → 1",
-        "correct": false
-      }
+    "type": "matching",
+    "question": "Match each CSDM entity with its corresponding domain.",
+    "left": [
+      { "id": "A", "text": "Application Service" },
+      { "id": "B", "text": "Business Application" },
+      { "id": "C", "text": "Business Process" },
+      { "id": "D", "text": "Business Service" }
     ],
+    "right": [
+      { "id": "1", "text": "Design and Planning domain" },
+      { "id": "2", "text": "Foundation domain" },
+      { "id": "3", "text": "Service Delivery domain" },
+      { "id": "4", "text": "Sell / Consume domain" }
+    ],
+    "answerMap": { "A": "3", "B": "1", "C": "2", "D": "4" },
     "explanation": ""
   }
 ];
