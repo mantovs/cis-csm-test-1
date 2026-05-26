@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="light">
+<head>
+<meta charset="UTF-8" />
+<title>CIS-DF Exam MATCHING</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<style>
+  body { background:#fff; }
+  .option-card { cursor:pointer; transition:.15s; }
+  .option-card:not(.disabled):hover { border-color:#6f42c1; box-shadow:0 0 0 .15rem rgba(111,66,193,.15); }
+  .option-card.selected { border-width:2px; border-color:#6f42c1; background:#f9f5ff; }
+  .option-card.correct-user, .option-card.correct { border-color:#198754!important; background:#d1e7dd; }
+  .option-card.incorrect-user { border-color:#dc3545!important; background:#f8d7da; }
+  .badge-label { font-size:.65rem; letter-spacing:.5px; text-transform:uppercase; font-weight:600; }
+  .feedback-area { animation:fadeIn .35s; }
+  @keyframes fadeIn { from {opacity:0;transform:translateY(4px)} to {opacity:1;transform:translateY(0)} }
+  .donut-wrapper { position:relative; width:160px; height:160px; margin:auto; }
+  .donut-wrapper canvas { width:100%; height:100%; }
+  .donut-center { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:1.3rem; }
+  .question-header-mini { font-size:.8rem; color:#6c757d; text-transform:uppercase; letter-spacing:.5px; }
+  .toggle-theme { position:fixed; bottom:1rem; right:1rem; z-index:1000; }
+  .question-status-alert { font-size:.8rem; }
+  .question-image { width:100%; max-width:100%; height:auto; border:1px solid #dee2e6; border-radius:.5rem; display:block; margin:1rem 0; }
+
+  /* Matching */
+  .matching-row {
+    display:flex;
+    gap:1rem;
+    align-items:flex-start;
+    padding:.75rem .9rem;
+    border:1px solid #dee2e6;
+    border-radius:.5rem;
+    margin-bottom:.6rem;
+    background:#fff;
+  }
+  .matching-row select { min-width:150px; }
+  .matching-row.correct { border-color:#198754; background:#d1e7dd; }
+  .matching-row.incorrect { border-color:#dc3545; background:#f8d7da; }
+  .matching-left-text { flex:1; }
+  .matching-badge {
+    font-size:.6rem;
+    letter-spacing:.5px;
+    font-weight:600;
+    text-transform:uppercase;
+  }
+  @media (max-width: 576px){
+    .matching-row { flex-direction:column; }
+    .matching-row select { width:100%; }
+  }
+
+  #themeBtn{
+    display: none;
+  }
+</style>
+</head>
+<body>
+<div class="container py-4" id="appRoot"></div>
+<button class="btn btn-outline-secondary btn-sm toggle-theme" id="themeBtn" title="Alternar Tema">🌓</button>
+
+<script>
+/* ==============================
+ * CONFIG
+ * ============================== */
+const HIDE_OPTION_IDS = true; // Se quiser voltar a mostrar IDs (A., B., 1-, etc.) mude para false.
+
+/* ==============================
+ * QUESTÕES (JSON BASE) - exemplo incluindo matching
+ * ============================== */
+const QUESTIONS_BANK_RAW = [
+  {
+    "id": 1,
+    "type": "matching",
+    "question": "Match each CSDM entity with its corresponding domain.",
+    "left": [
+      { "id": "A", "text": "Application Service" },
+      { "id": "B", "text": "Business Application" },
+      { "id": "C", "text": "Business Process" },
+      { "id": "D", "text": "Business Service" }
+    ],
+    "right": [
+      { "id": "1", "text": "Design and Planning domain" },
+      { "id": "2", "text": "Foundation domain" },
+      { "id": "3", "text": "Service Delivery domain" },
+      { "id": "4", "text": "Sell / Consume domain" }
+    ],
+    "answerMap": { "A": "1", "B": "2", "C": "4", "D": "3" },
+    "explanation": ""
+  },
+  {
+    "id": 2,
+    "type": "matching",
+    "question": "Match each ServiceNow capability with the correct solution type.",
+    "left": [
+      { "id": "A", "text": "Agent Client Collector" },
+      { "id": "B", "text": "Import Sets" },
+      { "id": "C", "text": "Service Graph Connector" },
+      { "id": "D", "text": "ServiceNow Discovery" }
+    ],
+    "right": [
+      { "id": "1", "text": "Organization-built solution using transform maps" },
+      { "id": "2", "text": "Automated agent-based solution running patterns" },
+      { "id": "3", "text": "Automated agentless solution running patterns" },
+      { "id": "4", "text": "Pre-built store integration solutions that require minimal customization" }
+    ],
+    "answerMap": { "A": "2", "B": "1", "C": "4", "D": "3" },
+    "explanation": ""
+  },{
+    "id": 3,
+    "type": "matching",
+    "question": "Match each CMDB term with its correct description.",
+    "left": [
+      { "id": "A", "text": "Audits" },
+      { "id": "B", "text": "Duplicate CIs" },
+      { "id": "C", "text": "Orphan CIs" },
+      { "id": "D", "text": "Recommended fields" },
+      { "id": "E", "text": "Required fields" },
+      { "id": "F", "text": "Stale CIs" }
+    ],
+    "right": [
+      { "id": "1", "text": "Use these to compare actual values with expected values" },
+      { "id": "2", "text": "Use of these should be minimized" },
+      { "id": "3", "text": "Certain attribute values are not set, or relationships are missing" },
+      { "id": "4", "text": "Preferable for them to be populated, as they could be useful in troubleshooting issues" },
+      { "id": "5", "text": "Have not been updated and may be outdated" },
+      { "id": "6", "text": "Detected during identification and reconciliation and have associated base system records" }
+    ],
+    "answerMap": { "A": "1", "B": "6", "C": "3", "D": "4", "E": "2", "F": "5" },
+    "explanation": ""
+  },
+  {
+    "id": 4,
+    "type": "matching",
+    "question": "Match each ServiceNow solution with its corresponding capability.",
+    "left": [
+      { "id": "A", "text": "Discovery" },
+      { "id": "B", "text": "Hardware Asset Management" },
+      { "id": "C", "text": "Risk Management" },
+      { "id": "D", "text": "Service Portfolio Management" }
+    ],
+    "right": [
+      { "id": "1", "text": "Delivers asset actions and events for the management of assets during incidents" },
+      { "id": "2", "text": "Supplies critical IT and financial risk data, enabling the team the broader impact of incidents on business operations" },
+      { "id": "3", "text": "Offers detailed operational-level data on hardware and applications to improve incident resolution" },
+      { "id": "4", "text": "Provides life cycle information about services, helping to align incidents with the status of services" }
+    ],
+    "answerMap": { "A": "3", "B": "1", "C": "2", "D": "4" },
+    "explanation": ""
+  },
+  {
+    "id": 5,
+    "type": "matching",
+    "question": "Match each ServiceNow service type with its correct description.",
+    "left": [
+      { "id": "A", "text": "Application Service" },
+      { "id": "B", "text": "Business Service" },
+      { "id": "C", "text": "Technology Management Service (Technical Service)" }
+    ],
+    "right": [
+      { "id": "1", "text": "Logical representation of a deployed system or application stack" },
+      { "id": "2", "text": "Published to Service Owners and underpins one or more business or application services" },
+      { "id": "3", "text": "Published to Business Users and underpins one or more business capabilities" }
+    ],
+    "answerMap": { "A": "1", "B": "3", "C": "2" },
+    "explanation": ""
+  },
+  {
+    "id": 6,
+    "type": "matching",
+    "question": "Match each CMDB de-duplication feature with its corresponding function.",
+    "left": [
+      { "id": "A", "text": "Certification Tasks" },
+      { "id": "B", "text": "CMDB Health Dashboard Correctness Scorecard" },
+      { "id": "C", "text": "De-Duplication Tasks" },
+      { "id": "D", "text": "De-Duplication Templates" },
+      { "id": "E", "text": "Duplicate CI Remediator" }
+    ],
+    "right": [
+      { "id": "1", "text": "Can be assigned to groups for resolving duplicate CIs" },
+      { "id": "2", "text": "Offers insight into duplicate CIs within the CMDB" },
+      { "id": "3", "text": "Offers a solution to resolve de-duplication tasks in bulk" },
+      { "id": "4", "text": "Provides a wizard to resolve de-duplication tasks individually" }
+    ],
+    "answerMap": { "A": "1", "B": "2", "C": "3", "D": "4", "E": "1" },
+    "explanation": ""
+  },
+  {
+    "id": 7,
+    "type": "matching",
+    "question": "Match each CSDM entity with its corresponding domain.",
+    "left": [
+      { "id": "A", "text": "Application Service" },
+      { "id": "B", "text": "Business Application" },
+      { "id": "C", "text": "Business Process" },
+      { "id": "D", "text": "Business Service" }
+    ],
+    "right": [
+      { "id": "1", "text": "Design and Planning domain" },
+      { "id": "2", "text": "Foundation domain" },
+      { "id": "3", "text": "Service Delivery domain" },
+      { "id": "4", "text": "Sell / Consume domain" }
+    ],
+    "answerMap": { "A": "3", "B": "1", "C": "2", "D": "4" },
+    "explanation": ""
+  }
+];
+
+function normalizeType(t){ return t === 'multiple' ? 'multi' : t; }
+const QUESTIONS_BANK = QUESTIONS_BANK_RAW.map(q => ({ ...q, type: normalizeType(q.type) }));
+
+/* ==============================
+ * ESTADO / PERSISTÊNCIA
+ * ============================== */
+const QUIZ_SESSION_KEY = 'quizActiveSession_v3';
+let quizState = {
+  startTime: null,
+  endTime: null,
+  currentIndex: 0,
+  sequence: [],
+  answers: {}, // single/multi: { selected:Set }, matching: { pairs:{} }
+  locked: {},
+  reviewMode: false
+};
+const appRoot = document.getElementById("appRoot");
+
+/* Persistência */
+function saveSession() {
+  if (quizState.endTime) return;
+  try {
+    const serializable = {
+      startTime: quizState.startTime,
+      currentIndex: quizState.currentIndex,
+      sequence: quizState.sequence,
+      answers: Object.fromEntries(
+        Object.entries(quizState.answers).map(([qid, val]) => {
+          if (val.selected instanceof Set) return [qid, { selected: Array.from(val.selected) }];
+          return [qid, { pairs: val.pairs || {} }];
+        })
+      ),
+      locked: quizState.locked
+    };
+    localStorage.setItem(QUIZ_SESSION_KEY, JSON.stringify(serializable));
+  } catch(e){ console.warn("Falha salvar sessão", e); }
+}
+function restoreSessionIfAny() {
+  try {
+    const raw = localStorage.getItem(QUIZ_SESSION_KEY);
+    if(!raw) return false;
+    const data = JSON.parse(raw);
+    if(!Array.isArray(data.sequence)) return false;
+    quizState.startTime = data.startTime || Date.now();
+    quizState.currentIndex = data.currentIndex || 0;
+    quizState.sequence = data.sequence;
+    quizState.answers = {};
+    if (data.answers) {
+      Object.entries(data.answers).forEach(([qid,val])=>{
+        if(val.selected) quizState.answers[qid]={selected:new Set(val.selected)};
+        else if(val.pairs) quizState.answers[qid]={pairs:{...val.pairs}};
+      });
+    }
+    quizState.locked = data.locked || {};
+    return true;
+  } catch(e){ console.warn("Falha restaurar sessão", e); return false; }
+}
+function clearSession(){ localStorage.removeItem(QUIZ_SESSION_KEY); }
+
+/* Utilidades */
+function shuffle(a){ const arr=a.slice(); for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+function formatDuration(ms){ const s=Math.floor(ms/1000); const m=Math.floor(s/60); const r=s%60; return `${m}m ${r.toString().padStart(2,'0')}s`; }
+function getCurrentQuestion(){ return quizState.sequence[quizState.currentIndex]; }
+
+function initQuiz(){
+  clearSession();
+  quizState.startTime = Date.now();
+  quizState.endTime = null;
+  quizState.currentIndex = 0;
+  quizState.answers = {};
+  quizState.locked = {};
+  quizState.reviewMode = false;
+  quizState.sequence = shuffle(QUESTIONS_BANK.map(q=>{
+    if(q.type==='matching'){
+      return {
+        ...q,
+        left: shuffle(q.left.map(l=>({...l}))),
+        right: shuffle(q.right.map(r=>({...r})))
+      };
+    }
+    return { ...q, options: shuffle(q.options.map(o=>({...o}))) };
+  }));
+  renderLayout();
+  renderQuestion();
+  saveSession();
+}
+
+function countStats(){
+  let correct=0, incorrect=0, skipped=0;
+  quizState.sequence.forEach(q=>{
+    const ans=quizState.answers[q.id];
+    if(!ans || !quizState.locked[q.id]) { skipped++; return; }
+    let isCorrect=false;
+    if(q.type==='matching'){
+      const pairs = ans.pairs || {};
+      isCorrect = q.left.every(l=> pairs[l.id] === q.answerMap[l.id]);
+    } else {
+      const selected=ans.selected;
+      const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
+      isCorrect = selected.size===correctSet.size && Array.from(selected).every(id=>correctSet.has(id));
+    }
+    if(isCorrect) correct++; else incorrect++;
+  });
+  return {correct, incorrect, skipped, total:quizState.sequence.length};
+}
+
+/* Layout / Timer */
+let timerInterval=null;
+function renderLayout(){
+  appRoot.innerHTML=`
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0">Servicenow CIS-DF Exam MATCHING</h5>
+      <div>
+  <a href="./home.html" class="btn btn-sm btn-outline-primary me-2">Home</a>
+  <button class="btn btn-sm btn-outline-danger me-2" onclick="finishQuiz()">Finalizar Teste</button>
+        <span class="small text-muted" id="timerSpan">00:00</span>
+      </div>
+    </div>
+    <div class="progress mb-3">
+      <div class="progress-bar" id="progressBar" style="width:0%"></div>
+    </div>
+    <div id="questionContainer"></div>
+  `;
+  startTimer();
+}
+function startTimer(){
+  if(timerInterval) clearInterval(timerInterval);
+  timerInterval=setInterval(()=>{
+    if(quizState.endTime){ clearInterval(timerInterval); return; }
+    const diff=Date.now()-quizState.startTime;
+    const s=Math.floor(diff/1000);
+    const m=Math.floor(s/60);
+    const r=s%60;
+    const el=document.getElementById('timerSpan');
+    if(el) el.textContent=`${m.toString().padStart(2,'0')}:${r.toString().padStart(2,'0')}`;
+  },1000);
+}
+
+/* Render questão */
+function renderQuestion(){
+  const q=getCurrentQuestion();
+  const container=document.getElementById("questionContainer");
+  if(!q || !container) return;
+  const idx=quizState.currentIndex+1;
+  const total=quizState.sequence.length;
+  const isLocked=!!quizState.locked[q.id];
+  const progressBar=document.getElementById("progressBar");
+  if(progressBar) progressBar.style.width = `${((idx-1)/total)*100}%`;
+
+  let answeredSet, pairs;
+  if(q.type==='matching'){
+    pairs = quizState.answers[q.id]?.pairs || {};
+  } else {
+    answeredSet = quizState.answers[q.id]?.selected || new Set();
+  }
+
+  // status geral
+  let statusAlertHTML='';
+  if(isLocked){
+    let isCorrect=false;
+    if(q.type==='matching'){
+      isCorrect = q.left.every(l=> (pairs||{})[l.id] === q.answerMap[l.id]);
+    } else {
+      const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
+      isCorrect = answeredSet.size===correctSet.size && Array.from(answeredSet).every(id=>correctSet.has(id));
+    }
+    statusAlertHTML = `
+      <div class="mb-3">
+        <div class="alert ${isCorrect?'alert-success':'alert-danger'} question-status-alert mb-0 py-2 px-3">
+          <strong>${isCorrect?'Correta':'Incorreta'}:</strong>
+          ${isCorrect?'Você acertou esta questão.':'Esta questão foi respondida incorretamente.'}
+        </div>
+      </div>
+    `;
+  }
+
+  let bodyHTML='';
+  const imageHTML = q.href ? `
+      <div class="mb-3">
+        <img src="${String(q.href).replace(/"/g,'&quot;')}" class="question-image" alt="Imagem da questão ${idx}">
+      </div>
+    ` : '';
+  if(q.type==='matching'){
+    bodyHTML = `
+      <h6 class="mb-3">${q.question}</h6>
+      ${imageHTML}
+      ${statusAlertHTML}
+      ${renderMatchingQuestion(q, pairs, isLocked)}
+    `;
+  } else {
+    const correctNeeded = q.type==='multi' ? q.options.filter(o=>o.correct).length : 1;
+    bodyHTML = `
+      <h6 class="mb-3">${q.question} ${q.type==='multi'?`<span class="text-muted small">(Escolha ${correctNeeded})</span>`:''}</h6>
+      ${imageHTML}
+      ${statusAlertHTML}
+      <div id="optionsWrapper">
+        ${q.options.map(opt=>{
+          const selected=answeredSet.has(opt.id);
+            const classes=["p-3","mb-2","border","rounded","option-card","d-flex","align-items-start"];
+            if(selected) classes.push("selected");
+            if(isLocked){
+              if(selected && opt.correct) classes.push("correct-user");
+              else if(!selected && opt.correct) classes.push("correct");
+              else if(selected && !opt.correct) classes.push("incorrect-user");
+            }
+            return `
+              <div class="${classes.join(' ')}" onclick="toggleSelect('${q.id}','${opt.id}')">
+                <div class="me-3 mt-1">
+                  ${q.type==='single'
+                    ? `<input type="radio" name="q_${q.id}" ${selected?'checked':''} ${isLocked?'disabled':''}/>`
+                    : `<input type="checkbox" ${selected?'checked':''} ${isLocked?'disabled':''}/>`}
+                </div>
+                <div class="flex-grow-1">
+                  <div class="fw-semibold">${HIDE_OPTION_IDS ? opt.text : `${opt.id}. ${opt.text}`}</div>
+                  ${isLocked ? renderOptionBadge(q,opt,selected):''}
+                </div>
+              </div>
+            `;
+        }).join('')}
+      </div>
+    `;
+  }
+
+  container.innerHTML = `
+    <div class="mb-2 question-header-mini">Questão ${idx} de ${total}</div>
+    ${bodyHTML}
+    <div id="feedbackZone"></div>
+    <div class="mt-3 d-flex justify-content-end gap-2 flex-wrap">
+      ${!isLocked
+        ? `${idx>1?'<button class="btn btn-outline-secondary" onclick="goPrev()">Voltar</button>':''}
+           <button class="btn btn-success" id="submitBtn" disabled onclick="evaluateCurrent()">Confirmar Resposta</button>`
+        : `${idx>1?'<button class="btn btn-outline-secondary" onclick="goPrev()">Voltar</button>':''}
+           <button class="btn btn-primary" onclick="goNextAfterLocked()">${idx===total?'Resultados':'Próxima >'}</button>`
+      }
+    </div>
+  `;
+
+  if(isLocked && q.explanation){
+    document.getElementById('feedbackZone').innerHTML = `
+      <div class="feedback-area mt-3 small text-muted">
+        <strong>Explicação:</strong> ${q.explanation}
+      </div>
+    `;
+  }
+
+  updateSubmitButtonState();
+}
+
+/* Matching render */
+function renderMatchingQuestion(q, pairs, isLocked){
+  return `
+    <div class="mb-2 small text-muted">Associe cada definição ao papel correto.</div>
+    <div id="matchingWrapper">
+      ${q.left.map(l=>{
+        const chosen = pairs[l.id] || '';
+        let rowClass='matching-row';
+        let badgeHTML='';
+        if(isLocked){
+          const correctId=q.answerMap[l.id];
+          const isCorrect = chosen === correctId;
+          rowClass += isCorrect ? ' correct' : ' incorrect';
+          badgeHTML = `<span class="badge ${isCorrect?'bg-success-subtle text-success border border-success':'bg-danger-subtle text-danger border border-danger'} matching-badge ms-2">
+            ${isCorrect?'Correto':'Incorreto'}${!isCorrect ? ' (Correto: '+ rightTextById(q, correctId) +')':''}
+          </span>`;
+        }
+        return `
+          <div class="${rowClass}" data-left="${l.id}">
+            <div class="matching-left-text">${l.text}</div>
+            <div>
+              <select class="form-select form-select-sm" ${isLocked?'disabled':''}
+                onchange="setMatchPair('${q.id}','${l.id}', this.value)">
+                <option value="">-- Selecione --</option>
+                ${q.right.map(r=>{
+                  const selected = r.id === chosen ? 'selected':'';
+                  return `<option value="${r.id}" ${selected}>${HIDE_OPTION_IDS ? r.text : (r.id + ' - ' + r.text)}</option>`;
+                }).join('')}
+              </select>
+              ${badgeHTML}
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+/* Badges single/multi */
+function renderOptionBadge(q,opt,userSelected){
+  if(q.type==='multi'){
+    if(userSelected && opt.correct) return `<span class="badge bg-success-subtle text-success border border-success badge-label mt-1">Sua seleção está correta</span>`;
+    if(!userSelected && opt.correct) return `<span class="badge bg-success-subtle text-success border border-success badge-label mt-1">Seleção correta</span>`;
+    if(userSelected && !opt.correct) return `<span class="badge bg-danger-subtle text-danger border border-danger badge-label mt-1">Sua seleção está incorreta</span>`;
+    return '';
+  } else {
+    if(opt.correct && userSelected) return `<span class="badge bg-success-subtle text-success border border-success badge-label mt-1">Resposta correta</span>`;
+    if(opt.correct && !userSelected) return `<span class="badge bg-success-subtle text-success border border-success badge-label mt-1">Resposta correta</span>`;
+    if(userSelected && !opt.correct) return `<span class="badge bg-danger-subtle text-danger border border-danger badge-label mt-1">Incorreta</span>`;
+    return '';
+  }
+}
+
+/* Estado botão confirmar */
+function updateSubmitButtonState(){
+  const q=getCurrentQuestion();
+  const btn=document.getElementById("submitBtn");
+  if(!btn) return;
+  if(q.type==='matching'){
+    const ans=quizState.answers[q.id];
+    const filled = ans && ans.pairs ? Object.values(ans.pairs).filter(v=>v).length : 0;
+    btn.disabled = filled !== q.left.length;
+  } else {
+    const ans=quizState.answers[q.id];
+    btn.disabled = !(ans && ans.selected.size>0);
+  }
+}
+
+/* Interação single/multi */
+function toggleSelect(qid, optId){
+  const q=quizState.sequence.find(q=>q.id==qid);
+  if(!q || q.type==='matching' || quizState.locked[q.id]) return;
+  if(!quizState.answers[q.id]) quizState.answers[q.id]={selected:new Set()};
+  const sel=quizState.answers[q.id].selected;
+  if(q.type==='single'){ sel.clear(); sel.add(optId); }
+  else {
+    if(sel.has(optId)) sel.delete(optId); else sel.add(optId);
+  }
+  renderQuestion(); saveSession();
+}
+
+/* Interação matching */
+function setMatchPair(qid,leftId,rightId){
+  const q=quizState.sequence.find(q=>q.id==qid);
+  if(!q || q.type!=='matching' || quizState.locked[q.id]) return;
+  if(!quizState.answers[q.id]) quizState.answers[q.id]={pairs:{}};
+  const pairs=quizState.answers[q.id].pairs;
+  if(rightId==='') delete pairs[leftId];
+  else {
+    pairs[leftId]=rightId;
+  }
+  renderQuestion(); saveSession();
+}
+
+/* Avaliar */
+function evaluateCurrent(){
+  const q=getCurrentQuestion();
+  if(q.type==='matching'){
+    const ans=quizState.answers[q.id];
+    if(!ans || Object.keys(ans.pairs).length < q.left.length) return;
+    quizState.locked[q.id]=true;
+  } else {
+    const ans=quizState.answers[q.id];
+    if(!ans || ans.selected.size===0) return;
+    quizState.locked[q.id]=true;
+  }
+  if(q.explanation){
+    document.getElementById("feedbackZone").innerHTML=`
+      <div class="feedback-area mt-3 small text-muted">
+        <strong>Explicação:</strong> ${q.explanation}
+      </div>
+    `;
+  }
+  renderQuestion(); saveSession();
+}
+
+function goNextAfterLocked(){
+  if(quizState.currentIndex === quizState.sequence.length-1) finishQuiz();
+  else { quizState.currentIndex++; renderQuestion(); saveSession(); }
+}
+function goPrev(){
+  if(quizState.currentIndex===0) return;
+  quizState.currentIndex--; renderQuestion(); saveSession();
+}
+
+/* Resultados */
+function finishQuiz(){
+  quizState.endTime=Date.now();
+  const stats=countStats();
+  const duration=formatDuration(quizState.endTime-quizState.startTime);
+  clearSession();
+  const attemptsKey='quizAttempts';
+  let attempts=parseInt(localStorage.getItem(attemptsKey)||'0',10);
+  attempts++; localStorage.setItem(attemptsKey,attempts);
+  const percent = stats.total? Math.round((stats.correct/stats.total)*100) : 0;
+
+  appRoot.innerHTML=`
+    <div class="mb-4">
+      <h4 class="mb-0">Resultados do Quiz</h4>
+      <div class="text-muted small">Tentativa ${attempts} • ${new Date().toLocaleString('pt-BR')}</div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column justify-content-center">
+            <div class="donut-wrapper mb-3">
+              <canvas id="resultDonut" width="160" height="160"></canvas>
+              <div class="donut-center">${percent}%</div>
+            </div>
+            <div class="text-center small">
+              <span class="me-2"><span class="badge bg-success">&nbsp;</span> Corretas: ${stats.correct}</span>
+              <span class="me-2"><span class="badge bg-danger">&nbsp;</span> Incorretas: ${stats.incorrect}</span>
+              <span><span class="badge bg-secondary">&nbsp;</span> Puladas: ${stats.skipped}</span>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <strong>${stats.correct}/${stats.total}</strong> corretas<br/>Tempo: ${duration}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card h-100">
+          <div class="card-body">
+            <p class="mb-3">Você concluiu o quiz. Revise ou refaça para praticar novamente.</p>
+            <ul class="list-group mb-3 small">
+              <li class="list-group-item d-flex justify-content-between"><span>Total de questões</span><strong>${stats.total}</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Corretas</span><strong class="text-success">${stats.correct}</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Incorretas</span><strong class="text-danger">${stats.incorrect}</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Puladas</span><strong class="text-secondary">${stats.skipped}</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Percentual</span><strong>${percent}%</strong></li>
+              <li class="list-group-item d-flex justify-content-between"><span>Duração</span><strong>${duration}</strong></li>
+            </ul>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="./home.html" class="btn btn-outline-primary">Home</a>
+              <button class="btn btn-primary" onclick="reviewQuestions()">Rever Questes</button>
+              <button class="btn btn-success" onclick="initQuiz()">Refazer (Randomizar)</button>
+              <button class="btn btn-outline-secondary" onclick="toggleTheme()">Alternar Tema</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  drawDonut(stats.correct, stats.incorrect, stats.skipped);
+}
+
+/* Donut */
+function drawDonut(correct, incorrect, skipped){
+  const canvas=document.getElementById("resultDonut");
+  if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const total=correct+incorrect+skipped||1;
+  const data=[
+    {value:correct,color:'#198754'},
+    {value:incorrect,color:'#dc3545'},
+    {value:skipped,color:'#6c757d'}
+  ].filter(d=>d.value>0);
+  let start=-Math.PI/2;
+  data.forEach(d=>{
+    const slice=(d.value/total)*Math.PI*2;
+    ctx.beginPath();
+    ctx.moveTo(80,80);
+    ctx.arc(80,80,80,start,start+slice);
+    ctx.closePath();
+    ctx.fillStyle=d.color;
+    ctx.fill();
+    start+=slice;
+  });
+  ctx.globalCompositeOperation='destination-out';
+  ctx.beginPath(); ctx.arc(80,80,48,0,Math.PI*2); ctx.fill();
+  ctx.globalCompositeOperation='source-over';
+}
+
+/* Revisão */
+function reviewQuestions(){
+  const stats=countStats();
+  const blocks=quizState.sequence.map((q,i)=>{
+    const ans=quizState.answers[q.id];
+    let userCorrect=false;
+
+    if(q.type==='matching'){
+      const pairs = ans ? ans.pairs || {} : {};
+      userCorrect = ans && q.left.every(l=> pairs[l.id] === q.answerMap[l.id]);
+      return `
+        <div class="card mb-3">
+          <div class="card-header d-flex justify-content-between">
+            <span><strong>Questão ${i+1}:</strong> (Matching)</span>
+            <span class="badge ${userCorrect?'bg-success':'bg-danger'}">${userCorrect?'Correta':'Incorreta'}</span>
+          </div>
+          <div class="card-body">
+            <p class="mb-3">${q.question}</p>
+            ${q.left.map(l=>{
+              const chosen = (ans && ans.pairs)? ans.pairs[l.id] : '';
+              const correctId = q.answerMap[l.id];
+              const isRowCorrect = chosen === correctId;
+              return `
+                <div class="matching-row ${isRowCorrect?'correct':'incorrect'}">
+                  <div class="matching-left-text">${l.text}</div>
+                  <div class="small">
+                    <div><strong>Selecionado:</strong> ${chosen ? rightTextById(q, chosen) : '(vazio)'}</div>
+                    <div><strong>Correto:</strong> ${rightTextById(q, correctId)}</div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+            ${q.explanation?`<div class="small text-muted"><strong>Explicação:</strong> ${q.explanation}</div>`:''}
+          </div>
+        </div>
+      `;
+    } else {
+      const selected=ans ? ans.selected : new Set();
+      const correctSet=new Set(q.options.filter(o=>o.correct).map(o=>o.id));
+      userCorrect = ans && selected.size===correctSet.size && Array.from(selected).every(id=>correctSet.has(id));
+      return `
+        <div class="card mb-3">
+          <div class="card-header d-flex justify-content-between">
+            <span><strong>Questão ${i+1}:</strong> ${q.type==='multi'?'(Multi)':'(Única)'}</span>
+            <span class="badge ${userCorrect?'bg-success':'bg-danger'}">${userCorrect?'Correta':'Incorreta'}</span>
+          </div>
+          <div class="card-body">
+            <p class="mb-3">${q.question}</p>
+            ${q.options.map(o=>{
+              let classes="p-2 px-3 mb-2 border rounded small";
+              let badge='';
+              const userSel=selected.has(o.id);
+              if(o.correct && userSel){ classes+=" border-success bg-success-subtle"; badge='<span class="badge bg-success-subtle text-success border border-success badge-label">Sua seleção correta</span>'; }
+              else if(o.correct && !userSel){ classes+=" border-success bg-success-subtle"; badge='<span class="badge bg-success-subtle text-success border border-success badge-label">Resposta correta</span>'; }
+              else if(!o.correct && userSel){ classes+=" border-danger bg-danger-subtle"; badge='<span class="badge bg-danger-subtle text-danger border border-danger badge-label">Selecionada (Incorreta)</span>'; }
+              else { classes+=" border-light"; }
+              return `<div class="${classes}">${HIDE_OPTION_IDS?o.text:`<strong>${o.id}.</strong> ${o.text}`}<br/>${badge}</div>`;
+            }).join('')}
+            ${q.explanation?`<div class="small text-muted"><strong>Explicação:</strong> ${q.explanation}</div>`:''}
+          </div>
+        </div>
+      `;
+    }
+  }).join('');
+
+  appRoot.innerHTML=`
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0">Revisão das Questões</h4>
+      <div class="d-flex gap-2">
+        <button class="btn btn-success btn-sm" onclick="initQuiz()">Refazer</button>
+        <button class="btn btn-outline-secondary btn-sm" onclick="finishQuiz()">Voltar aos Resultados</button>
+      </div>
+    </div>
+    <div class="mb-3 small">
+      <span class="me-3"><span class="badge bg-success">&nbsp;</span> Corretas: ${stats.correct}</span>
+      <span class="me-3"><span class="badge bg-danger">&nbsp;</span> Incorretas: ${stats.incorrect}</span>
+      <span><span class="badge bg-secondary">&nbsp;</span> Puladas: ${stats.skipped}</span>
+    </div>
+    ${blocks}
+  `;
+}
+
+/* Helpers right text */
+function rightTextById(q, id){ const it=(q.right||[]).find(r=>r.id===id); return it?it.text:''; }
+
+/* Tema */
+const themeBtn=document.getElementById("themeBtn");
+function toggleTheme(){
+  const html=document.documentElement;
+  const cur=html.getAttribute('data-bs-theme')||'light';
+  const next=cur==='light'?'dark':'light';
+  html.setAttribute('data-bs-theme',next);
+  localStorage.setItem('quizTheme',next);
+}
+themeBtn.addEventListener('click',toggleTheme);
+(function(){ const saved=localStorage.getItem('quizTheme'); if(saved) document.documentElement.setAttribute('data-bs-theme',saved); })();
+
+/* Navegação & exposição */
+function goNextAfterLocked(){ if(quizState.currentIndex===quizState.sequence.length-1) finishQuiz(); else {quizState.currentIndex++; renderQuestion(); saveSession();} }
+function goPrev(){ if(quizState.currentIndex===0) return; quizState.currentIndex--; renderQuestion(); saveSession(); }
+
+window.toggleSelect=toggleSelect;
+window.evaluateCurrent=evaluateCurrent;
+window.finishQuiz=finishQuiz;
+window.reviewQuestions=reviewQuestions;
+window.goNextAfterLocked=goNextAfterLocked;
+window.goPrev=goPrev;
+window.toggleTheme=toggleTheme;
+window.initQuiz=initQuiz;
+window.setMatchPair=setMatchPair;
+
+/* Start */
+(function start(){
+  if(restoreSessionIfAny()){ renderLayout(); renderQuestion(); startTimer(); }
+  else initQuiz();
+})();
+</script>
+</body>
+</html>
