@@ -34,3 +34,6 @@ A CMDB Administrator would like to minimize stale CIs in the CMDB. Which CMDB He
 
 Exam 2
 A CMDB Administrator needs to track which CIs and CI classes are missing key data. Which CMDB Health Dashboard scorecard supports tracking this requirement?
+
+_______________________________________________________________________________
+Questions "Archive/Certification"
